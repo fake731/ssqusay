@@ -2,95 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Ottoman Empire Theme - Dark & Epic */
+    --background: 20 14% 4%;
+    --foreground: 43 27% 88%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 20 14% 8%;
+    --card-foreground: 43 27% 88%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 20 14% 6%;
+    --popover-foreground: 43 27% 88%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Ottoman Gold */
+    --primary: 43 74% 49%;
+    --primary-foreground: 20 14% 4%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Ottoman Red */
+    --secondary: 0 68% 32%;
+    --secondary-foreground: 43 27% 95%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted tones */
+    --muted: 20 10% 15%;
+    --muted-foreground: 43 15% 60%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Ottoman Green Accent */
+    --accent: 150 35% 25%;
+    --accent-foreground: 43 27% 95%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 40%;
+    --destructive-foreground: 43 27% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 43 20% 20%;
+    --input: 43 20% 15%;
+    --ring: 43 74% 49%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Custom Ottoman colors */
+    --ottoman-gold: 43 74% 49%;
+    --ottoman-gold-light: 43 80% 65%;
+    --ottoman-red: 0 68% 32%;
+    --ottoman-red-dark: 0 70% 22%;
+    --ottoman-green: 150 35% 25%;
+    --ottoman-bronze: 30 50% 35%;
+    --ottoman-cream: 43 27% 88%;
+    --ottoman-black: 20 14% 4%;
+    
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(43, 74%, 49%), hsl(35, 80%, 40%));
+    --gradient-epic: linear-gradient(180deg, hsl(20, 14%, 4%) 0%, hsl(20, 14%, 8%) 50%, hsl(0, 68%, 15%) 100%);
+    --gradient-battle: linear-gradient(135deg, hsl(0, 68%, 20%), hsl(20, 14%, 4%));
+    --gradient-overlay: linear-gradient(to top, hsl(20, 14%, 4%) 0%, transparent 100%);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Shadows */
+    --shadow-epic: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    --shadow-gold: 0 0 40px rgba(212, 175, 55, 0.3);
+    --shadow-glow: 0 0 60px rgba(212, 175, 55, 0.15);
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 20 14% 6%;
+    --sidebar-foreground: 43 27% 88%;
+    --sidebar-primary: 43 74% 49%;
+    --sidebar-primary-foreground: 20 14% 4%;
+    --sidebar-accent: 20 14% 12%;
+    --sidebar-accent-foreground: 43 27% 88%;
+    --sidebar-border: 43 20% 15%;
+    --sidebar-ring: 43 74% 49%;
   }
 }
 
@@ -99,7 +78,222 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  html {
+    scroll-behavior: smooth;
   }
+
+  body {
+    @apply bg-background text-foreground font-tajawal antialiased;
+    direction: rtl;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-amiri font-bold;
+  }
+}
+
+@layer components {
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(43, 74%, 49%), hsl(35, 80%, 55%));
+  }
+
+  .border-gradient-gold {
+    border-image: linear-gradient(135deg, hsl(43, 74%, 49%), hsl(35, 80%, 40%)) 1;
+  }
+
+  .bg-gradient-epic {
+    background: linear-gradient(180deg, hsl(20, 14%, 4%) 0%, hsl(20, 14%, 8%) 50%, hsl(0, 68%, 10%) 100%);
+  }
+
+  .ottoman-card {
+    @apply relative bg-card border border-primary/20 rounded-lg overflow-hidden;
+    box-shadow: var(--shadow-epic);
+  }
+
+  .ottoman-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: radial-gradient(circle at center, hsl(43, 74%, 49%, 0.1), transparent 70%);
+  }
+
+  .ottoman-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .epic-title {
+    @apply text-4xl md:text-6xl lg:text-7xl font-amiri font-bold text-gradient-gold;
+    text-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+  }
+
+  .epic-subtitle {
+    @apply text-xl md:text-2xl text-muted-foreground font-tajawal;
+  }
+
+  .battle-glow {
+    box-shadow: 0 0 100px rgba(139, 0, 0, 0.4), 0 0 60px rgba(212, 175, 55, 0.2);
+  }
+
+  .sultan-frame {
+    @apply relative p-1 rounded-lg;
+    background: linear-gradient(135deg, hsl(43, 74%, 49%), hsl(35, 80%, 40%), hsl(43, 74%, 49%));
+  }
+
+  .sultan-frame::before {
+    content: '';
+    @apply absolute -inset-1 rounded-lg opacity-50 blur-md;
+    background: linear-gradient(135deg, hsl(43, 74%, 49%), hsl(35, 80%, 40%));
+  }
+
+  .weapon-shine {
+    @apply relative overflow-hidden;
+  }
+
+  .weapon-shine::after {
+    content: '';
+    @apply absolute top-0 -left-full w-full h-full;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shine 3s ease-in-out infinite;
+  }
+
+  .smoke-effect {
+    @apply relative;
+  }
+
+  .smoke-effect::before {
+    content: '';
+    @apply absolute inset-0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .animate-fade-up {
+    animation: fadeUp 0.8s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-right {
+    animation: slideRight 0.8s ease-out forwards;
+  }
+
+  .animate-glow-pulse {
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-battle-shake {
+    animation: battleShake 0.5s ease-in-out;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes battleShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 100%;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(20, 14%, 4%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(43, 74%, 30%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(43, 74%, 40%);
 }
