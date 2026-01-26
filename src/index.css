@@ -134,6 +134,10 @@
     box-shadow: 0 0 100px rgba(139, 0, 0, 0.4), 0 0 60px rgba(212, 175, 55, 0.2);
   }
 
+  .sultan-glow {
+    box-shadow: 0 0 80px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.15);
+  }
+
   .sultan-frame {
     @apply relative p-1 rounded-lg;
     background: linear-gradient(135deg, hsl(43, 74%, 49%), hsl(35, 80%, 40%), hsl(43, 74%, 49%));
@@ -143,6 +147,16 @@
     content: '';
     @apply absolute -inset-1 rounded-lg opacity-50 blur-md;
     background: linear-gradient(135deg, hsl(43, 74%, 49%), hsl(35, 80%, 40%));
+  }
+
+  .epic-image {
+    @apply relative overflow-hidden;
+  }
+
+  .epic-image::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(to top, hsl(20, 14%, 4%) 0%, transparent 50%);
   }
 
   .weapon-shine {
