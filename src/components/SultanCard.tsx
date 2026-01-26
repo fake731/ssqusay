@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Crown, Sword, Calendar, MapPin } from "lucide-react";
 import { Sultan } from "@/data/ottomanData";
-import sultanImage from "@/assets/sultan-silhouette.jpg";
+import { getSultanImage } from "@/utils/sultanImages";
 
 interface SultanCardProps {
   sultan: Sultan;
@@ -20,23 +20,23 @@ const SultanCard = ({ sultan, index, onClick }: SultanCardProps) => {
       onClick={onClick}
       className="ottoman-card cursor-pointer group"
     >
-      {/* Image Container */}
-      <div className="relative h-64 overflow-hidden">
+      {/* Image Container - Larger for better visibility */}
+      <div className="relative h-80 overflow-hidden">
         <img
-          src={sultanImage}
+          src={getSultanImage(sultan.id)}
           alt={sultan.nameAr}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
         
         {/* Sultan Number Badge */}
-        <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-primary/90 flex items-center justify-center">
-          <span className="text-primary-foreground font-bold text-lg">{sultan.id}</span>
+        <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center border-2 border-primary-foreground/20">
+          <span className="text-primary-foreground font-bold text-xl">{sultan.id}</span>
         </div>
 
         {/* Reign Period */}
-        <div className="absolute bottom-4 left-4 flex items-center gap-2 text-sm text-muted-foreground">
-          <Calendar className="w-4 h-4" />
+        <div className="absolute bottom-4 left-4 flex items-center gap-2 text-sm text-foreground bg-card/80 backdrop-blur-sm px-3 py-1.5 rounded-full">
+          <Calendar className="w-4 h-4 text-primary" />
           <span>{sultan.reign}</span>
         </div>
       </div>

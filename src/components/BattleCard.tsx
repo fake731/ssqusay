@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Sword, Users, MapPin, Calendar, Trophy, Flag } from "lucide-react";
 import { Battle } from "@/data/ottomanData";
-import battleImage from "@/assets/battle-scene.jpg";
+import { getBattleImage } from "@/utils/battleImages";
 
 interface BattleCardProps {
   battle: Battle;
@@ -34,9 +34,9 @@ const BattleCard = ({ battle, index, onClick }: BattleCardProps) => {
     >
       <div className="flex flex-col lg:flex-row">
         {/* Image Section */}
-        <div className="relative lg:w-2/5 h-64 lg:h-auto overflow-hidden">
+        <div className="relative lg:w-2/5 h-80 lg:h-auto overflow-hidden">
           <img
-            src={battleImage}
+            src={getBattleImage(battle.name.toLowerCase().replace(/\s+/g, '-').replace('battle-of-', '').replace('fall-of-', '').replace('siege-of-', ''))}
             alt={battle.nameAr}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />

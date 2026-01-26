@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Shield, Calendar, User, Zap } from "lucide-react";
 import { Weapon } from "@/data/ottomanData";
-import weaponsImage from "@/assets/weapons-display.jpg";
+import { getWeaponImage } from "@/utils/weaponImages";
 
 interface WeaponCardProps {
   weapon: Weapon;
@@ -19,9 +19,9 @@ const WeaponCard = ({ weapon, index }: WeaponCardProps) => {
       className="ottoman-card weapon-shine group"
     >
       {/* Image */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-64 overflow-hidden">
         <img
-          src={weaponsImage}
+          src={getWeaponImage(weapon.name.toLowerCase())}
           alt={weapon.nameAr}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />

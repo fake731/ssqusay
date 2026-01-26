@@ -10,31 +10,86 @@ Object.entries(weaponImageImports).forEach(([path, url]) => {
   }
 });
 
-export const getWeaponImage = (weaponType: string): string => {
+export const getWeaponImage = (weaponName: string): string => {
   const typeMap: Record<string, string> = {
-    'سيف': 'kilij',
+    // Swords
+    'kilij': 'kilij',
+    'قلج': 'kilij',
     'sword': 'kilij',
+    'يطاغان': 'yatagan',
+    'yatagan': 'yatagan',
+    'شمشير': 'shamshir',
+    'shashka': 'shamshir',
+    'shamshir': 'shamshir',
+    'pala': 'kilij',
+    // Guns & Artillery
     'مدفع': 'cannon',
     'cannon': 'cannon',
+    'great bombard': 'cannon',
+    'bombard': 'cannon',
+    'dardanelles': 'dardanelles',
+    'dardanelles gun': 'dardanelles',
+    'abus': 'cannon',
+    'abus gun': 'cannon',
     'بندقية': 'musket',
     'musket': 'musket',
+    'janissary musket': 'musket',
+    'pistol': 'musket',
+    'cannon-lock': 'musket',
+    // Bows & Projectiles
     'قوس': 'bow',
     'bow': 'bow',
+    'ottoman bow': 'bow',
+    'crossbow': 'bow',
+    'recurve': 'bow',
+    // Polearms
     'رمح': 'lance',
     'lance': 'lance',
+    'spear': 'lance',
+    // Ships
     'سفينة': 'galley',
     'galley': 'galley',
+    'ottoman galley': 'galley',
+    'ship': 'galley',
+    // Heavy weapons
     'فأس': 'axe',
     'axe': 'axe',
+    'topuz': 'mace',
+    'mace': 'mace',
+    'topuz mace': 'mace',
+    // Armor & Equipment
     'درع': 'armor',
-    'armor': 'armor'
+    'armor': 'armor',
+    'tirkeş': 'armor',
+    'quiver': 'armor',
+    // Siege
+    'siege': 'siege',
+    'siege tower': 'siege',
+    'برج': 'siege',
+    // Special weapons
+    'greek fire': 'greekfire',
+    'نار': 'greekfire',
+    'fire': 'greekfire'
   };
 
-  const key = typeMap[weaponType.toLowerCase()] || 
-    Object.keys(weaponImages).find(k => weaponType.toLowerCase().includes(k)) ||
-    'kilij';
+  const lowerName = weaponName.toLowerCase();
   
-  return weaponImages[key] || Object.values(weaponImages)[0] || '';
+  // Try exact match first
+  if (typeMap[lowerName]) {
+    return weaponImages[typeMap[lowerName]] || '';
+  }
+  
+  // Try partial match
+  const key = Object.keys(typeMap).find(k => 
+    lowerName.includes(k) || k.includes(lowerName)
+  );
+  
+  if (key && typeMap[key]) {
+    return weaponImages[typeMap[key]] || '';
+  }
+  
+  // Default to kilij
+  return weaponImages['kilij'] || Object.values(weaponImages)[0] || '';
 };
 
 export default weaponImages;

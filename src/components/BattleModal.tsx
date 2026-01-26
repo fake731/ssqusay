@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Calendar, MapPin, Sword, Users, Crown, Trophy, Target, Zap } from "lucide-react";
 import { Battle } from "@/data/ottomanData";
-import battleImage from "@/assets/battle-scene.jpg";
+import { getBattleImage } from "@/utils/battleImages";
 
 interface BattleModalProps {
   battle: Battle | null;
@@ -56,9 +55,9 @@ const BattleModal = ({ battle, isOpen, onClose }: BattleModalProps) => {
               </button>
 
               {/* Hero Image */}
-              <div className="relative h-64 md:h-80">
+              <div className="relative h-72 md:h-96">
                 <img
-                  src={battleImage}
+                  src={getBattleImage(battle.name.toLowerCase().replace(/\s+/g, '-').replace('battle-of-', '').replace('fall-of-', '').replace('siege-of-', ''))}
                   alt={battle.nameAr}
                   className="w-full h-full object-cover"
                 />
@@ -117,15 +116,15 @@ const BattleModal = ({ battle, isOpen, onClose }: BattleModalProps) => {
                   </div>
                 </div>
 
-                {/* Narrative */}
-                <div className="mb-8">
+                {/* Full Narrative - Detailed Story */}
+                <div className="mb-8 p-6 bg-muted/30 rounded-xl border border-primary/10">
                   <h3 className="text-2xl font-amiri text-primary mb-4 flex items-center gap-2">
                     <Target className="w-6 h-6" />
-                    قصة المعركة
+                    قصة المعركة الكاملة
                   </h3>
-                  <p className="text-lg text-foreground leading-relaxed">
-                    {battle.narrative}
-                  </p>
+                  <div className="text-lg text-foreground leading-relaxed whitespace-pre-line">
+                    {battle.fullNarrative || battle.narrative}
+                  </div>
                 </div>
 
                 {/* Strategy */}
@@ -134,16 +133,35 @@ const BattleModal = ({ battle, isOpen, onClose }: BattleModalProps) => {
                     <Zap className="w-6 h-6" />
                     الاستراتيجية العسكرية
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-lg text-muted-foreground leading-relaxed">
                     {battle.militaryStrategy}
                   </p>
                 </div>
 
+                {/* Casualties */}
+                {battle.casualties && (
+                  <div className="mb-8 p-4 bg-secondary/10 rounded-xl border border-secondary/20">
+                    <h3 className="text-xl font-amiri text-secondary mb-2">الخسائر</h3>
+                    <p className="text-foreground">{battle.casualties}</p>
+                  </div>
+                )}
+
                 {/* Significance */}
                 <div className="mb-8 bg-primary/10 p-6 rounded-xl border border-primary/20">
-                  <h3 className="text-xl font-amiri text-primary mb-2">أهمية المعركة</h3>
-                  <p className="text-foreground">{battle.significance}</p>
+                  <h3 className="text-xl font-amiri text-primary mb-2">أهمية المعركة التاريخية</h3>
+                  <p className="text-lg text-foreground">{battle.significance}</p>
                 </div>
+
+                {/* Commander */}
+                {battle.commander && (
+                  <div className="mb-8 flex items-center gap-4 p-4 bg-muted/50 rounded-xl">
+                    <Crown className="w-8 h-8 text-primary" />
+                    <div>
+                      <span className="text-muted-foreground text-sm">القائد العثماني</span>
+                      <p className="text-xl font-amiri text-foreground">{battle.commander}</p>
+                    </div>
+                  </div>
+                )}
 
                 {/* Weapons & Opponents */}
                 <div className="grid md:grid-cols-2 gap-6">
@@ -153,7 +171,7 @@ const BattleModal = ({ battle, isOpen, onClose }: BattleModalProps) => {
                       {battle.weaponsUsed.map((weapon) => (
                         <span
                           key={weapon}
-                          className="px-4 py-2 bg-muted rounded-full text-foreground text-sm"
+                          className="px-4 py-2 bg-muted rounded-full text-foreground text-sm hover:bg-primary/20 transition-colors cursor-pointer"
                         >
                           {weapon}
                         </span>
