@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Crown, Sword, Shield, Map, ChevronUp } from "lucide-react";
+import { Crown, Sword, Shield, Map, ChevronUp, Users } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
 import SultanCard from "@/components/SultanCard";
 import SultanModal from "@/components/SultanModal";
 import BattleCard from "@/components/BattleCard";
 import BattleModal from "@/components/BattleModal";
 import WeaponCard from "@/components/WeaponCard";
+import WarriorCard from "@/components/WarriorCard";
+import WarriorModal from "@/components/WarriorModal";
 import Timeline from "@/components/Timeline";
-import { sultans, battles, weapons, Sultan, Battle } from "@/data/ottomanData";
+import { sultans, battles, weapons, warriors, Sultan, Battle, Warrior } from "@/data/ottomanData";
 
 const Index = () => {
   const [selectedSultan, setSelectedSultan] = useState<Sultan | null>(null);
   const [selectedBattle, setSelectedBattle] = useState<Battle | null>(null);
+  const [selectedWarrior, setSelectedWarrior] = useState<Warrior | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Show scroll to top button
@@ -139,6 +142,43 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Warriors Section */}
+        <section id="warriors" className="py-20 bg-background">
+          <div className="container mx-auto px-4">
+            {/* Section Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <span className="inline-block px-4 py-1 border border-secondary/50 rounded-full text-secondary text-sm mb-4">
+                القسم الرابع
+              </span>
+              <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold mb-4 flex items-center justify-center gap-3">
+                <Users className="w-10 h-10 text-primary" />
+                المحاربون العثمانيون
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                تعرف على فئات المحاربين الذين صنعوا مجد الإمبراطورية - من الإنكشارية إلى السيباهي
+              </p>
+            </motion.div>
+
+            {/* Warriors Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {warriors.map((warrior, index) => (
+                <WarriorCard
+                  key={warrior.id}
+                  warrior={warrior}
+                  index={index}
+                  onClick={() => setSelectedWarrior(warrior)}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Timeline Section */}
         <Timeline />
 
@@ -168,6 +208,11 @@ const Index = () => {
         battle={selectedBattle}
         isOpen={!!selectedBattle}
         onClose={() => setSelectedBattle(null)}
+      />
+      <WarriorModal
+        warrior={selectedWarrior}
+        isOpen={!!selectedWarrior}
+        onClose={() => setSelectedWarrior(null)}
       />
 
       {/* Scroll to Top Button */}

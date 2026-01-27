@@ -47,7 +47,20 @@ export const getBattleImage = (battleId: string): string => {
     'zenta': 'zenta',
     'chesma': 'chesma',
     'bapheus': 'bapheus',
-    'belgrade': 'belgrade'
+    'belgrade': 'belgrade',
+    // New battles added
+    'navarino': 'navarino',
+    'plevna': 'plevna',
+    'gallipoli': 'gallipoli',
+    'çanakkale': 'gallipoli',
+    'sarikamish': 'sarikamish',
+    'kut': 'kut',
+    'dumlupinar': 'dumlupinar',
+    'beersheba': 'beersheba',
+    'megiddo': 'megiddo',
+    'greekwar': 'greekwar',
+    'greco-turkish': 'greekwar',
+    'kars': 'kars'
   };
   
   // Try battle map
