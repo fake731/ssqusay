@@ -1,14 +1,15 @@
 import { motion } from "framer-motion";
-import { Shield, Calendar, User, Zap } from "lucide-react";
+import { Shield, Calendar, Zap } from "lucide-react";
 import { Weapon } from "@/data/ottomanData";
 import { getWeaponImage } from "@/utils/weaponImages";
 
 interface WeaponCardProps {
   weapon: Weapon;
   index: number;
+  onClick?: () => void;
 }
 
-const WeaponCard = ({ weapon, index }: WeaponCardProps) => {
+const WeaponCard = ({ weapon, index, onClick }: WeaponCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
@@ -16,10 +17,11 @@ const WeaponCard = ({ weapon, index }: WeaponCardProps) => {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       whileHover={{ y: -10, rotateY: 5 }}
-      className="ottoman-card weapon-shine group"
+      onClick={onClick}
+      className="ottoman-card weapon-shine group cursor-pointer"
     >
       {/* Image */}
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative h-72 overflow-hidden">
         <img
           src={getWeaponImage(weapon.name.toLowerCase())}
           alt={weapon.nameAr}
@@ -51,14 +53,19 @@ const WeaponCard = ({ weapon, index }: WeaponCardProps) => {
         {/* Info Grid */}
         <div className="space-y-3 text-sm">
           <div className="flex items-center gap-2 text-muted-foreground">
-            <User className="w-4 h-4 text-primary" />
-            <span>أمر به: {weapon.introducedBy}</span>
+            <Calendar className="w-4 h-4 text-primary" />
+            <span>{weapon.era}</span>
           </div>
           <div className="flex items-start gap-2 text-muted-foreground">
             <Zap className="w-4 h-4 text-primary mt-0.5" />
             <span className="line-clamp-2">{weapon.impact}</span>
           </div>
         </div>
+      </div>
+
+      {/* Click indicator */}
+      <div className="absolute bottom-4 left-4 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+        اضغط لمعرفة المزيد ←
       </div>
 
       {/* Metallic shine effect */}

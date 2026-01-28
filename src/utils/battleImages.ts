@@ -60,7 +60,20 @@ export const getBattleImage = (battleId: string): string => {
     'megiddo': 'megiddo',
     'greekwar': 'greekwar',
     'greco-turkish': 'greekwar',
-    'kars': 'kars'
+    'kars': 'kars',
+    // 10 new battles
+    'konya': 'konya',
+    'nizib': 'nizib',
+    'oltenitza': 'oltenitza',
+    'kumanovo': 'kumanovo',
+    'lüleburgaz': 'luleburgaz',
+    'luleburgaz': 'luleburgaz',
+    'romani': 'romani',
+    'inonu': 'inonu',
+    'sakarya': 'sakarya',
+    'afyonkarahisar': 'afyon',
+    'afyon': 'afyon',
+    'second-kut': 'kut'
   };
   
   // Try battle map

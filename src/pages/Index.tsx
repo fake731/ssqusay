@@ -1,32 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Crown, Sword, Shield, Map, ChevronUp, Users } from "lucide-react";
+import { Crown, Sword, Shield, ChevronUp, Users, Instagram } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
 import SultanCard from "@/components/SultanCard";
 import SultanModal from "@/components/SultanModal";
 import BattleCard from "@/components/BattleCard";
 import BattleModal from "@/components/BattleModal";
 import WeaponCard from "@/components/WeaponCard";
+import WeaponModal from "@/components/WeaponModal";
 import WarriorCard from "@/components/WarriorCard";
 import WarriorModal from "@/components/WarriorModal";
 import Timeline from "@/components/Timeline";
-import { sultans, battles, weapons, warriors, Sultan, Battle, Warrior } from "@/data/ottomanData";
+import { sultans, battles, weapons, warriors, Sultan, Battle, Warrior, Weapon } from "@/data/ottomanData";
 
 const Index = () => {
   const [selectedSultan, setSelectedSultan] = useState<Sultan | null>(null);
   const [selectedBattle, setSelectedBattle] = useState<Battle | null>(null);
   const [selectedWarrior, setSelectedWarrior] = useState<Warrior | null>(null);
+  const [selectedWeapon, setSelectedWeapon] = useState<Weapon | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const battlesRef = useRef<HTMLDivElement>(null);
 
   // Show scroll to top button
-  if (typeof window !== "undefined") {
-    window.addEventListener("scroll", () => {
+  useEffect(() => {
+    const handleScroll = () => {
       setShowScrollTop(window.scrollY > 500);
-    });
-  }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Handle battle click from timeline
+  const handleBattleClick = (battleId: number) => {
+    const battle = battles.find(b => b.id === battleId);
+    if (battle) {
+      setSelectedBattle(battle);
+    }
+  };
+
+  // Handle sultan click from battle modal
+  const handleSultanClick = (sultanId: number) => {
+    const sultan = sultans.find(s => s.id === sultanId);
+    if (sultan) {
+      setSelectedBattle(null);
+      setSelectedSultan(sultan);
+    }
   };
 
   return (
@@ -74,7 +96,7 @@ const Index = () => {
         </section>
 
         {/* Battles Section */}
-        <section id="battles" className="py-20 bg-background">
+        <section id="battles" ref={battlesRef} className="py-20 bg-background">
           <div className="container mx-auto px-4">
             {/* Section Header */}
             <motion.div
@@ -136,7 +158,12 @@ const Index = () => {
             {/* Weapons Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {weapons.map((weapon, index) => (
-                <WeaponCard key={weapon.id} weapon={weapon} index={index} />
+                <WeaponCard 
+                  key={weapon.id} 
+                  weapon={weapon} 
+                  index={index} 
+                  onClick={() => setSelectedWeapon(weapon)}
+                />
               ))}
             </div>
           </div>
@@ -180,7 +207,7 @@ const Index = () => {
         </section>
 
         {/* Timeline Section */}
-        <Timeline />
+        <Timeline onBattleClick={handleBattleClick} />
 
         {/* Footer */}
         <footer className="py-12 bg-card border-t border-border">
@@ -191,9 +218,19 @@ const Index = () => {
             <p className="text-muted-foreground mb-6">
               رحلة تفاعلية عبر 600 عام من التاريخ
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground mb-6">
               تجربة تعليمية مرئية • شاهد التاريخ لا تقرأه
             </p>
+            {/* Instagram Link */}
+            <a 
+              href="https://www.instagram.com/1oscp" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 rounded-full text-white font-semibold hover:opacity-90 transition-opacity"
+            >
+              <Instagram className="w-5 h-5" />
+              تابعنا على انستغرام
+            </a>
           </div>
         </footer>
       </div>
@@ -208,11 +245,18 @@ const Index = () => {
         battle={selectedBattle}
         isOpen={!!selectedBattle}
         onClose={() => setSelectedBattle(null)}
+        onSultanClick={handleSultanClick}
       />
       <WarriorModal
         warrior={selectedWarrior}
         isOpen={!!selectedWarrior}
         onClose={() => setSelectedWarrior(null)}
+      />
+      <WeaponModal
+        weapon={selectedWeapon}
+        isOpen={!!selectedWeapon}
+        onClose={() => setSelectedWeapon(null)}
+        onBattleClick={handleBattleClick}
       />
 
       {/* Scroll to Top Button */}
