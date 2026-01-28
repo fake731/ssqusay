@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Calendar, MapPin, Sword, Users, Crown, Trophy, Target, Zap } from "lucide-react";
+import { X, Calendar, MapPin, Sword, Users, Crown, Trophy, Target, Zap, ExternalLink } from "lucide-react";
 import { Battle } from "@/data/ottomanData";
 import { getBattleImage } from "@/utils/battleImages";
 
@@ -7,9 +7,10 @@ interface BattleModalProps {
   battle: Battle | null;
   isOpen: boolean;
   onClose: () => void;
+  onSultanClick?: (sultanId: number) => void;
 }
 
-const BattleModal = ({ battle, isOpen, onClose }: BattleModalProps) => {
+const BattleModal = ({ battle, isOpen, onClose, onSultanClick }: BattleModalProps) => {
   if (!battle) return null;
 
   const resultColor = battle.result === "victory" 
@@ -93,13 +94,18 @@ const BattleModal = ({ battle, isOpen, onClose }: BattleModalProps) => {
               <div className="p-6 md:p-10">
                 {/* Sultan & Forces */}
                 <div className="grid md:grid-cols-3 gap-6 mb-8">
-                  <div className="bg-muted/30 p-6 rounded-xl border border-primary/10">
+                  <button
+                    onClick={() => onSultanClick?.(battle.sultanId)}
+                    className="bg-muted/30 p-6 rounded-xl border border-primary/10 hover:border-primary/40 transition-colors group text-right"
+                  >
                     <div className="flex items-center gap-2 text-primary mb-3">
                       <Crown className="w-5 h-5" />
                       <span className="font-semibold">السلطان</span>
+                      <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity mr-auto" />
                     </div>
-                    <p className="text-2xl font-amiri text-foreground">{battle.sultanName}</p>
-                  </div>
+                    <p className="text-2xl font-amiri text-foreground group-hover:text-primary transition-colors">{battle.sultanName}</p>
+                    <p className="text-xs text-muted-foreground mt-1">اضغط لعرض صفحة السلطان</p>
+                  </button>
                   <div className="bg-muted/30 p-6 rounded-xl border border-primary/10">
                     <div className="flex items-center gap-2 text-primary mb-3">
                       <Users className="w-5 h-5" />
