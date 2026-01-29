@@ -73,7 +73,19 @@ export const getBattleImage = (battleId: string): string => {
     'sakarya': 'sakarya',
     'afyonkarahisar': 'afyon',
     'afyon': 'afyon',
-    'second-kut': 'kut'
+    'second-kut': 'kut',
+    // Additional battles
+    'djerba': 'djerba',
+    'belgrade-1456': 'belgrade-1456',
+    'petrovaradin': 'petrovaradin',
+    'silistra': 'silistra',
+    'tripoli': 'tripoli',
+    'ww1': 'ww1-ottoman'
+  };
+    'petrovaradin': 'petrovaradin',
+    'silistra': 'silistra',
+    'tripoli': 'tripoli',
+    'ww1': 'ww1-ottoman'
   };
   
   // Try battle map
