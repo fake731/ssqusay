@@ -34,19 +34,26 @@ const Index = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Handle battle click from timeline
+  // Handle battle click from timeline or weapons
   const handleBattleClick = (battleId: number) => {
     const battle = battles.find(b => b.id === battleId);
     if (battle) {
+      // Close other modals first
+      setSelectedSultan(null);
+      setSelectedWarrior(null);
+      setSelectedWeapon(null);
       setSelectedBattle(battle);
     }
   };
 
-  // Handle sultan click from battle modal
+  // Handle sultan click from battle modal or timeline
   const handleSultanClick = (sultanId: number) => {
     const sultan = sultans.find(s => s.id === sultanId);
     if (sultan) {
+      // Close other modals first
       setSelectedBattle(null);
+      setSelectedWarrior(null);
+      setSelectedWeapon(null);
       setSelectedSultan(sultan);
     }
   };
@@ -207,7 +214,7 @@ const Index = () => {
         </section>
 
         {/* Timeline Section */}
-        <Timeline onBattleClick={handleBattleClick} />
+        <Timeline onBattleClick={handleBattleClick} onSultanClick={handleSultanClick} />
 
         {/* Footer */}
         <footer className="py-12 sm:py-16 bg-card border-t border-border">
