@@ -80,12 +80,9 @@ export const getBattleImage = (battleId: string): string => {
     'petrovaradin': 'petrovaradin',
     'silistra': 'silistra',
     'tripoli': 'tripoli',
-    'ww1': 'ww1-ottoman'
-  };
-    'petrovaradin': 'petrovaradin',
-    'silistra': 'silistra',
-    'tripoli': 'tripoli',
-    'ww1': 'ww1-ottoman'
+    'ww1': 'ww1-ottoman',
+    'eger': 'eger',
+    'maritsa-2': 'maritsa-2'
   };
   
   // Try battle map
