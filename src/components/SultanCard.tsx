@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Crown, Sword, Calendar, MapPin, Shield } from "lucide-react";
 import { Sultan, getSultanCommanders } from "@/data/ottomanData";
 import { getSultanImage } from "@/utils/sultanImages";
+import { getCommanderImageById } from "@/utils/commanderImages";
 
 interface SultanCardProps {
   sultan: Sultan;
@@ -58,6 +59,15 @@ const SultanCard = ({ sultan, index, onClick }: SultanCardProps) => {
         {/* Commander Badge */}
         {mainCommander && (
           <div className="flex items-center gap-2 mb-3 p-2 bg-secondary/10 rounded-lg border border-secondary/20">
+            {mainCommander.id && (
+              <div className="w-8 h-8 rounded-full overflow-hidden border border-secondary/30">
+                <img 
+                  src={getCommanderImageById(mainCommander.id)} 
+                  alt={mainCommander.nameAr}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
             <Shield className="w-4 h-4 text-secondary" />
             <span className="text-xs sm:text-sm text-secondary-foreground truncate">{mainCommander.nameAr}</span>
           </div>

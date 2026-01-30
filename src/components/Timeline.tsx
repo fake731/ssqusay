@@ -5,9 +5,10 @@ import { getBattleImage } from "@/utils/battleImages";
 
 interface TimelineProps {
   onBattleClick?: (battleId: number) => void;
+  onSultanClick?: (sultanId: number) => void;
 }
 
-const Timeline = ({ onBattleClick }: TimelineProps) => {
+const Timeline = ({ onBattleClick, onSultanClick }: TimelineProps) => {
   const sortedCities = [...cities].sort((a, b) => a.year - b.year);
 
   // Determine if it's a loss (خسارة) or conquest (فتح)
@@ -18,6 +19,17 @@ const Timeline = ({ onBattleClick }: TimelineProps) => {
            city.description.includes("استقلال") ||
            city.description.includes("احتلال") ||
            city.forces === "-";
+  };
+
+  // Get conquest image based on city name
+  const getConquestImage = (city: typeof cities[0]) => {
+    const battle = battles.find((b) => b.id === city.battleId);
+    if (battle) {
+      return getBattleImage(battle.name.toLowerCase().replace(/\s+/g, '-').replace('battle-of-', '').replace('fall-of-', '').replace('siege-of-', ''));
+    }
+    // Try to get image based on city name
+    const cityKey = city.name.toLowerCase().replace(/\s+/g, '-');
+    return getBattleImage(cityKey);
   };
 
   return (
@@ -87,15 +99,27 @@ const Timeline = ({ onBattleClick }: TimelineProps) => {
                       <span className={`font-bold ${isLossEvent ? 'text-destructive' : 'text-primary'}`}>{city.year}</span>
                     </div>
 
-                    {/* Battle Image if available */}
-                    {battle && (
+                    {/* Conquest Image - Always show for non-loss events */}
+                    {!isLossEvent && (
+                      <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
+                        <img
+                          src={getConquestImage(city)}
+                          alt={city.nameAr}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+                      </div>
+                    )}
+                    
+                    {/* Battle Image if available (for loss events) */}
+                    {isLossEvent && battle && (
                       <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
                         <img
                           src={getBattleImage(battle.name.toLowerCase().replace(/\s+/g, '-').replace('battle-of-', '').replace('fall-of-', '').replace('siege-of-', ''))}
                           alt={battle.nameAr}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover opacity-70"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-card via-destructive/20 to-transparent" />
                       </div>
                     )}
 
@@ -106,10 +130,16 @@ const Timeline = ({ onBattleClick }: TimelineProps) => {
                     </h3>
 
                     <div className="space-y-2 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSultanClick?.(city.sultanId);
+                        }}
+                        className="flex items-center gap-2 hover:text-primary transition-colors"
+                      >
                         <Crown className="w-4 h-4 text-primary" />
-                        <span>{city.sultanName}</span>
-                      </div>
+                        <span className="hover:underline">{city.sultanName}</span>
+                      </button>
                       {!isLossEvent && city.forces !== "-" && (
                         <div className="flex items-center gap-2">
                           <Users className="w-4 h-4 text-primary" />
