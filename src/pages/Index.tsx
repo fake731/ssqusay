@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Crown, Sword, Shield, ChevronUp, Users, Instagram } from "lucide-react";
+import { Crown, Sword, Shield, ChevronUp, Users, Instagram, Map } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
 import SultanCard from "@/components/SultanCard";
 import SultanModal from "@/components/SultanModal";
@@ -10,14 +10,17 @@ import WeaponCard from "@/components/WeaponCard";
 import WeaponModal from "@/components/WeaponModal";
 import WarriorCard from "@/components/WarriorCard";
 import WarriorModal from "@/components/WarriorModal";
+import MapCard from "@/components/MapCard";
+import MapModal from "@/components/MapModal";
 import Timeline from "@/components/Timeline";
-import { sultans, battles, weapons, warriors, Sultan, Battle, Warrior, Weapon } from "@/data/ottomanData";
+import { sultans, battles, weapons, warriors, ottomanMaps, Sultan, Battle, Warrior, Weapon, OttomanMap } from "@/data/ottomanData";
 
 const Index = () => {
   const [selectedSultan, setSelectedSultan] = useState<Sultan | null>(null);
   const [selectedBattle, setSelectedBattle] = useState<Battle | null>(null);
   const [selectedWarrior, setSelectedWarrior] = useState<Warrior | null>(null);
   const [selectedWeapon, setSelectedWeapon] = useState<Weapon | null>(null);
+  const [selectedMap, setSelectedMap] = useState<OttomanMap | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const battlesRef = useRef<HTMLDivElement>(null);
 
@@ -213,6 +216,43 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Maps Section */}
+        <section id="maps" className="py-20 bg-gradient-epic">
+          <div className="container mx-auto px-4">
+            {/* Section Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <span className="inline-block px-4 py-1 border border-primary/50 rounded-full text-primary text-sm mb-4">
+                القسم الخامس
+              </span>
+              <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold mb-4 flex items-center justify-center gap-3">
+                <Map className="w-10 h-10 text-primary" />
+                خرائط الإمبراطورية
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                تتبع تطور حدود الدولة العثمانية عبر 623 عاماً - من إمارة صغيرة إلى إمبراطورية عظيمة
+              </p>
+            </motion.div>
+
+            {/* Maps Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {ottomanMaps.map((map, index) => (
+                <MapCard
+                  key={map.id}
+                  map={map}
+                  index={index}
+                  onClick={() => setSelectedMap(map)}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Timeline Section */}
         <Timeline onBattleClick={handleBattleClick} onSultanClick={handleSultanClick} />
 
@@ -269,6 +309,12 @@ const Index = () => {
         isOpen={!!selectedWeapon}
         onClose={() => setSelectedWeapon(null)}
         onBattleClick={handleBattleClick}
+      />
+      <MapModal
+        map={selectedMap}
+        isOpen={!!selectedMap}
+        onClose={() => setSelectedMap(null)}
+        onSultanClick={handleSultanClick}
       />
 
       {/* Scroll to Top Button */}
