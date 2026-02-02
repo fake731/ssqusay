@@ -6,3 +6,4 @@ export { weapons, type Weapon } from './weapons';
 export { cities, type City } from './cities';
 export { warriors, type Warrior } from './warriors';
 export { commanders, getSultanCommanders, type Commander } from './commanders';
+export { ottomanMaps, type OttomanMap } from './maps';
