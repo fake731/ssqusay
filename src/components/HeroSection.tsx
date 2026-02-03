@@ -1,11 +1,21 @@
 import { motion } from "framer-motion";
-import { ChevronDown, Sword, Crown, Map, Shield } from "lucide-react";
+import { ChevronDown, Sword, Crown, Map, Shield, Users, Clock, Building2 } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
 
 const HeroSection = () => {
   const scrollToContent = () => {
     document.getElementById("content")?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const navItems = [
+    { icon: Crown, label: "السلاطين", href: "#sultans" },
+    { icon: Sword, label: "المعارك", href: "#battles" },
+    { icon: Shield, label: "الأسلحة", href: "#weapons" },
+    { icon: Users, label: "الجنود", href: "#warriors" },
+    { icon: Clock, label: "رحلة الفتوحات", href: "#timeline" },
+    { icon: Map, label: "الخريطة", href: "#maps" },
+    { icon: Building2, label: "المعمار", href: "#architecture" },
+  ];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -56,30 +66,25 @@ const HeroSection = () => {
           <span className="text-primary">شاهد التاريخ... لا تقرأه</span>
         </motion.p>
 
-        {/* Navigation Cards */}
+        {/* Navigation Cards - Updated Grid */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-16"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 max-w-6xl mx-auto mb-16"
         >
-          {[
-            { icon: Crown, label: "السلاطين", href: "#sultans" },
-            { icon: Sword, label: "المعارك", href: "#battles" },
-            { icon: Shield, label: "الأسلحة", href: "#weapons" },
-            { icon: Map, label: "الخريطة", href: "#timeline" },
-          ].map((item, index) => (
+          {navItems.map((item, index) => (
             <motion.a
               key={item.label}
               href={item.href}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+              transition={{ duration: 0.5, delay: 1 + index * 0.08 }}
               whileHover={{ scale: 1.05, y: -5 }}
-              className="ottoman-card p-6 flex flex-col items-center gap-3 cursor-pointer group"
+              className="ottoman-card p-4 md:p-5 flex flex-col items-center gap-2 cursor-pointer group"
             >
-              <item.icon className="w-8 h-8 text-primary group-hover:animate-glow-pulse transition-all" />
-              <span className="text-foreground font-tajawal font-semibold">
+              <item.icon className="w-6 h-6 md:w-7 md:h-7 text-primary group-hover:animate-glow-pulse transition-all" />
+              <span className="text-foreground font-tajawal font-semibold text-sm md:text-base">
                 {item.label}
               </span>
             </motion.a>

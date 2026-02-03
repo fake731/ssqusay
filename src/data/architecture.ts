@@ -1,0 +1,227 @@
+// Ottoman Architecture Data - Mosques, Palaces, and Architects
+
+export interface Architect {
+  id: number;
+  name: string;
+  title: string;
+  birthYear: number;
+  deathYear: number;
+  description: string;
+  achievements: string[];
+  famousWorks: string[];
+}
+
+export interface Architecture {
+  id: number;
+  name: string;
+  type: "mosque" | "palace" | "complex" | "bridge" | "fountain";
+  location: string;
+  yearBuilt: number;
+  architectId?: number;
+  sultanId?: number;
+  description: string;
+  features: string[];
+  historicalSignificance: string;
+  dimensions?: string;
+}
+
+export const architects: Architect[] = [
+  {
+    id: 1,
+    name: "معمار سنان",
+    title: "المعمار الأعظم",
+    birthYear: 1489,
+    deathYear: 1588,
+    description: "أعظم معماري في تاريخ الإمبراطورية العثمانية، خدم ثلاثة سلاطين وصمم أكثر من 300 مبنى. بدأ حياته كإنكشاري قبل أن يصبح المعمار الرسمي للدولة العثمانية.",
+    achievements: [
+      "صمم أكثر من 300 مبنى في حياته",
+      "طور الأسلوب المعماري العثماني الكلاسيكي",
+      "أتقن بناء القباب الضخمة",
+      "ابتكر تقنيات إضاءة فريدة"
+    ],
+    famousWorks: ["جامع السليمانية", "جامع سليم الثاني (أدرنة)", "جامع شاه زاده"]
+  },
+  {
+    id: 2,
+    name: "داود آغا",
+    title: "تلميذ سنان",
+    birthYear: 1550,
+    deathYear: 1599,
+    description: "تلميذ المعمار سنان وخليفته كمعمار رسمي للدولة. أكمل العديد من المشاريع بعد وفاة أستاذه وطور أسلوبه الخاص.",
+    achievements: [
+      "أكمل مشاريع سنان غير المنتهية",
+      "صمم جامع السلطان أحمد (الجامع الأزرق)",
+      "طور تقنيات جديدة في الزخرفة"
+    ],
+    famousWorks: ["جامع السلطان أحمد", "ضريح مراد الثالث"]
+  },
+  {
+    id: 3,
+    name: "صدفكار محمد آغا",
+    title: "المعمار الملكي",
+    birthYear: 1540,
+    deathYear: 1617,
+    description: "معمار بارز عمل في عهد السلطان أحمد الأول وصمم أحد أشهر المساجد في العالم - جامع السلطان أحمد المعروف بالجامع الأزرق.",
+    achievements: [
+      "صمم الجامع الأزرق ذو الست مآذن",
+      "أبدع في استخدام البلاط الأزرق",
+      "دمج العناصر البيزنطية والعثمانية"
+    ],
+    famousWorks: ["جامع السلطان أحمد (الجامع الأزرق)"]
+  }
+];
+
+export const architectures: Architecture[] = [
+  {
+    id: 1,
+    name: "جامع السليمانية",
+    type: "complex",
+    location: "إسطنبول",
+    yearBuilt: 1557,
+    architectId: 1,
+    sultanId: 10,
+    description: "تحفة المعمار سنان وأعظم أعماله، بُني بأمر من السلطان سليمان القانوني. يضم المجمع مسجداً ومدرسة ومستشفى ومطبخاً للفقراء وحماماً تركياً.",
+    features: [
+      "قبة ضخمة بارتفاع 53 متراً",
+      "أربع مآذن ترمز لكونه رابع سلطان بعد الفتح",
+      "إضاءة طبيعية فريدة",
+      "أكوستيك مثالي للصلاة"
+    ],
+    historicalSignificance: "يعتبر ذروة العمارة العثمانية الكلاسيكية ويضم قبري السلطان سليمان وزوجته هُرم سلطان",
+    dimensions: "القبة: قطر 26.5 متر، ارتفاع 53 متر"
+  },
+  {
+    id: 2,
+    name: "جامع السلطان أحمد (الجامع الأزرق)",
+    type: "mosque",
+    location: "إسطنبول",
+    yearBuilt: 1616,
+    architectId: 3,
+    sultanId: 14,
+    description: "أحد أشهر المساجد في العالم، سُمي بالجامع الأزرق نسبة للبلاط الأزرق الذي يزين جدرانه الداخلية. يتميز بست مآذن مما أثار جدلاً وقت بنائه.",
+    features: [
+      "ست مآذن فريدة",
+      "أكثر من 20,000 بلاطة خزفية زرقاء",
+      "200 نافذة زجاجية ملونة",
+      "خمس قباب رئيسية"
+    ],
+    historicalSignificance: "المسجد الوحيد في إسطنبول بست مآذن، ويواجه آيا صوفيا مباشرة",
+    dimensions: "القبة الرئيسية: قطر 23.5 متر، ارتفاع 43 متر"
+  },
+  {
+    id: 3,
+    name: "قصر توبكابي",
+    type: "palace",
+    location: "إسطنبول",
+    yearBuilt: 1478,
+    sultanId: 7,
+    description: "المقر الرسمي للسلاطين العثمانيين لأربعة قرون. بناه السلطان محمد الفاتح بعد فتح القسطنطينية. يضم أقساماً متعددة منها الحرملك والسلاملك وخزينة الدولة.",
+    features: [
+      "يمتد على 700,000 متر مربع",
+      "يضم الأمانات المقدسة",
+      "أربعة أفنية رئيسية",
+      "إطلالة على البوسفور وبحر مرمرة"
+    ],
+    historicalSignificance: "مركز الحكم العثماني لـ 400 عام، واليوم متحف يضم كنوز الإمبراطورية",
+    dimensions: "المساحة: 700,000 متر مربع"
+  },
+  {
+    id: 4,
+    name: "قصر دولمة بهجة",
+    type: "palace",
+    location: "إسطنبول",
+    yearBuilt: 1856,
+    sultanId: 31,
+    description: "آخر وأفخم قصور السلاطين العثمانيين، بُني بأمر السلطان عبد المجيد الأول بطراز أوروبي باروكي. استُخدم كمقر رسمي بدلاً من توبكابي.",
+    features: [
+      "أكبر ثريا كريستال في العالم (4.5 طن)",
+      "285 غرفة و46 صالة",
+      "سقوف مذهبة بالكامل",
+      "واجهة بطول 600 متر على البوسفور"
+    ],
+    historicalSignificance: "آخر مقر للخلافة العثمانية، وتوفي فيه مصطفى كمال أتاتورك عام 1938",
+    dimensions: "المساحة: 45,000 متر مربع"
+  },
+  {
+    id: 5,
+    name: "جامع الفاتح",
+    type: "complex",
+    location: "إسطنبول",
+    yearBuilt: 1470,
+    sultanId: 7,
+    description: "أول مسجد سلطاني كبير في إسطنبول بعد الفتح، بناه السلطان محمد الفاتح على أنقاض كنيسة الرسل البيزنطية. أُعيد بناؤه بعد زلزال 1766.",
+    features: [
+      "مجمع ضخم يضم 8 مدارس",
+      "مستشفى ومطبخ للفقراء",
+      "حمام تركي ومكتبة",
+      "ضريح السلطان الفاتح"
+    ],
+    historicalSignificance: "أول مجمع ديني-تعليمي-اجتماعي عثماني متكامل في إسطنبول",
+    dimensions: "المجمع يمتد على مساحة واسعة مع ساحة كبيرة"
+  },
+  {
+    id: 6,
+    name: "جامع السليمية",
+    type: "mosque",
+    location: "أدرنة",
+    yearBuilt: 1575,
+    architectId: 1,
+    sultanId: 11,
+    description: "اعتبره المعمار سنان تحفته الأعظم والعمل الذي بلغ فيه قمة إبداعه، رغم بنائه في سن 80. قبته تتفوق على قبة آيا صوفيا.",
+    features: [
+      "قبة قطرها 31.3 متر (أكبر من آيا صوفيا)",
+      "أربع مآذن متطابقة ارتفاعها 71 متر",
+      "999 نافذة للإضاءة الطبيعية",
+      "زخارف خط عربي مذهلة"
+    ],
+    historicalSignificance: "تُعتبر ذروة العمارة الإسلامية وتحفة سنان الخالدة، مدرجة في قائمة اليونسكو",
+    dimensions: "القبة: قطر 31.3 متر، ارتفاع 42 متر"
+  },
+  {
+    id: 7,
+    name: "جامع شاه زاده",
+    type: "mosque",
+    location: "إسطنبول",
+    yearBuilt: 1548,
+    architectId: 1,
+    sultanId: 10,
+    description: "بناه سنان تخليداً لذكرى الأمير محمد ابن سليمان القانوني الذي توفي شاباً. يُعتبر أول عمل رئيسي لسنان كمعمار رسمي للدولة.",
+    features: [
+      "تناظر هندسي مثالي",
+      "قبتان متساويتان",
+      "مئذنتان مزخرفتان",
+      "فناء واسع بأروقة"
+    ],
+    historicalSignificance: "وصفه سنان بأنه 'عمل التلمذة' قبل أن يصل إلى إتقانه في السليمانية والسليمية",
+    dimensions: "القبة: قطر 19 متر، ارتفاع 37 متر"
+  },
+  {
+    id: 8,
+    name: "آيا صوفيا",
+    type: "mosque",
+    location: "إسطنبول",
+    yearBuilt: 1453,
+    sultanId: 7,
+    description: "كنيسة بيزنطية عظيمة حولها السلطان محمد الفاتح إلى مسجد فور فتح القسطنطينية. ظلت أكبر كاتدرائية في العالم لألف عام.",
+    features: [
+      "قبة ضخمة قطرها 31 متر",
+      "فسيفساء بيزنطية محفوظة",
+      "أربع مآذن أضافها العثمانيون",
+      "محراب ومنبر إسلامي"
+    ],
+    historicalSignificance: "رمز فتح القسطنطينية وتحول الإمبراطورية، جمعت العمارة البيزنطية والإسلامية",
+    dimensions: "القبة: قطر 31 متر، ارتفاع 55 متر"
+  }
+];
+
+export const getArchitectById = (id: number): Architect | undefined => {
+  return architects.find(a => a.id === id);
+};
+
+export const getArchitecturesByArchitect = (architectId: number): Architecture[] => {
+  return architectures.filter(a => a.architectId === architectId);
+};
+
+export const getArchitecturesBySultan = (sultanId: number): Architecture[] => {
+  return architectures.filter(a => a.sultanId === sultanId);
+};
