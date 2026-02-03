@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Crown, Sword, Shield, ChevronUp, Users, Instagram, Map } from "lucide-react";
+import { Crown, Sword, Shield, ChevronUp, Users, Instagram, Map, Building2 } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
 import SultanCard from "@/components/SultanCard";
 import SultanModal from "@/components/SultanModal";
@@ -12,8 +12,13 @@ import WarriorCard from "@/components/WarriorCard";
 import WarriorModal from "@/components/WarriorModal";
 import MapCard from "@/components/MapCard";
 import MapModal from "@/components/MapModal";
+import ArchitectureCard from "@/components/ArchitectureCard";
+import ArchitectureModal from "@/components/ArchitectureModal";
 import Timeline from "@/components/Timeline";
-import { sultans, battles, weapons, warriors, ottomanMaps, Sultan, Battle, Warrior, Weapon, OttomanMap } from "@/data/ottomanData";
+import { 
+  sultans, battles, weapons, warriors, ottomanMaps, architectures,
+  Sultan, Battle, Warrior, Weapon, OttomanMap, Architecture 
+} from "@/data/ottomanData";
 
 const Index = () => {
   const [selectedSultan, setSelectedSultan] = useState<Sultan | null>(null);
@@ -21,6 +26,7 @@ const Index = () => {
   const [selectedWarrior, setSelectedWarrior] = useState<Warrior | null>(null);
   const [selectedWeapon, setSelectedWeapon] = useState<Weapon | null>(null);
   const [selectedMap, setSelectedMap] = useState<OttomanMap | null>(null);
+  const [selectedArchitecture, setSelectedArchitecture] = useState<Architecture | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const battlesRef = useRef<HTMLDivElement>(null);
 
@@ -41,10 +47,11 @@ const Index = () => {
   const handleBattleClick = (battleId: number) => {
     const battle = battles.find(b => b.id === battleId);
     if (battle) {
-      // Close other modals first
       setSelectedSultan(null);
       setSelectedWarrior(null);
       setSelectedWeapon(null);
+      setSelectedMap(null);
+      setSelectedArchitecture(null);
       setSelectedBattle(battle);
     }
   };
@@ -53,10 +60,11 @@ const Index = () => {
   const handleSultanClick = (sultanId: number) => {
     const sultan = sultans.find(s => s.id === sultanId);
     if (sultan) {
-      // Close other modals first
       setSelectedBattle(null);
       setSelectedWarrior(null);
       setSelectedWeapon(null);
+      setSelectedMap(null);
+      setSelectedArchitecture(null);
       setSelectedSultan(sultan);
     }
   };
@@ -71,7 +79,6 @@ const Index = () => {
         {/* Sultans Section */}
         <section id="sultans" className="py-20 bg-gradient-epic">
           <div className="container mx-auto px-4">
-            {/* Section Header */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -91,7 +98,6 @@ const Index = () => {
               </p>
             </motion.div>
 
-            {/* Sultans Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {sultans.map((sultan, index) => (
                 <SultanCard
@@ -108,7 +114,6 @@ const Index = () => {
         {/* Battles Section */}
         <section id="battles" ref={battlesRef} className="py-20 bg-background">
           <div className="container mx-auto px-4">
-            {/* Section Header */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -128,7 +133,6 @@ const Index = () => {
               </p>
             </motion.div>
 
-            {/* Battles List */}
             <div className="space-y-8">
               {battles.map((battle, index) => (
                 <BattleCard
@@ -145,7 +149,6 @@ const Index = () => {
         {/* Weapons Section */}
         <section id="weapons" className="py-20 bg-gradient-epic">
           <div className="container mx-auto px-4">
-            {/* Section Header */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -165,7 +168,6 @@ const Index = () => {
               </p>
             </motion.div>
 
-            {/* Weapons Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {weapons.map((weapon, index) => (
                 <WeaponCard 
@@ -182,7 +184,6 @@ const Index = () => {
         {/* Warriors Section */}
         <section id="warriors" className="py-20 bg-background">
           <div className="container mx-auto px-4">
-            {/* Section Header */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -202,7 +203,6 @@ const Index = () => {
               </p>
             </motion.div>
 
-            {/* Warriors Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {warriors.map((warrior, index) => (
                 <WarriorCard
@@ -219,7 +219,6 @@ const Index = () => {
         {/* Maps Section */}
         <section id="maps" className="py-20 bg-gradient-epic">
           <div className="container mx-auto px-4">
-            {/* Section Header */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -239,7 +238,6 @@ const Index = () => {
               </p>
             </motion.div>
 
-            {/* Maps Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {ottomanMaps.map((map, index) => (
                 <MapCard
@@ -247,6 +245,41 @@ const Index = () => {
                   map={map}
                   index={index}
                   onClick={() => setSelectedMap(map)}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Architecture Section */}
+        <section id="architecture" className="py-20 bg-background">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <span className="inline-block px-4 py-1 border border-secondary/50 rounded-full text-secondary text-sm mb-4">
+                القسم السادس
+              </span>
+              <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold mb-4 flex items-center justify-center gap-3">
+                <Building2 className="w-10 h-10 text-primary" />
+                المعمار العثماني
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                اكتشف روائع العمارة العثمانية من المساجد العظيمة إلى القصور الفخمة - تحف معمارية خالدة
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {architectures.map((architecture, index) => (
+                <ArchitectureCard
+                  key={architecture.id}
+                  architecture={architecture}
+                  index={index}
+                  onClick={() => setSelectedArchitecture(architecture)}
                 />
               ))}
             </div>
@@ -268,7 +301,6 @@ const Index = () => {
             <p className="text-xs sm:text-sm text-muted-foreground mb-8">
               تجربة تعليمية مرئية • شاهد التاريخ لا تقرأه
             </p>
-            {/* Professional Instagram Link */}
             <a 
               href="https://www.instagram.com/1oscp" 
               target="_blank" 
@@ -314,6 +346,12 @@ const Index = () => {
         map={selectedMap}
         isOpen={!!selectedMap}
         onClose={() => setSelectedMap(null)}
+        onSultanClick={handleSultanClick}
+      />
+      <ArchitectureModal
+        architecture={selectedArchitecture}
+        isOpen={!!selectedArchitecture}
+        onClose={() => setSelectedArchitecture(null)}
         onSultanClick={handleSultanClick}
       />
 
