@@ -2,7 +2,7 @@
 
 const architectureImages = import.meta.glob('../assets/architecture/*.jpg', { eager: true });
 
-// Map architecture IDs to their image paths
+// Map architecture IDs to their image paths - Updated with new landmarks
 const architectureImageMap: Record<number, string> = {
   1: 'suleymaniye-mosque',
   2: 'blue-mosque',
@@ -11,7 +11,10 @@ const architectureImageMap: Record<number, string> = {
   5: 'fatih-mosque',
   6: 'selimiye-mosque',
   7: 'sehzade-mosque',
-  8: 'hagia-sophia'
+  8: 'hagia-sophia',
+  9: 'sokollu-bridge',
+  10: 'cagaloglu-hamam',
+  11: 'ahmed3-fountain'
 };
 
 const architectImageMap: Record<number, string> = {
