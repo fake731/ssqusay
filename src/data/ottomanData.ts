@@ -1,5 +1,4 @@
-// Ottoman Empire Historical Data - Main Export File
-
+// Re-export all data with new modules
 export { sultans, type Sultan } from './sultans';
 export { battles, type Battle } from './battles';
 export { weapons, type Weapon } from './weapons';
@@ -16,3 +15,6 @@ export {
   type Architecture, 
   type Architect 
 } from './architecture';
+export { empireOverview, type OverviewSection } from './overview';
+export { tradeItems, economicEras, type TradeItem } from './trade';
+export { religionItems, religiousTimeline, type ReligionItem } from './religion';
