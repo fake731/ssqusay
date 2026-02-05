@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Map } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SectionNavigation from "@/components/SectionNavigation";
 import MapCard from "@/components/MapCard";
 import MapModal from "@/components/MapModal";
 import { ottomanMaps, OttomanMap } from "@/data/ottomanData";
@@ -50,6 +51,7 @@ const MapsPage = () => {
         onSultanClick={handleSultanClick}
       />
 
+      <SectionNavigation currentPath="/maps" />
       <Footer />
     </div>
   );

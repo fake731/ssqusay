@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Sword } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SectionNavigation from "@/components/SectionNavigation";
 import BattleCard from "@/components/BattleCard";
 import BattleModal from "@/components/BattleModal";
 import { battles, Battle, sultans } from "@/data/ottomanData";
@@ -51,6 +52,7 @@ const BattlesPage = () => {
         onSultanClick={handleSultanClick}
       />
 
+      <SectionNavigation currentPath="/battles" />
       <Footer />
     </div>
   );
