@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Shield } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SectionNavigation from "@/components/SectionNavigation";
 import WeaponCard from "@/components/WeaponCard";
 import WeaponModal from "@/components/WeaponModal";
 import { weapons, Weapon } from "@/data/ottomanData";
@@ -50,6 +51,7 @@ const WeaponsPage = () => {
         onBattleClick={handleBattleClick}
       />
 
+      <SectionNavigation currentPath="/weapons" />
       <Footer />
     </div>
   );

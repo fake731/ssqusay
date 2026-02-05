@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Crown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SectionNavigation from "@/components/SectionNavigation";
 import SultanCard from "@/components/SultanCard";
 import SultanModal from "@/components/SultanModal";
 import { sultans, Sultan } from "@/data/ottomanData";
@@ -45,6 +46,7 @@ const SultansPage = () => {
         onClose={() => setSelectedSultan(null)}
       />
 
+      <SectionNavigation currentPath="/sultans" />
       <Footer />
     </div>
   );

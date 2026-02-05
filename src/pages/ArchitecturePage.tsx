@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Building2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SectionNavigation from "@/components/SectionNavigation";
 import ArchitectureCard from "@/components/ArchitectureCard";
 import ArchitectureModal from "@/components/ArchitectureModal";
 import { architectures, Architecture } from "@/data/ottomanData";
@@ -50,6 +51,7 @@ const ArchitecturePage = () => {
         onSultanClick={handleSultanClick}
       />
 
+      <SectionNavigation currentPath="/architecture" />
       <Footer />
     </div>
   );

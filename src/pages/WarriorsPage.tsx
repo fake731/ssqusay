@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SectionNavigation from "@/components/SectionNavigation";
 import WarriorCard from "@/components/WarriorCard";
 import WarriorModal from "@/components/WarriorModal";
 import { warriors, Warrior } from "@/data/ottomanData";
@@ -45,6 +46,7 @@ const WarriorsPage = () => {
         onClose={() => setSelectedWarrior(null)}
       />
 
+      <SectionNavigation currentPath="/warriors" />
       <Footer />
     </div>
   );
