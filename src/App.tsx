@@ -24,8 +24,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<OverviewPage />} />
-          <Route path="/overview" element={<OverviewPage />} />
+          <Route path="/" element={<Index />} />
+          <Route path="/overview" element={<Index />} />
           <Route path="/sultans" element={<SultansPage />} />
           <Route path="/battles" element={<BattlesPage />} />
           <Route path="/weapons" element={<WeaponsPage />} />

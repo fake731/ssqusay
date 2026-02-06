@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Sword } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -11,8 +11,12 @@ import { battles, Battle, sultans } from "@/data/ottomanData";
 const BattlesPage = () => {
   const [selectedBattle, setSelectedBattle] = useState<Battle | null>(null);
 
+  // ترتيب المعارك تصاعدياً حسب السنة (من 1299 إلى 1922)
+  const sortedBattles = useMemo(() => {
+    return [...battles].sort((a, b) => a.year - b.year);
+  }, []);
+
   const handleSultanClick = (sultanId: number) => {
-    // Could navigate to sultans page or show modal
     console.log("Sultan clicked:", sultanId);
   };
 
@@ -27,13 +31,16 @@ const BattlesPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
               شاهد أعظم المعارك التي غيرت مجرى التاريخ، بالتفاصيل العسكرية والسرد الحماسي
+            </p>
+            <p className="text-lg text-primary font-amiri">
+              {sortedBattles.length} معركة من عام {sortedBattles[0]?.year} إلى {sortedBattles[sortedBattles.length - 1]?.year}
             </p>
           </motion.div>
 
           <div className="space-y-8">
-            {battles.map((battle, index) => (
+            {sortedBattles.map((battle, index) => (
               <BattleCard
                 key={battle.id}
                 battle={battle}

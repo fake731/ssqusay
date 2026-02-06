@@ -14,7 +14,12 @@ const architectureImageMap: Record<number, string> = {
   8: 'hagia-sophia',
   9: 'sokollu-bridge',
   10: 'cagaloglu-hamam',
-  11: 'ahmed3-fountain'
+  11: 'ahmed3-fountain',
+  12: 'mostar-bridge',
+  13: 'muhammad-ali-mosque',
+  14: 'gazi-husrev-mosque',
+  15: 'rumeli-fortress',
+  16: 'damascus-mosque'
 };
 
 const architectImageMap: Record<number, string> = {
