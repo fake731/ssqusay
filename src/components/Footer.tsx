@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { Instagram } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Footer = () => {
   return (
@@ -14,14 +14,23 @@ const Footer = () => {
         <p className="text-xs sm:text-sm text-muted-foreground mb-8">
           تجربة تعليمية مرئية • شاهد التاريخ لا تقرأه
         </p>
-        <a 
-          href="https://www.instagram.com/1oscp" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-muted/60 hover:bg-primary/20 border border-border hover:border-primary/40 transition-all duration-300 group"
-        >
-          <Instagram className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-        </a>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <a 
+                href="https://www.instagram.com/1oscp" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-muted/60 hover:bg-primary/20 border border-border hover:border-primary/40 transition-all duration-300 hover:scale-110 group"
+              >
+                <Instagram className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              </a>
+            </TooltipTrigger>
+            <TooltipContent side="top">
+              <p>@1oscp</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </footer>
   );
