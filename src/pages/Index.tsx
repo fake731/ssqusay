@@ -341,57 +341,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Sections Grid */}
-      <section className="py-24 bg-card">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold mb-4">
-              اكتشف أقسام الموقع
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              تصفح الأقسام المختلفة لاستكشاف تاريخ الدولة العثمانية العظيمة
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {navItems.map((item, index) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Link
-                  to={item.href}
-                  className="block group"
-                >
-                  <div className="ottoman-card p-8 h-full hover:scale-[1.02] transition-transform duration-300">
-                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
-                      <item.icon className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-amiri font-bold text-gradient-gold mb-3">
-                      {item.label}
-                    </h3>
-                    <p className="text-muted-foreground mb-4">
-                      {getDescription(item.label)}
-                    </p>
-                    <div className="flex items-center gap-2 text-primary group-hover:gap-4 transition-all">
-                      <span>استكشف القسم</span>
-                      <ChevronLeft className="w-5 h-5" />
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       <SectionNavigation currentPath="/" />
       <Footer />
