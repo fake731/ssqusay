@@ -27,7 +27,7 @@ const Footer = () => {
               </a>
             </TooltipTrigger>
             <TooltipContent side="top">
-              <p>@1oscp</p>
+              <p>@0oscp</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
