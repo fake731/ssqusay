@@ -122,12 +122,17 @@ const SultanModal = ({ sultan, isOpen, onClose }: SultanModalProps) => {
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {sultan.majorBattles.map((battle) => (
-                        <span
+                        <button
                           key={battle}
-                          className="px-4 py-2 bg-secondary/10 border border-secondary/30 rounded-full text-foreground text-sm"
+                          onClick={() => {
+                            onClose();
+                            navigate("/battles");
+                          }}
+                          className="px-4 py-2 bg-secondary/10 border border-secondary/30 rounded-full text-foreground text-sm hover:bg-secondary/30 hover:border-secondary/50 transition-colors group flex items-center gap-1"
                         >
-                          {battle}
-                        </span>
+                          <span>{battle}</span>
+                          <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </button>
                       ))}
                     </div>
                   </div>
