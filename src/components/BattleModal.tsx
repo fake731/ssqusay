@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Calendar, MapPin, Sword, Users, Crown, Trophy, Target, Zap, ExternalLink } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Battle } from "@/data/ottomanData";
 import { getBattleImage } from "@/utils/battleImages";
 
@@ -11,6 +12,7 @@ interface BattleModalProps {
 }
 
 const BattleModal = ({ battle, isOpen, onClose, onSultanClick }: BattleModalProps) => {
+  const navigate = useNavigate();
   if (!battle) return null;
 
   const resultColor = battle.result === "victory" 
@@ -95,7 +97,10 @@ const BattleModal = ({ battle, isOpen, onClose, onSultanClick }: BattleModalProp
                 {/* Sultan & Forces */}
                 <div className="grid md:grid-cols-3 gap-6 mb-8">
                   <button
-                    onClick={() => onSultanClick?.(battle.sultanId)}
+                    onClick={() => {
+                      onClose();
+                      navigate("/sultans");
+                    }}
                     className="bg-muted/30 p-6 rounded-xl border border-primary/10 hover:border-primary/40 transition-colors group text-right"
                   >
                     <div className="flex items-center gap-2 text-primary mb-3">
@@ -104,7 +109,7 @@ const BattleModal = ({ battle, isOpen, onClose, onSultanClick }: BattleModalProp
                       <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity mr-auto" />
                     </div>
                     <p className="text-2xl font-amiri text-foreground group-hover:text-primary transition-colors">{battle.sultanName}</p>
-                    <p className="text-xs text-muted-foreground mt-1">اضغط لعرض صفحة السلطان</p>
+                    <p className="text-xs text-muted-foreground mt-1">اضغط للانتقال لصفحة السلاطين</p>
                   </button>
                   <div className="bg-muted/30 p-6 rounded-xl border border-primary/10">
                     <div className="flex items-center gap-2 text-primary mb-3">

@@ -76,15 +76,18 @@
 @layer base {
   * {
     @apply border-border;
+    cursor: none;
   }
 
   html {
     scroll-behavior: smooth;
+    cursor: none;
   }
 
   body {
     @apply bg-background text-foreground font-tajawal antialiased;
     direction: rtl;
+    cursor: none;
   }
 
   h1, h2, h3, h4, h5, h6 {

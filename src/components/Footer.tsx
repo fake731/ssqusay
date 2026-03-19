@@ -18,7 +18,7 @@ const Footer = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <a 
-                href="https://www.instagram.com/1oscp" 
+                href="https://instagram.com/0oscp" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-muted/60 hover:bg-primary/20 border border-border hover:border-primary/40 transition-all duration-300 hover:scale-110 group"
@@ -27,7 +27,7 @@ const Footer = () => {
               </a>
             </TooltipTrigger>
             <TooltipContent side="top">
-              <p>@1oscp</p>
+              <p>@0oscp</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
