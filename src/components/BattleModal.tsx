@@ -99,7 +99,7 @@ const BattleModal = ({ battle, isOpen, onClose, onSultanClick }: BattleModalProp
                   <button
                     onClick={() => {
                       onClose();
-                      navigate("/sultans");
+                      navigate("/السلاطين");
                     }}
                     className="bg-muted/30 p-6 rounded-xl border border-primary/10 hover:border-primary/40 transition-colors group text-right"
                   >

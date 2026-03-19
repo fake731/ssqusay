@@ -51,7 +51,7 @@ const MapsPage = () => {
         onSultanClick={handleSultanClick}
       />
 
-      <SectionNavigation currentPath="/maps" />
+      <SectionNavigation currentPath="/الخرائط" />
       <Footer />
     </div>
   );

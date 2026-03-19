@@ -46,7 +46,7 @@ const WarriorsPage = () => {
         onClose={() => setSelectedWarrior(null)}
       />
 
-      <SectionNavigation currentPath="/warriors" />
+      <SectionNavigation currentPath="/الجنود" />
       <Footer />
     </div>
   );

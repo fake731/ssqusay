@@ -51,7 +51,7 @@ const ArchitecturePage = () => {
         onSultanClick={handleSultanClick}
       />
 
-      <SectionNavigation currentPath="/architecture" />
+      <SectionNavigation currentPath="/المعمار" />
       <Footer />
     </div>
   );
