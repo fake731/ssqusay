@@ -11,6 +11,7 @@ interface SultanModalProps {
 }
 
 const SultanModal = ({ sultan, isOpen, onClose }: SultanModalProps) => {
+  const navigate = useNavigate();
   if (!sultan) return null;
 
   return (
