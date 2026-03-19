@@ -46,7 +46,7 @@ const SultansPage = () => {
         onClose={() => setSelectedSultan(null)}
       />
 
-      <SectionNavigation currentPath="/sultans" />
+      <SectionNavigation currentPath="/السلاطين" />
       <Footer />
     </div>
   );

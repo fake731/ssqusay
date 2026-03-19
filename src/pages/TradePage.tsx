@@ -115,7 +115,7 @@ const TradePage = () => {
         </div>
       </section>
 
-      <SectionNavigation currentPath="/trade" />
+      <SectionNavigation currentPath="/التجارة" />
       <Footer />
     </div>
   );

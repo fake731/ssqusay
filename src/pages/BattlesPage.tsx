@@ -59,7 +59,7 @@ const BattlesPage = () => {
         onSultanClick={handleSultanClick}
       />
 
-      <SectionNavigation currentPath="/battles" />
+      <SectionNavigation currentPath="/المعارك" />
       <Footer />
     </div>
   );

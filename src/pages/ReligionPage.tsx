@@ -111,7 +111,7 @@ const ReligionPage = () => {
         </div>
       </section>
 
-      <SectionNavigation currentPath="/religion" />
+      <SectionNavigation currentPath="/الدين-والقضاء" />
       <Footer />
     </div>
   );

@@ -51,7 +51,7 @@ const WeaponsPage = () => {
         onBattleClick={handleBattleClick}
       />
 
-      <SectionNavigation currentPath="/weapons" />
+      <SectionNavigation currentPath="/الأسلحة" />
       <Footer />
     </div>
   );
