@@ -48,30 +48,16 @@ const CustomCursor = () => {
 
   return (
     <>
-      {/* Outer ring */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full border-2 border-primary/70"
         animate={{
-          x: position.x - (isHovering ? 24 : 16),
-          y: position.y - (isHovering ? 24 : 16),
-          width: isHovering ? 48 : 32,
-          height: isHovering ? 48 : 32,
-          borderColor: isHovering ? "hsl(43, 74%, 49%)" : "hsl(43, 74%, 49%)",
-          opacity: isHovering ? 0.9 : 0.6,
+          x: position.x - (isHovering ? 16 : 10),
+          y: position.y - (isHovering ? 16 : 10),
+          width: isHovering ? 32 : 20,
+          height: isHovering ? 32 : 20,
+          opacity: isHovering ? 0.9 : 0.7,
         }}
         transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
-      />
-      {/* Inner dot */}
-      <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full bg-primary"
-        animate={{
-          x: position.x - 3,
-          y: position.y - 3,
-          width: 6,
-          height: 6,
-          opacity: isHovering ? 0 : 0.9,
-        }}
-        transition={{ type: "spring", stiffness: 800, damping: 30 }}
       />
     </>
   );
