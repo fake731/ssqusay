@@ -12,6 +12,7 @@ interface BattleModalProps {
 }
 
 const BattleModal = ({ battle, isOpen, onClose, onSultanClick }: BattleModalProps) => {
+  const navigate = useNavigate();
   if (!battle) return null;
 
   const resultColor = battle.result === "victory" 
