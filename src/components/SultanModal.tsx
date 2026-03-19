@@ -126,7 +126,7 @@ const SultanModal = ({ sultan, isOpen, onClose }: SultanModalProps) => {
                           key={battle}
                           onClick={() => {
                             onClose();
-                            navigate("/battles");
+                            navigate("/المعارك");
                           }}
                           className="px-4 py-2 bg-secondary/10 border border-secondary/30 rounded-full text-foreground text-sm hover:bg-secondary/30 hover:border-secondary/50 transition-colors group flex items-center gap-1"
                         >

@@ -14,14 +14,14 @@ import Footer from "@/components/Footer";
 import SectionNavigation from "@/components/SectionNavigation";
 
 const navItems = [
-  { icon: Crown, label: "السلاطين", href: "/sultans", color: "from-yellow-500 to-yellow-700" },
-  { icon: Sword, label: "المعارك", href: "/battles", color: "from-red-500 to-red-700" },
-  { icon: Shield, label: "الأسلحة", href: "/weapons", color: "from-gray-500 to-gray-700" },
-  { icon: Users, label: "الجنود", href: "/warriors", color: "from-green-500 to-green-700" },
-  { icon: Map, label: "الخرائط", href: "/maps", color: "from-blue-500 to-blue-700" },
-  { icon: Building2, label: "المعمار", href: "/architecture", color: "from-purple-500 to-purple-700" },
-  { icon: Coins, label: "التجارة", href: "/trade", color: "from-emerald-500 to-emerald-700" },
-  { icon: Scale, label: "الدين والقضاء", href: "/religion", color: "from-indigo-500 to-indigo-700" },
+  { icon: Crown, label: "السلاطين", href: "/السلاطين", color: "from-yellow-500 to-yellow-700" },
+  { icon: Sword, label: "المعارك", href: "/المعارك", color: "from-red-500 to-red-700" },
+  { icon: Shield, label: "الأسلحة", href: "/الأسلحة", color: "from-gray-500 to-gray-700" },
+  { icon: Users, label: "الجنود", href: "/الجنود", color: "from-green-500 to-green-700" },
+  { icon: Map, label: "الخرائط", href: "/الخرائط", color: "from-blue-500 to-blue-700" },
+  { icon: Building2, label: "المعمار", href: "/المعمار", color: "from-purple-500 to-purple-700" },
+  { icon: Coins, label: "التجارة", href: "/التجارة", color: "from-emerald-500 to-emerald-700" },
+  { icon: Scale, label: "الدين والقضاء", href: "/الدين-والقضاء", color: "from-indigo-500 to-indigo-700" },
 ];
 
 const strengthImages = [
