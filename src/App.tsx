@@ -26,14 +26,14 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/sultans" element={<SultansPage />} />
-          <Route path="/battles" element={<BattlesPage />} />
-          <Route path="/weapons" element={<WeaponsPage />} />
-          <Route path="/warriors" element={<WarriorsPage />} />
-          <Route path="/maps" element={<MapsPage />} />
-          <Route path="/architecture" element={<ArchitecturePage />} />
-          <Route path="/trade" element={<TradePage />} />
-          <Route path="/religion" element={<ReligionPage />} />
+          <Route path="/السلاطين" element={<SultansPage />} />
+          <Route path="/المعارك" element={<BattlesPage />} />
+          <Route path="/الأسلحة" element={<WeaponsPage />} />
+          <Route path="/الجنود" element={<WarriorsPage />} />
+          <Route path="/الخرائط" element={<MapsPage />} />
+          <Route path="/المعمار" element={<ArchitecturePage />} />
+          <Route path="/التجارة" element={<TradePage />} />
+          <Route path="/الدين-والقضاء" element={<ReligionPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

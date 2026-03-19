@@ -7,15 +7,15 @@ import {
 
 const navItems = [
   { icon: Home, label: "الرئيسية", href: "/" },
-  { icon: BookOpen, label: "نبذة عامة", href: "/" },
-  { icon: Crown, label: "السلاطين", href: "/sultans" },
-  { icon: Sword, label: "المعارك", href: "/battles" },
-  { icon: Shield, label: "الأسلحة", href: "/weapons" },
-  { icon: Users, label: "الجنود", href: "/warriors" },
-  { icon: Map, label: "الخرائط", href: "/maps" },
-  { icon: Building2, label: "المعمار", href: "/architecture" },
-  { icon: Coins, label: "التجارة", href: "/trade" },
-  { icon: Scale, label: "الدين والقضاء", href: "/religion" },
+  { icon: BookOpen, label: "نبذة عامة", href: "/نبذة-عامة" },
+  { icon: Crown, label: "السلاطين", href: "/السلاطين" },
+  { icon: Sword, label: "المعارك", href: "/المعارك" },
+  { icon: Shield, label: "الأسلحة", href: "/الأسلحة" },
+  { icon: Users, label: "الجنود", href: "/الجنود" },
+  { icon: Map, label: "الخرائط", href: "/الخرائط" },
+  { icon: Building2, label: "المعمار", href: "/المعمار" },
+  { icon: Coins, label: "التجارة", href: "/التجارة" },
+  { icon: Scale, label: "الدين والقضاء", href: "/الدين-والقضاء" },
 ];
 
 interface SectionNavigationProps {
