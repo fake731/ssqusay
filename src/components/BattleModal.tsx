@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Calendar, MapPin, Sword, Users, Crown, Trophy, Target, Zap, ExternalLink } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Battle } from "@/data/ottomanData";
 import { getBattleImage } from "@/utils/battleImages";
 

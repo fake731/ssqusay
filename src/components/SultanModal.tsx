@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Crown, Calendar, Sword, MapPin, Shield, BookOpen } from "lucide-react";
+import { X, Crown, Calendar, Sword, MapPin, Shield, BookOpen, ExternalLink } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Sultan } from "@/data/ottomanData";
 import { getSultanImage } from "@/utils/sultanImages";
 
