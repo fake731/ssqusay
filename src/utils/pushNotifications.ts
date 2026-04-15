@@ -27,8 +27,7 @@ export function showLocalNotification(title: string, body: string) {
         icon: '/favicon.ico',
         dir: 'rtl',
         lang: 'ar',
-        vibrate: [200, 100, 200],
-      });
+      } as NotificationOptions);
     });
   }
 }
