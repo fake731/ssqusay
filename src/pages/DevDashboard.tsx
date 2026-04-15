@@ -101,18 +101,30 @@ const DevDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background" dir="rtl">
-      {/* Header */}
-      <div className="border-b border-border/50 bg-card/50 backdrop-blur-xl sticky top-0 z-50">
+      {/* Header - Glassmorphism */}
+      <div className="border-b border-primary/10 bg-card/30 backdrop-blur-2xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Shield className="w-6 h-6 text-primary" />
+            <div className="w-9 h-9 rounded-xl bg-primary/10 backdrop-blur-sm border border-primary/20 flex items-center justify-center">
+              <Shield className="w-5 h-5 text-primary" />
+            </div>
             <h1 className="text-xl font-amiri text-gradient-gold">لوحة تحكم المطوّر</h1>
           </div>
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="font-iphone text-xs">
+          <div className="flex items-center gap-2">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => navigate("/")} 
+              className="font-iphone text-xs rounded-xl bg-muted/30 backdrop-blur-sm hover:bg-muted/50"
+            >
               الموقع الرئيسي
             </Button>
-            <Button variant="ghost" size="icon" onClick={handleLogout}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={handleLogout}
+              className="rounded-xl bg-muted/30 backdrop-blur-sm hover:bg-destructive/20 hover:text-destructive"
+            >
               <LogOut className="w-4 h-4" />
             </Button>
           </div>
@@ -120,16 +132,16 @@ const DevDashboard = () => {
       </div>
 
       <div className="container mx-auto px-4 py-6">
-        {/* Tabs */}
+        {/* Tabs - Glassmorphism pills */}
         <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-iphone text-sm whitespace-nowrap transition-all ${
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl font-iphone text-sm whitespace-nowrap transition-all duration-300 backdrop-blur-sm border ${
                 activeTab === tab.id
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-card text-muted-foreground hover:text-foreground hover:bg-muted"
+                  ? "bg-primary/90 text-primary-foreground border-primary/50 shadow-lg shadow-primary/20"
+                  : "bg-card/30 text-muted-foreground border-primary/10 hover:text-foreground hover:bg-card/50 hover:border-primary/20"
               }`}
             >
               <tab.icon className="w-4 h-4" />
@@ -140,30 +152,33 @@ const DevDashboard = () => {
 
         {/* Overview Tab */}
         {activeTab === "overview" && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
                 { label: "إجمالي الزوّار", value: stats.visitors, icon: Users, color: "text-primary" },
-                { label: "زوّار اليوم", value: stats.today, icon: Eye, color: "text-ottoman-green" },
-                { label: "دول مختلفة", value: stats.countries, icon: Globe, color: "text-ottoman-red" },
+                { label: "زوّار اليوم", value: stats.today, icon: Eye, color: "text-green-400" },
+                { label: "دول مختلفة", value: stats.countries, icon: Globe, color: "text-red-400" },
               ].map((stat) => (
-                <div key={stat.label} className="ottoman-card p-6">
-                  <div className="flex items-center justify-between">
+                <div key={stat.label} className="relative bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6 overflow-hidden group hover:border-primary/25 transition-all duration-300">
+                  <div className="absolute -top-10 -right-10 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-all" />
+                  <div className="flex items-center justify-between relative">
                     <div>
                       <p className="text-muted-foreground font-iphone text-sm">{stat.label}</p>
                       <p className={`text-3xl font-amiri font-bold ${stat.color}`}>{stat.value}</p>
                     </div>
-                    <stat.icon className={`w-10 h-10 ${stat.color} opacity-50`} />
+                    <div className="w-12 h-12 rounded-2xl bg-primary/5 backdrop-blur-sm border border-primary/10 flex items-center justify-center">
+                      <stat.icon className={`w-6 h-6 ${stat.color} opacity-60`} />
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="ottoman-card p-6">
+            <div className="bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6">
               <h3 className="font-amiri text-lg text-primary mb-4">آخر الزوّار</h3>
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {visitors.slice(0, 10).map((v) => (
-                  <div key={v.id} className="flex items-center justify-between py-2 border-b border-border/30 font-iphone text-sm">
+                  <div key={v.id} className="flex items-center justify-between py-2.5 border-b border-primary/5 font-iphone text-sm">
                     <span className="text-muted-foreground">{v.country || "غير معروف"} - {v.city || ""}</span>
                     <span className="text-muted-foreground text-xs">{new Date(v.visited_at).toLocaleString("ar")}</span>
                   </div>
@@ -175,32 +190,32 @@ const DevDashboard = () => {
 
         {/* Visitors Tab */}
         {activeTab === "visitors" && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <div className="ottoman-card p-6">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+            <div className="bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6">
               <h3 className="font-amiri text-lg text-primary mb-4">سجل الزوّار</h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm font-iphone">
                   <thead>
-                    <tr className="border-b border-border/50 text-muted-foreground">
-                      <th className="py-2 text-right">IP</th>
-                      <th className="py-2 text-right">الدولة</th>
-                      <th className="py-2 text-right">المدينة</th>
-                      <th className="py-2 text-right">الموافقة</th>
-                      <th className="py-2 text-right">التاريخ</th>
+                    <tr className="border-b border-primary/10 text-muted-foreground">
+                      <th className="py-3 text-right">IP</th>
+                      <th className="py-3 text-right">الدولة</th>
+                      <th className="py-3 text-right">المدينة</th>
+                      <th className="py-3 text-right">الموافقة</th>
+                      <th className="py-3 text-right">التاريخ</th>
                     </tr>
                   </thead>
                   <tbody>
                     {visitors.map((v) => (
-                      <tr key={v.id} className="border-b border-border/20 hover:bg-muted/30">
-                        <td className="py-2 font-mono text-xs">{v.ip_address || "-"}</td>
-                        <td className="py-2">{v.country || "-"}</td>
-                        <td className="py-2">{v.city || "-"}</td>
-                        <td className="py-2">
-                          <span className={`text-xs px-2 py-0.5 rounded-full ${v.consent_given ? "bg-ottoman-green/20 text-green-400" : "bg-ottoman-red/20 text-red-400"}`}>
+                      <tr key={v.id} className="border-b border-primary/5 hover:bg-primary/5 transition-colors">
+                        <td className="py-2.5 font-mono text-xs">{v.ip_address || "-"}</td>
+                        <td className="py-2.5">{v.country || "-"}</td>
+                        <td className="py-2.5">{v.city || "-"}</td>
+                        <td className="py-2.5">
+                          <span className={`text-xs px-2.5 py-1 rounded-full backdrop-blur-sm ${v.consent_given ? "bg-green-500/10 text-green-400 border border-green-500/20" : "bg-red-500/10 text-red-400 border border-red-500/20"}`}>
                             {v.consent_given ? "نعم" : "لا"}
                           </span>
                         </td>
-                        <td className="py-2 text-xs text-muted-foreground">{new Date(v.visited_at).toLocaleString("ar")}</td>
+                        <td className="py-2.5 text-xs text-muted-foreground">{new Date(v.visited_at).toLocaleString("ar")}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -212,39 +227,46 @@ const DevDashboard = () => {
 
         {/* Notifications Tab */}
         {activeTab === "notifications" && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
-            <div className="ottoman-card p-6 space-y-4">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+            <div className="bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6 space-y-4">
               <h3 className="font-amiri text-lg text-primary">إرسال إشعار جديد</h3>
+              <p className="text-xs text-muted-foreground font-iphone">الإشعار راح يوصل لكل الزوار اللي وافقوا على الإشعارات</p>
               <Input
                 value={notifTitle}
                 onChange={(e) => setNotifTitle(e.target.value)}
                 placeholder="عنوان الإشعار"
-                className="font-iphone text-right"
+                className="font-iphone text-right rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10 focus:border-primary/30"
               />
               <Textarea
                 value={notifMessage}
                 onChange={(e) => setNotifMessage(e.target.value)}
                 placeholder="نص الإشعار..."
-                className="font-iphone text-right min-h-24"
+                className="font-iphone text-right min-h-24 rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10 focus:border-primary/30"
               />
-              <Button onClick={sendNotification} className="font-iphone gap-2">
+              <Button 
+                onClick={sendNotification} 
+                className="font-iphone gap-2 rounded-xl bg-primary/90 hover:bg-primary hover:shadow-lg hover:shadow-primary/20 transition-all"
+              >
                 <Send className="w-4 h-4" />
                 إرسال الإشعار
               </Button>
             </div>
 
-            <div className="ottoman-card p-6">
+            <div className="bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6">
               <h3 className="font-amiri text-lg text-primary mb-4">الإشعارات السابقة</h3>
               <div className="space-y-3">
                 {notifications.map((n) => (
-                  <div key={n.id} className="flex items-start justify-between p-3 bg-muted/30 rounded-lg">
+                  <div key={n.id} className="flex items-start justify-between p-4 bg-muted/20 backdrop-blur-sm rounded-xl border border-primary/5 hover:border-primary/15 transition-all">
                     <div>
                       <h4 className="font-iphone text-sm font-medium text-foreground">{n.title}</h4>
                       <p className="font-iphone text-xs text-muted-foreground mt-1">{n.message}</p>
                       <span className="font-iphone text-xs text-muted-foreground">{new Date(n.created_at).toLocaleString("ar")}</span>
                     </div>
-                    <button onClick={() => deleteNotification(n.id)} className="text-destructive hover:text-destructive/80">
-                      <Trash2 className="w-4 h-4" />
+                    <button 
+                      onClick={() => deleteNotification(n.id)} 
+                      className="w-8 h-8 rounded-lg bg-destructive/10 flex items-center justify-center text-destructive hover:bg-destructive/20 transition-colors"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 ))}
@@ -255,8 +277,8 @@ const DevDashboard = () => {
 
         {/* Settings Tab */}
         {activeTab === "settings" && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <div className="ottoman-card p-6 space-y-4">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+            <div className="bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6 space-y-4">
               <h3 className="font-amiri text-lg text-primary">إعدادات الموقع</h3>
               <p className="font-iphone text-sm text-muted-foreground">قريباً - إعدادات متقدمة للمحتوى والصور</p>
             </div>
