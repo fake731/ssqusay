@@ -93,7 +93,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-tajawal antialiased;
+    @apply bg-background text-foreground font-iphone antialiased;
     direction: rtl;
     cursor: none;
   }
