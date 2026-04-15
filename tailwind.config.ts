@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         amiri: ["Amiri", "serif"],
         tajawal: ["Tajawal", "sans-serif"],
+        iphone: ["iphone", "Tajawal", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
