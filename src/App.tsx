@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CustomCursor from "./components/CustomCursor";
+import PrivacyConsent from "./components/PrivacyConsent";
 import Index from "./pages/Index";
 import SultansPage from "./pages/SultansPage";
 import BattlesPage from "./pages/BattlesPage";
@@ -13,6 +14,8 @@ import MapsPage from "./pages/MapsPage";
 import ArchitecturePage from "./pages/ArchitecturePage";
 import TradePage from "./pages/TradePage";
 import ReligionPage from "./pages/ReligionPage";
+import DevLogin from "./pages/DevLogin";
+import DevDashboard from "./pages/DevDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +24,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <CustomCursor />
+      <PrivacyConsent />
       <Toaster />
       <Sonner />
       <BrowserRouter>
@@ -34,6 +38,8 @@ const App = () => (
           <Route path="/المعمار" element={<ArchitecturePage />} />
           <Route path="/التجارة" element={<TradePage />} />
           <Route path="/الدين-والقضاء" element={<ReligionPage />} />
+          <Route path="/دخول-المطور" element={<DevLogin />} />
+          <Route path="/لوحة-التحكم" element={<DevDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
