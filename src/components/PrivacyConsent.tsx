@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, X, Bell } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { registerServiceWorker, requestNotificationPermission, startNotificationPolling } from "@/utils/pushNotifications";
+import { setupPushNotifications } from "@/utils/pushNotifications";
 
 const PrivacyConsent = () => {
   const [show, setShow] = useState(false);
@@ -13,20 +13,15 @@ const PrivacyConsent = () => {
       const timer = setTimeout(() => setShow(true), 2000);
       return () => clearTimeout(timer);
     } else if (consent === "accepted") {
-      // Already accepted — start polling
-      registerServiceWorker().then(() => startNotificationPolling());
+      // Re-register SW + ensure subscription is fresh
+      setupPushNotifications().catch(() => {});
     }
   }, []);
 
   const handleAccept = async () => {
     localStorage.setItem("privacy_consent", "accepted");
     setShow(false);
-
-    // Register SW and request notification permission
-    await registerServiceWorker();
-    await requestNotificationPermission();
-    await startNotificationPolling();
-
+    await setupPushNotifications();
     trackVisitor(true);
   };
 

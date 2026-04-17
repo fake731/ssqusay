@@ -110,8 +110,9 @@ const Index = () => {
       </section>
 
       {/* Introduction Section */}
-      <section id="content" className="py-24 bg-gradient-epic">
+      <section id="نبذة-عامة" className="py-24 bg-gradient-epic scroll-mt-20">
         <div className="container mx-auto px-4">
+          <div id="content" />
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

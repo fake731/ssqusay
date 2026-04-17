@@ -20,7 +20,9 @@ const DevDashboard = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
   const [notifTitle, setNotifTitle] = useState("");
   const [notifMessage, setNotifMessage] = useState("");
-  const [stats, setStats] = useState({ visitors: 0, today: 0, countries: 0 });
+  const [notifUrl, setNotifUrl] = useState("/");
+  const [sending, setSending] = useState(false);
+  const [stats, setStats] = useState({ visitors: 0, today: 0, countries: 0, subscribers: 0 });
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -55,7 +57,8 @@ const DevDashboard = () => {
       const today = new Date().toDateString();
       const todayCount = v.filter((x: any) => new Date(x.visited_at).toDateString() === today).length;
       const countries = new Set(v.map((x: any) => x.country).filter(Boolean)).size;
-      setStats({ visitors: v.length, today: todayCount, countries });
+      const { count: subCount } = await supabase.from("push_subscriptions").select("*", { count: "exact", head: true });
+      setStats({ visitors: v.length, today: todayCount, countries, subscribers: subCount || 0 });
     }
 
     const { data: n } = await supabase.from("notifications").select("*").order("created_at", { ascending: false });
@@ -69,19 +72,36 @@ const DevDashboard = () => {
 
   const sendNotification = async () => {
     if (!notifTitle.trim() || !notifMessage.trim()) return;
-    const { error } = await supabase.from("notifications").insert({
-      title: notifTitle,
-      message: notifMessage,
-      type: "announcement",
-      created_by: user?.id,
-    });
-    if (error) {
-      toast({ title: "خطأ", description: error.message, variant: "destructive" });
-    } else {
-      toast({ title: "تم!", description: "تم إرسال الإشعار بنجاح" });
+    setSending(true);
+    try {
+      // Save to DB (history + bell)
+      const { error: dbErr } = await supabase.from("notifications").insert({
+        title: notifTitle,
+        message: notifMessage,
+        url: notifUrl || "/",
+        type: "announcement",
+        created_by: user?.id,
+      });
+      if (dbErr) throw dbErr;
+
+      // Send real Web Push to all subscribers
+      const { data, error } = await supabase.functions.invoke("send-push", {
+        body: { title: notifTitle, message: notifMessage, url: notifUrl || "/" },
+      });
+      if (error) throw error;
+
+      toast({
+        title: "تم الإرسال!",
+        description: `وصل لـ ${data?.sent || 0} جهاز من أصل ${data?.total || 0}`,
+      });
       setNotifTitle("");
       setNotifMessage("");
+      setNotifUrl("/");
       loadData();
+    } catch (err: any) {
+      toast({ title: "خطأ", description: err?.message || "فشل الإرسال", variant: "destructive" });
+    } finally {
+      setSending(false);
     }
   };
 
@@ -153,11 +173,12 @@ const DevDashboard = () => {
         {/* Overview Tab */}
         {activeTab === "overview" && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 { label: "إجمالي الزوّار", value: stats.visitors, icon: Users, color: "text-primary" },
                 { label: "زوّار اليوم", value: stats.today, icon: Eye, color: "text-green-400" },
                 { label: "دول مختلفة", value: stats.countries, icon: Globe, color: "text-red-400" },
+                { label: "مشتركي الإشعارات", value: stats.subscribers, icon: Bell, color: "text-yellow-400" },
               ].map((stat) => (
                 <div key={stat.label} className="relative bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6 overflow-hidden group hover:border-primary/25 transition-all duration-300">
                   <div className="absolute -top-10 -right-10 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-all" />
@@ -230,7 +251,9 @@ const DevDashboard = () => {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <div className="bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6 space-y-4">
               <h3 className="font-amiri text-lg text-primary">إرسال إشعار جديد</h3>
-              <p className="text-xs text-muted-foreground font-iphone">الإشعار راح يوصل لكل الزوار اللي وافقوا على الإشعارات</p>
+              <p className="text-xs text-muted-foreground font-iphone">
+                الإشعار راح يوصل push حقيقي على جهاز كل زائر وافق على الإشعارات (حتى لو الموقع مسكّر) — حالياً عندك <span className="text-yellow-400 font-bold">{stats.subscribers}</span> مشترك
+              </p>
               <Input
                 value={notifTitle}
                 onChange={(e) => setNotifTitle(e.target.value)}
@@ -243,12 +266,19 @@ const DevDashboard = () => {
                 placeholder="نص الإشعار..."
                 className="font-iphone text-right min-h-24 rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10 focus:border-primary/30"
               />
-              <Button 
-                onClick={sendNotification} 
-                className="font-iphone gap-2 rounded-xl bg-primary/90 hover:bg-primary hover:shadow-lg hover:shadow-primary/20 transition-all"
+              <Input
+                value={notifUrl}
+                onChange={(e) => setNotifUrl(e.target.value)}
+                placeholder="الرابط لما يضغط على الإشعار (مثال: /السلاطين)"
+                className="font-iphone text-right rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10 focus:border-primary/30"
+              />
+              <Button
+                onClick={sendNotification}
+                disabled={sending}
+                className="font-iphone gap-2 rounded-xl bg-primary/90 hover:bg-primary hover:shadow-lg hover:shadow-primary/20 transition-all disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />
-                إرسال الإشعار
+                {sending ? "جاري الإرسال..." : "إرسال الإشعار"}
               </Button>
             </div>
 
@@ -277,10 +307,55 @@ const DevDashboard = () => {
 
         {/* Settings Tab */}
         {activeTab === "settings" && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <div className="bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6 space-y-4">
-              <h3 className="font-amiri text-lg text-primary">إعدادات الموقع</h3>
-              <p className="font-iphone text-sm text-muted-foreground">قريباً - إعدادات متقدمة للمحتوى والصور</p>
+              <h3 className="font-amiri text-lg text-primary">معلومات الحساب</h3>
+              <div className="space-y-3 font-iphone text-sm">
+                <div className="flex justify-between py-2 border-b border-primary/5">
+                  <span className="text-muted-foreground">البريد:</span>
+                  <span className="text-foreground font-mono text-xs">{user?.email}</span>
+                </div>
+                <div className="flex justify-between py-2 border-b border-primary/5">
+                  <span className="text-muted-foreground">معرّف المستخدم:</span>
+                  <span className="text-foreground font-mono text-xs">{user?.id?.slice(0, 8)}...</span>
+                </div>
+                <div className="flex justify-between py-2 border-b border-primary/5">
+                  <span className="text-muted-foreground">الصلاحية:</span>
+                  <span className="text-yellow-400 font-bold">مطوّر</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6 space-y-4">
+              <h3 className="font-amiri text-lg text-primary">إحصائيات النظام</h3>
+              <div className="grid grid-cols-2 gap-4 font-iphone text-sm">
+                <div className="p-4 rounded-xl bg-muted/20 border border-primary/5">
+                  <p className="text-muted-foreground text-xs mb-1">المشتركين بالـ Push</p>
+                  <p className="text-2xl font-bold text-yellow-400">{stats.subscribers}</p>
+                </div>
+                <div className="p-4 rounded-xl bg-muted/20 border border-primary/5">
+                  <p className="text-muted-foreground text-xs mb-1">إجمالي الإشعارات</p>
+                  <p className="text-2xl font-bold text-primary">{notifications.length}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6 space-y-3">
+              <h3 className="font-amiri text-lg text-primary">إجراءات سريعة</h3>
+              <Button
+                onClick={() => navigate("/")}
+                variant="ghost"
+                className="w-full justify-start font-iphone rounded-xl bg-muted/20 hover:bg-muted/40"
+              >
+                زيارة الموقع
+              </Button>
+              <Button
+                onClick={loadData}
+                variant="ghost"
+                className="w-full justify-start font-iphone rounded-xl bg-muted/20 hover:bg-muted/40"
+              >
+                تحديث البيانات
+              </Button>
             </div>
           </motion.div>
         )}

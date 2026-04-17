@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const navItems = [
   { icon: Home, label: "الرئيسية", href: "/" },
-  { icon: BookOpen, label: "نبذة عامة", href: "/نبذة-عامة" },
+  { icon: BookOpen, label: "نبذة عامة", href: "/#نبذة-عامة" },
   { icon: Crown, label: "السلاطين", href: "/السلاطين" },
   { icon: Sword, label: "المعارك", href: "/المعارك" },
   { icon: Shield, label: "الأسلحة", href: "/الأسلحة" },
