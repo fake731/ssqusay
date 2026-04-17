@@ -20,7 +20,9 @@ const DevDashboard = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
   const [notifTitle, setNotifTitle] = useState("");
   const [notifMessage, setNotifMessage] = useState("");
-  const [stats, setStats] = useState({ visitors: 0, today: 0, countries: 0 });
+  const [notifUrl, setNotifUrl] = useState("/");
+  const [sending, setSending] = useState(false);
+  const [stats, setStats] = useState({ visitors: 0, today: 0, countries: 0, subscribers: 0 });
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -55,7 +57,8 @@ const DevDashboard = () => {
       const today = new Date().toDateString();
       const todayCount = v.filter((x: any) => new Date(x.visited_at).toDateString() === today).length;
       const countries = new Set(v.map((x: any) => x.country).filter(Boolean)).size;
-      setStats({ visitors: v.length, today: todayCount, countries });
+      const { count: subCount } = await supabase.from("push_subscriptions").select("*", { count: "exact", head: true });
+      setStats({ visitors: v.length, today: todayCount, countries, subscribers: subCount || 0 });
     }
 
     const { data: n } = await supabase.from("notifications").select("*").order("created_at", { ascending: false });
@@ -69,19 +72,36 @@ const DevDashboard = () => {
 
   const sendNotification = async () => {
     if (!notifTitle.trim() || !notifMessage.trim()) return;
-    const { error } = await supabase.from("notifications").insert({
-      title: notifTitle,
-      message: notifMessage,
-      type: "announcement",
-      created_by: user?.id,
-    });
-    if (error) {
-      toast({ title: "خطأ", description: error.message, variant: "destructive" });
-    } else {
-      toast({ title: "تم!", description: "تم إرسال الإشعار بنجاح" });
+    setSending(true);
+    try {
+      // Save to DB (history + bell)
+      const { error: dbErr } = await supabase.from("notifications").insert({
+        title: notifTitle,
+        message: notifMessage,
+        url: notifUrl || "/",
+        type: "announcement",
+        created_by: user?.id,
+      });
+      if (dbErr) throw dbErr;
+
+      // Send real Web Push to all subscribers
+      const { data, error } = await supabase.functions.invoke("send-push", {
+        body: { title: notifTitle, message: notifMessage, url: notifUrl || "/" },
+      });
+      if (error) throw error;
+
+      toast({
+        title: "تم الإرسال!",
+        description: `وصل لـ ${data?.sent || 0} جهاز من أصل ${data?.total || 0}`,
+      });
       setNotifTitle("");
       setNotifMessage("");
+      setNotifUrl("/");
       loadData();
+    } catch (err: any) {
+      toast({ title: "خطأ", description: err?.message || "فشل الإرسال", variant: "destructive" });
+    } finally {
+      setSending(false);
     }
   };
 

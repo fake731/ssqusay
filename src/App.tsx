@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CustomCursor from "./components/CustomCursor";
 import PrivacyConsent from "./components/PrivacyConsent";
+import NotificationBell from "./components/NotificationBell";
 import Index from "./pages/Index";
 import SultansPage from "./pages/SultansPage";
 import BattlesPage from "./pages/BattlesPage";
@@ -25,6 +26,7 @@ const App = () => (
     <TooltipProvider>
       <CustomCursor />
       <PrivacyConsent />
+      <NotificationBell />
       <Toaster />
       <Sonner />
       <BrowserRouter>
