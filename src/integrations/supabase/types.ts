@@ -23,6 +23,7 @@ export type Database = {
           message: string
           title: string
           type: string | null
+          url: string | null
         }
         Insert: {
           created_at?: string | null
@@ -32,6 +33,7 @@ export type Database = {
           message: string
           title: string
           type?: string | null
+          url?: string | null
         }
         Update: {
           created_at?: string | null
@@ -41,6 +43,7 @@ export type Database = {
           message?: string
           title?: string
           type?: string | null
+          url?: string | null
         }
         Relationships: []
       }
@@ -71,6 +74,33 @@ export type Database = {
           role?: string | null
           updated_at?: string | null
           username?: string
+        }
+        Relationships: []
+      }
+      push_subscriptions: {
+        Row: {
+          auth: string
+          created_at: string | null
+          endpoint: string
+          id: string
+          p256dh: string
+          user_agent: string | null
+        }
+        Insert: {
+          auth: string
+          created_at?: string | null
+          endpoint: string
+          id?: string
+          p256dh: string
+          user_agent?: string | null
+        }
+        Update: {
+          auth?: string
+          created_at?: string | null
+          endpoint?: string
+          id?: string
+          p256dh?: string
+          user_agent?: string | null
         }
         Relationships: []
       }
