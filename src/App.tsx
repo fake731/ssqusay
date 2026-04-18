@@ -21,7 +21,14 @@ import DevLogin from "./pages/DevLogin";
 import DevDashboard from "./pages/DevDashboard";
 import NotFound from "./pages/NotFound";
 
+import { usePageTracker } from "./hooks/usePageTracker";
+
 const queryClient = new QueryClient();
+
+const PageTrackerWrapper = () => {
+  usePageTracker();
+  return null;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -32,6 +39,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <NotificationBell />
+        <PageTrackerWrapper />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/السلاطين" element={<SultansPage />} />
