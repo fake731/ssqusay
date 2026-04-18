@@ -26,10 +26,10 @@ const App = () => (
     <TooltipProvider>
       <CustomCursor />
       <PrivacyConsent />
-      <NotificationBell />
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <NotificationBell />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/السلاطين" element={<SultansPage />} />
