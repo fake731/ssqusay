@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Shield, Users, Bell, Globe, LogOut, Send,
-  Eye, Trash2, BarChart3, Settings
+  Eye, Trash2, BarChart3, Settings, Calendar, Clock
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
-type TabType = "overview" | "visitors" | "notifications" | "settings";
+type TabType = "overview" | "visitors" | "notifications" | "scheduled" | "settings";
 
 const DevDashboard = () => {
   const [activeTab, setActiveTab] = useState<TabType>("overview");
@@ -23,6 +23,13 @@ const DevDashboard = () => {
   const [notifUrl, setNotifUrl] = useState("/");
   const [sending, setSending] = useState(false);
   const [stats, setStats] = useState({ visitors: 0, today: 0, countries: 0, subscribers: 0 });
+  const [scheduled, setScheduled] = useState<any[]>([]);
+  const [schTitle, setSchTitle] = useState("");
+  const [schMessage, setSchMessage] = useState("");
+  const [schUrl, setSchUrl] = useState("/");
+  const [schDate, setSchDate] = useState("");
+  const [schTime, setSchTime] = useState("");
+  const [scheduling, setScheduling] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -63,6 +70,43 @@ const DevDashboard = () => {
 
     const { data: n } = await supabase.from("notifications").select("*").order("created_at", { ascending: false });
     if (n) setNotifications(n);
+
+    const { data: sc } = await supabase
+      .from("scheduled_notifications")
+      .select("*")
+      .order("scheduled_for", { ascending: true });
+    if (sc) setScheduled(sc);
+  };
+
+  const scheduleNotification = async () => {
+    if (!schTitle.trim() || !schMessage.trim() || !schDate || !schTime) {
+      toast({ title: "ناقص", description: "املأ كل الحقول", variant: "destructive" });
+      return;
+    }
+    setScheduling(true);
+    try {
+      const scheduledFor = new Date(`${schDate}T${schTime}`).toISOString();
+      const { error } = await supabase.from("scheduled_notifications").insert({
+        title: schTitle,
+        message: schMessage,
+        url: schUrl || "/",
+        scheduled_for: scheduledFor,
+        created_by: user?.id,
+      });
+      if (error) throw error;
+      toast({ title: "تمت الجدولة!", description: `راح ينرسل تلقائي بـ ${new Date(scheduledFor).toLocaleString("ar")}` });
+      setSchTitle(""); setSchMessage(""); setSchUrl("/"); setSchDate(""); setSchTime("");
+      loadData();
+    } catch (err: any) {
+      toast({ title: "خطأ", description: err?.message, variant: "destructive" });
+    } finally {
+      setScheduling(false);
+    }
+  };
+
+  const deleteScheduled = async (id: string) => {
+    await supabase.from("scheduled_notifications").delete().eq("id", id);
+    loadData();
   };
 
   const handleLogout = async () => {
@@ -114,6 +158,7 @@ const DevDashboard = () => {
     { id: "overview" as TabType, label: "نظرة عامة", icon: BarChart3 },
     { id: "visitors" as TabType, label: "الزوّار", icon: Globe },
     { id: "notifications" as TabType, label: "الإشعارات", icon: Bell },
+    { id: "scheduled" as TabType, label: "الجدولة", icon: Calendar },
     { id: "settings" as TabType, label: "الإعدادات", icon: Settings },
   ];
 
@@ -300,6 +345,106 @@ const DevDashboard = () => {
                     </button>
                   </div>
                 ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+
+        {/* Scheduled Tab */}
+        {activeTab === "scheduled" && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+            <div className="bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6 space-y-4">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-primary" />
+                <h3 className="font-amiri text-lg text-primary">جدولة إشعار جديد</h3>
+              </div>
+              <p className="text-xs text-muted-foreground font-iphone">
+                حدّد التاريخ والوقت، والإشعار راح ينرسل تلقائياً لكل المشتركين بنفس اللحظة (بيشتغل في الخلفية كل دقيقة).
+              </p>
+              <Input
+                value={schTitle}
+                onChange={(e) => setSchTitle(e.target.value)}
+                placeholder="عنوان الإشعار"
+                className="font-iphone text-right rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10"
+              />
+              <Textarea
+                value={schMessage}
+                onChange={(e) => setSchMessage(e.target.value)}
+                placeholder="نص الإشعار..."
+                className="font-iphone text-right min-h-20 rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10"
+              />
+              <Input
+                value={schUrl}
+                onChange={(e) => setSchUrl(e.target.value)}
+                placeholder="الرابط (اختياري)"
+                className="font-iphone text-right rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10"
+              />
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs text-muted-foreground font-iphone">التاريخ</label>
+                  <Input
+                    type="date"
+                    value={schDate}
+                    onChange={(e) => setSchDate(e.target.value)}
+                    className="font-iphone rounded-xl bg-muted/30 border-primary/10"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs text-muted-foreground font-iphone">الوقت</label>
+                  <Input
+                    type="time"
+                    value={schTime}
+                    onChange={(e) => setSchTime(e.target.value)}
+                    className="font-iphone rounded-xl bg-muted/30 border-primary/10"
+                  />
+                </div>
+              </div>
+              <Button
+                onClick={scheduleNotification}
+                disabled={scheduling}
+                className="font-iphone gap-2 rounded-xl bg-primary/90 hover:bg-primary disabled:opacity-50"
+              >
+                <Clock className="w-4 h-4" />
+                {scheduling ? "جاري الجدولة..." : "جدولة الإشعار"}
+              </Button>
+            </div>
+
+            <div className="bg-card/30 backdrop-blur-xl border border-primary/10 rounded-2xl p-6">
+              <h3 className="font-amiri text-lg text-primary mb-4">الإشعارات المجدولة</h3>
+              <div className="space-y-3">
+                {scheduled.length === 0 ? (
+                  <p className="text-sm text-muted-foreground font-iphone text-center py-6">ما في إشعارات مجدولة لسا</p>
+                ) : (
+                  scheduled.map((s) => (
+                    <div key={s.id} className="flex items-start justify-between p-4 bg-muted/20 backdrop-blur-sm rounded-xl border border-primary/5">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="font-iphone text-sm font-medium text-foreground">{s.title}</h4>
+                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-iphone ${
+                            s.status === "sent" ? "bg-green-500/10 text-green-400" :
+                            s.status === "sending" ? "bg-yellow-500/10 text-yellow-400" :
+                            "bg-primary/10 text-primary"
+                          }`}>
+                            {s.status === "sent" ? "تم الإرسال" : s.status === "sending" ? "قيد الإرسال" : "في الانتظار"}
+                          </span>
+                        </div>
+                        <p className="font-iphone text-xs text-muted-foreground mt-1">{s.message}</p>
+                        <span className="font-iphone text-[10px] text-muted-foreground/80 mt-2 block flex items-center gap-1">
+                          <Clock className="w-3 h-3" /> {new Date(s.scheduled_for).toLocaleString("ar")}
+                        </span>
+                      </div>
+                      {s.status === "pending" && (
+                        <button
+                          onClick={() => deleteScheduled(s.id)}
+                          className="w-8 h-8 rounded-lg bg-destructive/10 flex items-center justify-center text-destructive hover:bg-destructive/20"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </motion.div>

@@ -1,1 +1,7 @@
 project_id = "oxuhhmrfbobaeapwrfov"
+
+[functions.process-scheduled-notifications]
+verify_jwt = false
+
+[functions.setup-developer]
+verify_jwt = false
