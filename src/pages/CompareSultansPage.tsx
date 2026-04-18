@@ -8,7 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionNavigation from "@/components/SectionNavigation";
 import { sultans, battles, Sultan } from "@/data/ottomanData";
-import { sultanImages } from "@/utils/sultanImages";
+import { getSultanImage } from "@/utils/sultanImages";
 
 const SultanColumn = ({ sultan, color }: { sultan: Sultan | null; color: string }) => {
   if (!sultan) {
@@ -18,7 +18,7 @@ const SultanColumn = ({ sultan, color }: { sultan: Sultan | null; color: string 
       </div>
     );
   }
-  const img = sultanImages[sultan.id];
+  const img = getSultanImage(sultan.id);
   const sultanBattles = battles.filter(b => b.sultanId === sultan.id);
   const wins = sultanBattles.filter(b => b.result === "victory").length;
 
