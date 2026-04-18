@@ -70,6 +70,43 @@ const DevDashboard = () => {
 
     const { data: n } = await supabase.from("notifications").select("*").order("created_at", { ascending: false });
     if (n) setNotifications(n);
+
+    const { data: sc } = await supabase
+      .from("scheduled_notifications")
+      .select("*")
+      .order("scheduled_for", { ascending: true });
+    if (sc) setScheduled(sc);
+  };
+
+  const scheduleNotification = async () => {
+    if (!schTitle.trim() || !schMessage.trim() || !schDate || !schTime) {
+      toast({ title: "ناقص", description: "املأ كل الحقول", variant: "destructive" });
+      return;
+    }
+    setScheduling(true);
+    try {
+      const scheduledFor = new Date(`${schDate}T${schTime}`).toISOString();
+      const { error } = await supabase.from("scheduled_notifications").insert({
+        title: schTitle,
+        message: schMessage,
+        url: schUrl || "/",
+        scheduled_for: scheduledFor,
+        created_by: user?.id,
+      });
+      if (error) throw error;
+      toast({ title: "تمت الجدولة!", description: `راح ينرسل تلقائي بـ ${new Date(scheduledFor).toLocaleString("ar")}` });
+      setSchTitle(""); setSchMessage(""); setSchUrl("/"); setSchDate(""); setSchTime("");
+      loadData();
+    } catch (err: any) {
+      toast({ title: "خطأ", description: err?.message, variant: "destructive" });
+    } finally {
+      setScheduling(false);
+    }
+  };
+
+  const deleteScheduled = async (id: string) => {
+    await supabase.from("scheduled_notifications").delete().eq("id", id);
+    loadData();
   };
 
   const handleLogout = async () => {
