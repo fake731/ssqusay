@@ -15,6 +15,8 @@ import MapsPage from "./pages/MapsPage";
 import ArchitecturePage from "./pages/ArchitecturePage";
 import TradePage from "./pages/TradePage";
 import ReligionPage from "./pages/ReligionPage";
+import CompareSultansPage from "./pages/CompareSultansPage";
+import InquiriesPage from "./pages/InquiriesPage";
 import DevLogin from "./pages/DevLogin";
 import DevDashboard from "./pages/DevDashboard";
 import NotFound from "./pages/NotFound";
@@ -40,6 +42,8 @@ const App = () => (
           <Route path="/المعمار" element={<ArchitecturePage />} />
           <Route path="/التجارة" element={<TradePage />} />
           <Route path="/الدين-والقضاء" element={<ReligionPage />} />
+          <Route path="/مقارنة-السلاطين" element={<CompareSultansPage />} />
+          <Route path="/استفسارات" element={<InquiriesPage />} />
           <Route path="/دخول-المطور" element={<DevLogin />} />
           <Route path="/لوحة-التحكم" element={<DevDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
