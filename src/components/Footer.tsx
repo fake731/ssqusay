@@ -1,4 +1,4 @@
-import { Instagram, Code2 } from "lucide-react";
+import { Instagram, Code2, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -30,6 +30,22 @@ const Footer = () => {
               </TooltipTrigger>
               <TooltipContent side="top">
                 <p>@0oscp</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  to="/استفسارات"
+                  className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-muted/30 backdrop-blur-sm hover:bg-primary/20 border border-border/50 hover:border-primary/40 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/10 group"
+                >
+                  <MessageCircle className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="top">
+                <p className="font-iphone">استفسارات</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
