@@ -1,15 +1,17 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Sword } from "lucide-react";
+import { Sword, Film } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionNavigation from "@/components/SectionNavigation";
 import BattleCard from "@/components/BattleCard";
 import BattleModal from "@/components/BattleModal";
+import CinematicBattleMode from "@/components/CinematicBattleMode";
 import { battles, Battle, sultans } from "@/data/ottomanData";
 
 const BattlesPage = () => {
   const [selectedBattle, setSelectedBattle] = useState<Battle | null>(null);
+  const [cinematicBattle, setCinematicBattle] = useState<Battle | null>(null);
 
   // ترتيب المعارك تصاعدياً حسب السنة (من 1299 إلى 1922)
   const sortedBattles = useMemo(() => {
@@ -41,12 +43,19 @@ const BattlesPage = () => {
 
           <div className="space-y-8">
             {sortedBattles.map((battle, index) => (
-              <BattleCard
-                key={battle.id}
-                battle={battle}
-                index={index}
-                onClick={() => setSelectedBattle(battle)}
-              />
+              <div key={battle.id} className="relative">
+                <BattleCard
+                  battle={battle}
+                  index={index}
+                  onClick={() => setSelectedBattle(battle)}
+                />
+                <button
+                  onClick={(e) => { e.stopPropagation(); setCinematicBattle(battle); }}
+                  className="absolute top-4 left-4 z-10 flex items-center gap-2 px-4 py-2 rounded-full bg-primary/90 backdrop-blur text-primary-foreground text-xs font-iphone hover:bg-primary shadow-lg"
+                >
+                  <Film className="w-3.5 h-3.5" /> سرد سينمائي
+                </button>
+              </div>
             ))}
           </div>
         </div>
@@ -57,6 +66,12 @@ const BattlesPage = () => {
         isOpen={!!selectedBattle}
         onClose={() => setSelectedBattle(null)}
         onSultanClick={handleSultanClick}
+      />
+
+      <CinematicBattleMode
+        battle={cinematicBattle}
+        isOpen={!!cinematicBattle}
+        onClose={() => setCinematicBattle(null)}
       />
 
       <SectionNavigation currentPath="/المعارك" />
