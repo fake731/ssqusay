@@ -158,6 +158,7 @@ const DevDashboard = () => {
     { id: "overview" as TabType, label: "نظرة عامة", icon: BarChart3 },
     { id: "visitors" as TabType, label: "الزوّار", icon: Globe },
     { id: "notifications" as TabType, label: "الإشعارات", icon: Bell },
+    { id: "scheduled" as TabType, label: "الجدولة", icon: Calendar },
     { id: "settings" as TabType, label: "الإعدادات", icon: Settings },
   ];
 
