@@ -23,6 +23,13 @@ const DevDashboard = () => {
   const [notifUrl, setNotifUrl] = useState("/");
   const [sending, setSending] = useState(false);
   const [stats, setStats] = useState({ visitors: 0, today: 0, countries: 0, subscribers: 0 });
+  const [scheduled, setScheduled] = useState<any[]>([]);
+  const [schTitle, setSchTitle] = useState("");
+  const [schMessage, setSchMessage] = useState("");
+  const [schUrl, setSchUrl] = useState("/");
+  const [schDate, setSchDate] = useState("");
+  const [schTime, setSchTime] = useState("");
+  const [scheduling, setScheduling] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
