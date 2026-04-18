@@ -2,9 +2,10 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { 
   Crown, Sword, Shield, Users, Map, Building2, 
-  Coins, Scale, BookOpen, Home, Menu, X
+  Coins, Scale, BookOpen, Home, Menu, X, Search
 } from "lucide-react";
 import { useState } from "react";
+import GlobalSearch from "./GlobalSearch";
 
 const navItems = [
   { icon: Home, label: "الرئيسية", href: "/" },
@@ -26,6 +27,7 @@ interface NavbarProps {
 const Navbar = ({ title }: NavbarProps) => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <>
@@ -59,17 +61,22 @@ const Navbar = ({ title }: NavbarProps) => {
               ))}
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-muted"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
+            {/* Search + Mobile Menu Button */}
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="p-2 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground"
+                aria-label="بحث"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 rounded-lg hover:bg-muted"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -120,6 +127,7 @@ const Navbar = ({ title }: NavbarProps) => {
       
       {/* Spacer when no title */}
       {!title && <div className="pt-16" />}
+      <GlobalSearch open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   );
 };

@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Map } from "lucide-react";
+import { Map, Compass } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionNavigation from "@/components/SectionNavigation";
 import MapCard from "@/components/MapCard";
 import MapModal from "@/components/MapModal";
+import InteractiveMapsGallery from "@/components/InteractiveMapsGallery";
 import { ottomanMaps, OttomanMap } from "@/data/ottomanData";
 
 const MapsPage = () => {
   const [selectedMap, setSelectedMap] = useState<OttomanMap | null>(null);
+  const [galleryOpen, setGalleryOpen] = useState(false);
 
   const handleSultanClick = (sultanId: number) => {
     console.log("Sultan clicked:", sultanId);
@@ -29,6 +31,12 @@ const MapsPage = () => {
             <p className="text-muted-foreground max-w-2xl mx-auto">
               تتبع تطور حدود الدولة العثمانية عبر 623 عاماً - من إمارة صغيرة إلى إمبراطورية عظيمة
             </p>
+            <button
+              onClick={() => setGalleryOpen(true)}
+              className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary text-primary-foreground font-iphone hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+            >
+              <Compass className="w-5 h-5" /> افتح المعرض التفاعلي للخرائط
+            </button>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -50,6 +58,8 @@ const MapsPage = () => {
         onClose={() => setSelectedMap(null)}
         onSultanClick={handleSultanClick}
       />
+
+      <InteractiveMapsGallery isOpen={galleryOpen} onClose={() => setGalleryOpen(false)} />
 
       <SectionNavigation currentPath="/الخرائط" />
       <Footer />

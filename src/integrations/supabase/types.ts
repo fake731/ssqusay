@@ -14,6 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
+      inquiries: {
+        Row: {
+          attachment_url: string | null
+          created_at: string | null
+          email: string
+          id: string
+          is_read: boolean | null
+          message: string
+          name: string
+          phone: string | null
+        }
+        Insert: {
+          attachment_url?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          is_read?: boolean | null
+          message: string
+          name: string
+          phone?: string | null
+        }
+        Update: {
+          attachment_url?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          name?: string
+          phone?: string | null
+        }
+        Relationships: []
+      }
+      notification_templates: {
+        Row: {
+          created_at: string | null
+          icon: string | null
+          id: string
+          message: string
+          name: string
+          title: string
+          url: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          icon?: string | null
+          id?: string
+          message: string
+          name: string
+          title: string
+          url?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          icon?: string | null
+          id?: string
+          message?: string
+          name?: string
+          title?: string
+          url?: string | null
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           created_at: string | null
@@ -44,6 +107,33 @@ export type Database = {
           title?: string
           type?: string | null
           url?: string | null
+        }
+        Relationships: []
+      }
+      page_views: {
+        Row: {
+          city: string | null
+          country: string | null
+          id: string
+          path: string
+          user_agent: string | null
+          viewed_at: string | null
+        }
+        Insert: {
+          city?: string | null
+          country?: string | null
+          id?: string
+          path: string
+          user_agent?: string | null
+          viewed_at?: string | null
+        }
+        Update: {
+          city?: string | null
+          country?: string | null
+          id?: string
+          path?: string
+          user_agent?: string | null
+          viewed_at?: string | null
         }
         Relationships: []
       }
@@ -80,6 +170,7 @@ export type Database = {
       push_subscriptions: {
         Row: {
           auth: string
+          country: string | null
           created_at: string | null
           endpoint: string
           id: string
@@ -88,6 +179,7 @@ export type Database = {
         }
         Insert: {
           auth: string
+          country?: string | null
           created_at?: string | null
           endpoint: string
           id?: string
@@ -96,6 +188,7 @@ export type Database = {
         }
         Update: {
           auth?: string
+          country?: string | null
           created_at?: string | null
           endpoint?: string
           id?: string
@@ -113,6 +206,7 @@ export type Database = {
           scheduled_for: string
           sent_at: string | null
           status: string
+          target_country: string | null
           title: string
           url: string | null
         }
@@ -124,6 +218,7 @@ export type Database = {
           scheduled_for: string
           sent_at?: string | null
           status?: string
+          target_country?: string | null
           title: string
           url?: string | null
         }
@@ -135,6 +230,7 @@ export type Database = {
           scheduled_for?: string
           sent_at?: string | null
           status?: string
+          target_country?: string | null
           title?: string
           url?: string | null
         }
