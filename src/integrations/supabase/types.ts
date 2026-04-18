@@ -104,6 +104,42 @@ export type Database = {
         }
         Relationships: []
       }
+      scheduled_notifications: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          id: string
+          message: string
+          scheduled_for: string
+          sent_at: string | null
+          status: string
+          title: string
+          url: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          message: string
+          scheduled_for: string
+          sent_at?: string | null
+          status?: string
+          title: string
+          url?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          message?: string
+          scheduled_for?: string
+          sent_at?: string | null
+          status?: string
+          title?: string
+          url?: string | null
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           content: Json
