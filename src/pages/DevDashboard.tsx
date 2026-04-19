@@ -112,11 +112,13 @@ const DevDashboard = () => {
         message: schMessage,
         url: schUrl || "/",
         scheduled_for: scheduledFor,
+        target_country: schCountry || null,
         created_by: user?.id,
       });
       if (error) throw error;
-      toast({ title: "تمت الجدولة!", description: `راح ينرسل تلقائي بـ ${new Date(scheduledFor).toLocaleString("ar")}` });
-      setSchTitle(""); setSchMessage(""); setSchUrl("/"); setSchDate(""); setSchTime("");
+      const targetTxt = schCountry ? ` (لـ ${schCountry} فقط)` : "";
+      toast({ title: "تمت الجدولة!", description: `راح ينرسل تلقائي بـ ${new Date(scheduledFor).toLocaleString("ar")}${targetTxt}` });
+      setSchTitle(""); setSchMessage(""); setSchUrl("/"); setSchDate(""); setSchTime(""); setSchCountry("");
       loadData();
     } catch (err: any) {
       toast({ title: "خطأ", description: err?.message, variant: "destructive" });
@@ -149,19 +151,26 @@ const DevDashboard = () => {
       });
       if (dbErr) throw dbErr;
 
-      // Send real Web Push to all subscribers
+      // Send real Web Push (optionally targeted by country)
       const { data, error } = await supabase.functions.invoke("send-push", {
-        body: { title: notifTitle, message: notifMessage, url: notifUrl || "/" },
+        body: {
+          title: notifTitle,
+          message: notifMessage,
+          url: notifUrl || "/",
+          country: notifCountry || undefined,
+        },
       });
       if (error) throw error;
 
+      const targetTxt = notifCountry ? ` (مستهدف: ${notifCountry})` : "";
       toast({
         title: "تم الإرسال!",
-        description: `وصل لـ ${data?.sent || 0} جهاز من أصل ${data?.total || 0}`,
+        description: `وصل لـ ${data?.sent || 0} جهاز من أصل ${data?.total || 0}${targetTxt}`,
       });
       setNotifTitle("");
       setNotifMessage("");
       setNotifUrl("/");
+      setNotifCountry("");
       loadData();
     } catch (err: any) {
       toast({ title: "خطأ", description: err?.message || "فشل الإرسال", variant: "destructive" });
@@ -177,9 +186,12 @@ const DevDashboard = () => {
 
   const tabs = [
     { id: "overview" as TabType, label: "نظرة عامة", icon: BarChart3 },
+    { id: "analytics" as TabType, label: "تحليلات", icon: TrendingUp },
     { id: "visitors" as TabType, label: "الزوّار", icon: Globe },
     { id: "notifications" as TabType, label: "الإشعارات", icon: Bell },
     { id: "scheduled" as TabType, label: "الجدولة", icon: Calendar },
+    { id: "templates" as TabType, label: "القوالب", icon: FileText },
+    { id: "inquiries" as TabType, label: "الاستفسارات", icon: Mail },
     { id: "settings" as TabType, label: "الإعدادات", icon: Settings },
   ];
 
