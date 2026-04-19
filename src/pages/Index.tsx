@@ -12,6 +12,7 @@ import { getMainImage } from "@/utils/mainPageImages";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionNavigation from "@/components/SectionNavigation";
+import Timeline3D from "@/components/Timeline3D";
 
 const navItems = [
   { icon: Crown, label: "السلاطين", href: "/السلاطين", color: "from-yellow-500 to-yellow-700" },
@@ -300,7 +301,27 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* 3D Interactive Timeline */}
+      <section className="py-24 bg-card">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold mb-4">
+              خط زمني تفاعلي ثلاثي الأبعاد
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              623 سنة من المجد — اضغط على أي نقطة لاكتشاف الحدث
+            </p>
+          </motion.div>
+          <div className="max-w-6xl mx-auto">
+            <Timeline3D />
+          </div>
+        </div>
+      </section>
       <section className="py-24 bg-card">
         <div className="container mx-auto px-4">
           <motion.div

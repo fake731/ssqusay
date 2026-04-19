@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Shield, Users, Bell, Globe, LogOut, Send,
-  Eye, Trash2, BarChart3, Settings, Calendar, Clock
+  Eye, Trash2, BarChart3, Settings, Calendar, Clock, Mail, FileText, TrendingUp
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import AnalyticsCharts from "@/components/dashboard/AnalyticsCharts";
+import InquiriesTab from "@/components/dashboard/InquiriesTab";
+import TemplatesTab from "@/components/dashboard/TemplatesTab";
 
-type TabType = "overview" | "visitors" | "notifications" | "scheduled" | "settings";
+type TabType = "overview" | "analytics" | "visitors" | "notifications" | "scheduled" | "templates" | "inquiries" | "settings";
 
 const DevDashboard = () => {
   const [activeTab, setActiveTab] = useState<TabType>("overview");
@@ -21,14 +24,17 @@ const DevDashboard = () => {
   const [notifTitle, setNotifTitle] = useState("");
   const [notifMessage, setNotifMessage] = useState("");
   const [notifUrl, setNotifUrl] = useState("/");
+  const [notifCountry, setNotifCountry] = useState("");
   const [sending, setSending] = useState(false);
   const [stats, setStats] = useState({ visitors: 0, today: 0, countries: 0, subscribers: 0 });
+  const [availableCountries, setAvailableCountries] = useState<string[]>([]);
   const [scheduled, setScheduled] = useState<any[]>([]);
   const [schTitle, setSchTitle] = useState("");
   const [schMessage, setSchMessage] = useState("");
   const [schUrl, setSchUrl] = useState("/");
   const [schDate, setSchDate] = useState("");
   const [schTime, setSchTime] = useState("");
+  const [schCountry, setSchCountry] = useState("");
   const [scheduling, setScheduling] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -68,6 +74,13 @@ const DevDashboard = () => {
       setStats({ visitors: v.length, today: todayCount, countries, subscribers: subCount || 0 });
     }
 
+    // Available countries for geo-targeting (from push subscribers)
+    const { data: subs } = await supabase.from("push_subscriptions").select("country");
+    if (subs) {
+      const set = new Set(subs.map((s: any) => s.country).filter(Boolean));
+      setAvailableCountries(Array.from(set).sort());
+    }
+
     const { data: n } = await supabase.from("notifications").select("*").order("created_at", { ascending: false });
     if (n) setNotifications(n);
 
@@ -76,6 +89,14 @@ const DevDashboard = () => {
       .select("*")
       .order("scheduled_for", { ascending: true });
     if (sc) setScheduled(sc);
+  };
+
+  const applyTemplate = (t: { title: string; message: string; url: string }) => {
+    setNotifTitle(t.title);
+    setNotifMessage(t.message);
+    setNotifUrl(t.url || "/");
+    setActiveTab("notifications");
+    toast({ title: "تم تطبيق القالب", description: "راجع الحقول وأرسل" });
   };
 
   const scheduleNotification = async () => {
@@ -91,11 +112,13 @@ const DevDashboard = () => {
         message: schMessage,
         url: schUrl || "/",
         scheduled_for: scheduledFor,
+        target_country: schCountry || null,
         created_by: user?.id,
       });
       if (error) throw error;
-      toast({ title: "تمت الجدولة!", description: `راح ينرسل تلقائي بـ ${new Date(scheduledFor).toLocaleString("ar")}` });
-      setSchTitle(""); setSchMessage(""); setSchUrl("/"); setSchDate(""); setSchTime("");
+      const targetTxt = schCountry ? ` (لـ ${schCountry} فقط)` : "";
+      toast({ title: "تمت الجدولة!", description: `راح ينرسل تلقائي بـ ${new Date(scheduledFor).toLocaleString("ar")}${targetTxt}` });
+      setSchTitle(""); setSchMessage(""); setSchUrl("/"); setSchDate(""); setSchTime(""); setSchCountry("");
       loadData();
     } catch (err: any) {
       toast({ title: "خطأ", description: err?.message, variant: "destructive" });
@@ -128,19 +151,26 @@ const DevDashboard = () => {
       });
       if (dbErr) throw dbErr;
 
-      // Send real Web Push to all subscribers
+      // Send real Web Push (optionally targeted by country)
       const { data, error } = await supabase.functions.invoke("send-push", {
-        body: { title: notifTitle, message: notifMessage, url: notifUrl || "/" },
+        body: {
+          title: notifTitle,
+          message: notifMessage,
+          url: notifUrl || "/",
+          country: notifCountry || undefined,
+        },
       });
       if (error) throw error;
 
+      const targetTxt = notifCountry ? ` (مستهدف: ${notifCountry})` : "";
       toast({
         title: "تم الإرسال!",
-        description: `وصل لـ ${data?.sent || 0} جهاز من أصل ${data?.total || 0}`,
+        description: `وصل لـ ${data?.sent || 0} جهاز من أصل ${data?.total || 0}${targetTxt}`,
       });
       setNotifTitle("");
       setNotifMessage("");
       setNotifUrl("/");
+      setNotifCountry("");
       loadData();
     } catch (err: any) {
       toast({ title: "خطأ", description: err?.message || "فشل الإرسال", variant: "destructive" });
@@ -156,9 +186,12 @@ const DevDashboard = () => {
 
   const tabs = [
     { id: "overview" as TabType, label: "نظرة عامة", icon: BarChart3 },
+    { id: "analytics" as TabType, label: "تحليلات", icon: TrendingUp },
     { id: "visitors" as TabType, label: "الزوّار", icon: Globe },
     { id: "notifications" as TabType, label: "الإشعارات", icon: Bell },
     { id: "scheduled" as TabType, label: "الجدولة", icon: Calendar },
+    { id: "templates" as TabType, label: "القوالب", icon: FileText },
+    { id: "inquiries" as TabType, label: "الاستفسارات", icon: Mail },
     { id: "settings" as TabType, label: "الإعدادات", icon: Settings },
   ];
 
@@ -317,6 +350,19 @@ const DevDashboard = () => {
                 placeholder="الرابط لما يضغط على الإشعار (مثال: /السلاطين)"
                 className="font-iphone text-right rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10 focus:border-primary/30"
               />
+              <div className="space-y-1">
+                <label className="text-xs text-muted-foreground font-iphone">🌍 استهداف جغرافي (اختياري)</label>
+                <select
+                  value={notifCountry}
+                  onChange={(e) => setNotifCountry(e.target.value)}
+                  className="w-full font-iphone text-right rounded-xl bg-muted/30 border border-primary/10 px-3 py-2 text-sm text-foreground"
+                >
+                  <option value="">كل المشتركين ({stats.subscribers})</option>
+                  {availableCountries.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
               <Button
                 onClick={sendNotification}
                 disabled={sending}
@@ -380,6 +426,19 @@ const DevDashboard = () => {
                 placeholder="الرابط (اختياري)"
                 className="font-iphone text-right rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10"
               />
+              <div className="space-y-1">
+                <label className="text-xs text-muted-foreground font-iphone">🌍 استهداف جغرافي (اختياري)</label>
+                <select
+                  value={schCountry}
+                  onChange={(e) => setSchCountry(e.target.value)}
+                  className="w-full font-iphone text-right rounded-xl bg-muted/30 border border-primary/10 px-3 py-2 text-sm text-foreground"
+                >
+                  <option value="">كل المشتركين</option>
+                  {availableCountries.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
                   <label className="text-xs text-muted-foreground font-iphone">التاريخ</label>
@@ -447,6 +506,27 @@ const DevDashboard = () => {
                 )}
               </div>
             </div>
+          </motion.div>
+        )}
+
+        {/* Analytics Tab */}
+        {activeTab === "analytics" && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+            <AnalyticsCharts />
+          </motion.div>
+        )}
+
+        {/* Templates Tab */}
+        {activeTab === "templates" && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+            <TemplatesTab onApply={applyTemplate} />
+          </motion.div>
+        )}
+
+        {/* Inquiries Tab */}
+        {activeTab === "inquiries" && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+            <InquiriesTab />
           </motion.div>
         )}
 
