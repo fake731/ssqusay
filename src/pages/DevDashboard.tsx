@@ -412,7 +412,19 @@ const DevDashboard = () => {
                 onChange={(e) => setSchUrl(e.target.value)}
                 placeholder="الرابط (اختياري)"
                 className="font-iphone text-right rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10"
-              />
+              <div className="space-y-1">
+                <label className="text-xs text-muted-foreground font-iphone">🌍 استهداف جغرافي (اختياري)</label>
+                <select
+                  value={schCountry}
+                  onChange={(e) => setSchCountry(e.target.value)}
+                  className="w-full font-iphone text-right rounded-xl bg-muted/30 border border-primary/10 px-3 py-2 text-sm text-foreground"
+                >
+                  <option value="">كل المشتركين</option>
+                  {availableCountries.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
                   <label className="text-xs text-muted-foreground font-iphone">التاريخ</label>
