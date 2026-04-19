@@ -19,7 +19,7 @@ Deno.serve(async (req) => {
     webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE);
 
     const body = await req.json();
-    const { title, message, url } = body;
+    const { title, message, url, country } = body;
     if (!title || !message) {
       return new Response(JSON.stringify({ error: "title and message required" }), {
         status: 400,
@@ -67,7 +67,9 @@ Deno.serve(async (req) => {
       });
     }
 
-    const { data: subs, error: subErr } = await admin.from("push_subscriptions").select("*");
+    let subQuery = admin.from("push_subscriptions").select("*");
+    if (country) subQuery = subQuery.eq("country", country);
+    const { data: subs, error: subErr } = await subQuery;
     if (subErr) throw subErr;
 
     const payload = JSON.stringify({ title, body: message, url: url || "/" });
