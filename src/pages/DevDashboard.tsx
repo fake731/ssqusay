@@ -509,6 +509,27 @@ const DevDashboard = () => {
           </motion.div>
         )}
 
+        {/* Analytics Tab */}
+        {activeTab === "analytics" && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+            <AnalyticsCharts />
+          </motion.div>
+        )}
+
+        {/* Templates Tab */}
+        {activeTab === "templates" && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+            <TemplatesTab onApply={applyTemplate} />
+          </motion.div>
+        )}
+
+        {/* Inquiries Tab */}
+        {activeTab === "inquiries" && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+            <InquiriesTab />
+          </motion.div>
+        )}
+
         {/* Settings Tab */}
         {activeTab === "settings" && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
