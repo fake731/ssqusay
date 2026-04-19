@@ -76,20 +76,28 @@ const DevLogin = () => {
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div className="space-y-2">
-              <label className="text-sm text-muted-foreground font-iphone">اسم المستخدم</label>
+              <label htmlFor="dev-username" className="text-sm text-muted-foreground font-iphone">اسم المستخدم</label>
               <Input
+                id="dev-username"
+                name="username"
+                type="text"
+                autoComplete="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="أدخل اسم المستخدم"
                 className="font-iphone text-right"
                 required
+                autoFocus
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm text-muted-foreground font-iphone">كلمة السر</label>
+              <label htmlFor="dev-password" className="text-sm text-muted-foreground font-iphone">كلمة السر</label>
               <div className="relative">
                 <Input
+                  id="dev-password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="أدخل كلمة السر"
