@@ -425,6 +425,7 @@ const DevDashboard = () => {
                 onChange={(e) => setSchUrl(e.target.value)}
                 placeholder="الرابط (اختياري)"
                 className="font-iphone text-right rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10"
+              />
               <div className="space-y-1">
                 <label className="text-xs text-muted-foreground font-iphone">🌍 استهداف جغرافي (اختياري)</label>
                 <select
