@@ -350,6 +350,19 @@ const DevDashboard = () => {
                 placeholder="الرابط لما يضغط على الإشعار (مثال: /السلاطين)"
                 className="font-iphone text-right rounded-xl bg-muted/30 backdrop-blur-sm border-primary/10 focus:border-primary/30"
               />
+              <div className="space-y-1">
+                <label className="text-xs text-muted-foreground font-iphone">🌍 استهداف جغرافي (اختياري)</label>
+                <select
+                  value={notifCountry}
+                  onChange={(e) => setNotifCountry(e.target.value)}
+                  className="w-full font-iphone text-right rounded-xl bg-muted/30 border border-primary/10 px-3 py-2 text-sm text-foreground"
+                >
+                  <option value="">كل المشتركين ({stats.subscribers})</option>
+                  {availableCountries.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
               <Button
                 onClick={sendNotification}
                 disabled={sending}
