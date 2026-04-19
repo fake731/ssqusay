@@ -74,6 +74,13 @@ const DevDashboard = () => {
       setStats({ visitors: v.length, today: todayCount, countries, subscribers: subCount || 0 });
     }
 
+    // Available countries for geo-targeting (from push subscribers)
+    const { data: subs } = await supabase.from("push_subscriptions").select("country");
+    if (subs) {
+      const set = new Set(subs.map((s: any) => s.country).filter(Boolean));
+      setAvailableCountries(Array.from(set).sort());
+    }
+
     const { data: n } = await supabase.from("notifications").select("*").order("created_at", { ascending: false });
     if (n) setNotifications(n);
 
@@ -82,6 +89,14 @@ const DevDashboard = () => {
       .select("*")
       .order("scheduled_for", { ascending: true });
     if (sc) setScheduled(sc);
+  };
+
+  const applyTemplate = (t: { title: string; message: string; url: string }) => {
+    setNotifTitle(t.title);
+    setNotifMessage(t.message);
+    setNotifUrl(t.url || "/");
+    setActiveTab("notifications");
+    toast({ title: "تم تطبيق القالب", description: "راجع الحقول وأرسل" });
   };
 
   const scheduleNotification = async () => {
