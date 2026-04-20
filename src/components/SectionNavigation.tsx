@@ -7,7 +7,6 @@ import {
 
 const navItems = [
   { icon: Home, label: "الرئيسية", href: "/" },
-  { icon: BookOpen, label: "نبذة عامة", href: "/نبذة-عامة" },
   { icon: Crown, label: "السلاطين", href: "/السلاطين" },
   { icon: Sword, label: "المعارك", href: "/المعارك" },
   { icon: Shield, label: "الأسلحة", href: "/الأسلحة" },
@@ -16,6 +15,7 @@ const navItems = [
   { icon: Building2, label: "المعمار", href: "/المعمار" },
   { icon: Coins, label: "التجارة", href: "/التجارة" },
   { icon: Scale, label: "الدين والقضاء", href: "/الدين-والقضاء" },
+  { icon: BookOpen, label: "الاستفسارات", href: "/استفسارات" },
 ];
 
 interface SectionNavigationProps {

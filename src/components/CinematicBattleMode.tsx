@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Play, Pause, Sword } from "lucide-react";
 import { Battle } from "@/data/ottomanData";
 import { getBattleImage } from "@/utils/battleImages";
+import { getSultanImage } from "@/utils/sultanImages";
+import { getWeaponImage } from "@/utils/weaponImages";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 interface CinematicBattleModeProps {
@@ -11,44 +13,62 @@ interface CinematicBattleModeProps {
   onClose: () => void;
 }
 
-// Build 5 narrative slides from battle data
+// Build 5 narrative slides — each with a UNIQUE image (battle hero, sultan portrait,
+// weapon close-up, alternative battle frame, then result frame).
 const buildSlides = (b: Battle) => {
   const narrative = b.fullNarrative || b.narrative || "";
   const parts = narrative.split(/\n\n|\. /).filter(s => s.trim().length > 20);
   const slug = b.name.toLowerCase().replace(/\s+/g, '-')
     .replace('battle-of-', '').replace('fall-of-', '').replace('siege-of-', '');
-  const img = getBattleImage(slug);
+
+  const battleImg = getBattleImage(slug);
+  // Sultan portrait — fall back gracefully
+  let sultanImg = battleImg;
+  try { const s = getSultanImage(b.sultanId); if (s) sultanImg = s; } catch {}
+  // First weapon close-up
+  let weaponImg = battleImg;
+  try {
+    const w = b.weaponsUsed?.[0];
+    if (w) {
+      const slugW = w.toLowerCase().replace(/\s+/g, '-');
+      const wi = getWeaponImage(slugW);
+      if (wi) weaponImg = wi;
+    }
+  } catch {}
+  // Alternative battle frame (try a related key)
+  const altSlug = slug.includes("-") ? slug.split("-")[0] : slug;
+  const altImg = getBattleImage(altSlug) || battleImg;
 
   return [
     {
       title: `${b.year} — ${b.location}`,
       subtitle: "البداية",
       text: parts[0] || `في عام ${b.year}، في ${b.location}، بدأت واحدة من أعظم المعارك العثمانية. واجهت قوات السلطان ${b.sultanName} أعداءها بقوة قوامها ${b.ottomanForces}.`,
-      image: img,
+      image: battleImg,
     },
     {
       title: "الجيوش تتقابل",
       subtitle: "الاستعداد للمواجهة",
       text: parts[1] || `قوات عثمانية: ${b.ottomanForces}\nقوات العدو: ${b.enemyForces}\n\n${b.opponents.join(' • ')}`,
-      image: img,
+      image: sultanImg,
     },
     {
       title: "الاستراتيجية",
       subtitle: "العقول قبل السيوف",
       text: b.militaryStrategy || parts[2] || "خطط القادة للمعركة بعناية، موزعين قواتهم على التضاريس بأفضل شكل.",
-      image: img,
+      image: weaponImg,
     },
     {
       title: "ساعة الحسم",
       subtitle: "الذروة",
       text: parts[3] || parts[2] || `اشتعلت المعركة، صليل السيوف يملأ الأفق، والأسلحة المستخدمة (${b.weaponsUsed.join('، ')}) تحصد أرواح الفرسان من الجانبين.`,
-      image: img,
+      image: altImg,
     },
     {
       title: b.result === "victory" ? "النصر العثماني" : b.result === "defeat" ? "الهزيمة" : "الحسم",
       subtitle: b.significance,
       text: `${b.casualties || ''}\n\n${b.significance}\n\nالقائد: ${b.commander || b.sultanName}`,
-      image: img,
+      image: battleImg,
     },
   ];
 };
