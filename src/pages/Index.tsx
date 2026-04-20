@@ -45,12 +45,13 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden">
       <Navbar title="الدولة العثمانية" />
 
       {/* Hero Section — uses the site-wide cinematic video background */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none" />
+        {/* Soft vignette only — keep the cinematic video clearly visible */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
         <div className="absolute inset-0 smoke-effect opacity-30" />
 
         <div className="relative z-10 container mx-auto px-4 text-center">

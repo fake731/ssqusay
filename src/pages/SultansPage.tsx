@@ -12,7 +12,7 @@ const SultansPage = () => {
   const [selectedSultan, setSelectedSultan] = useState<Sultan | null>(null);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
       <Navbar title="السلاطين العظماء" />
 
       <section className="py-16 bg-gradient-epic">

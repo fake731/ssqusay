@@ -18,7 +18,7 @@ const MapsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
       <Navbar title="خرائط الإمبراطورية" />
 
       <section className="py-16 bg-gradient-epic">

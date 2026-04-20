@@ -12,7 +12,7 @@ const WarriorsPage = () => {
   const [selectedWarrior, setSelectedWarrior] = useState<Warrior | null>(null);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
       <Navbar title="المحاربون العثمانيون" />
 
       <section className="py-16 bg-gradient-epic">

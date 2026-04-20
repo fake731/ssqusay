@@ -87,7 +87,7 @@ const CompareSultansPage = () => {
   const b = sultans.find(s => s.id === Number(bId)) || null;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
       <Navbar title="مقارنة السلاطين" />
 
       <section className="py-12 bg-gradient-epic">

@@ -50,7 +50,7 @@ const InquiriesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
       <Navbar title="الاستفسارات والتواصل" />
 
       <section className="py-12 bg-gradient-epic">

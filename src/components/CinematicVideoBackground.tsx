@@ -11,7 +11,8 @@ const CinematicVideoBackground = () => {
 
   return (
     <div
-      className="fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-background"
+      className="fixed inset-0 pointer-events-none overflow-hidden bg-background"
+      style={{ zIndex: -1 }}
       aria-hidden="true"
     >
       {!reduced && (
@@ -25,9 +26,8 @@ const CinematicVideoBackground = () => {
           className="absolute inset-0 w-full h-full object-cover"
         />
       )}
-      {/* Dark overlay for text contrast across all pages */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/70 to-background/85" />
-      <div className="absolute inset-0 bg-black/30" />
+      {/* Light overlay so the cinematic video stays visible while text remains readable */}
+      <div className="absolute inset-0 bg-black/35" />
     </div>
   );
 };
