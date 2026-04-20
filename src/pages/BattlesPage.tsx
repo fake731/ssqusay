@@ -23,7 +23,7 @@ const BattlesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
       <Navbar title="المعارك الملحمية" />
 
       <section className="py-16 bg-gradient-epic">

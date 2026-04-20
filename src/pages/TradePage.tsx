@@ -10,7 +10,7 @@ const TradePage = () => {
   const [selectedItem, setSelectedItem] = useState<TradeItem | null>(null);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
       <Navbar title="التجارة والاقتصاد" />
 
       {/* Economic Eras */}

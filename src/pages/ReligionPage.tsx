@@ -10,7 +10,7 @@ const ReligionPage = () => {
   const [selectedItem, setSelectedItem] = useState<ReligionItem | null>(null);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
       <Navbar title="الدين والقضاء" />
 
       {/* Timeline */}
