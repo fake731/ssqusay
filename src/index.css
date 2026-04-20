@@ -93,7 +93,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-iphone antialiased;
+    @apply text-foreground font-iphone antialiased;
+    background: transparent;
     direction: rtl;
     cursor: none;
   }
