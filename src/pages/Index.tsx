@@ -6,13 +6,11 @@ import {
   ChevronDown, Coins, Scale, BookOpen, ChevronLeft,
   Star, AlertTriangle, Calendar
 } from "lucide-react";
-import heroBanner from "@/assets/hero-banner.jpg";
 import { empireOverview } from "@/data/overview";
 import { getMainImage } from "@/utils/mainPageImages";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionNavigation from "@/components/SectionNavigation";
-import Timeline3D from "@/components/Timeline3D";
 
 const navItems = [
   { icon: Crown, label: "السلاطين", href: "/السلاطين", color: "from-yellow-500 to-yellow-700" },
@@ -50,19 +48,10 @@ const Index = () => {
     <div className="min-h-screen bg-background overflow-x-hidden">
       <Navbar title="الدولة العثمانية" />
 
-      {/* Hero Section */}
+      {/* Hero Section — uses the site-wide cinematic video background */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={heroBanner}
-            alt="Ottoman Empire Banner"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
-        </div>
-
-        <div className="absolute inset-0 smoke-effect opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none" />
+        <div className="absolute inset-0 smoke-effect opacity-30" />
 
         <div className="relative z-10 container mx-auto px-4 text-center">
           <motion.div
@@ -93,7 +82,7 @@ const Index = () => {
           >
             اكتشف ملحمة الفتوحات والمعارك والسلاطين العظماء في تجربة تفاعلية فريدة
             <br />
-            <span className="text-primary">شاهد التاريخ... لا تقرأه</span>
+            <span className="text-primary font-iphone">شاهد التاريخ... لا تقرأه</span>
           </motion.p>
 
           <motion.button
@@ -301,27 +290,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 3D Interactive Timeline */}
-      <section className="py-24 bg-card">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10"
-          >
-            <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold mb-4">
-              خط زمني تفاعلي ثلاثي الأبعاد
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              623 سنة من المجد — اضغط على أي نقطة لاكتشاف الحدث
-            </p>
-          </motion.div>
-          <div className="max-w-6xl mx-auto">
-            <Timeline3D />
-          </div>
-        </div>
-      </section>
       <section className="py-24 bg-card">
         <div className="container mx-auto px-4">
           <motion.div
