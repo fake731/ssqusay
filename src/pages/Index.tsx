@@ -7,7 +7,6 @@ import {
   Star, AlertTriangle, Calendar
 } from "lucide-react";
 import { empireOverview } from "@/data/overview";
-import { getMainImage } from "@/utils/mainPageImages";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionNavigation from "@/components/SectionNavigation";
@@ -21,22 +20,6 @@ const navItems = [
   { icon: Building2, label: "المعمار", href: "/المعمار", color: "from-purple-500 to-purple-700" },
   { icon: Coins, label: "التجارة", href: "/التجارة", color: "from-emerald-500 to-emerald-700" },
   { icon: Scale, label: "الدين والقضاء", href: "/الدين-والقضاء", color: "from-indigo-500 to-indigo-700" },
-];
-
-const strengthImages = [
-  { key: 'strength-military', title: 'الجيش الإنكشاري', desc: 'أول جيش نظامي محترف في التاريخ الإسلامي' },
-  { key: 'strength-tolerance', title: 'نظام الملل', desc: 'تسامح ديني منح الأقليات حكماً ذاتياً' },
-  { key: 'strength-technology', title: 'التكنولوجيا العسكرية', desc: 'ريادة في البارود والمدفعية' },
-  { key: 'strength-trade', title: 'الموقع التجاري', desc: 'سيطرة على مفترق طرق العالم' },
-  { key: 'strength-position', title: 'الموقع الاستراتيجي', desc: 'تحكم بالمضائق والممرات الحيوية' },
-];
-
-const weaknessImages = [
-  { key: 'weakness-succession', title: 'صراع الوراثة', desc: 'حروب أهلية بين الأمراء على العرش' },
-  { key: 'weakness-corruption', title: 'فساد الإنكشارية', desc: 'تحولهم من قوة عسكرية لطبقة متنفذة' },
-  { key: 'weakness-stagnation', title: 'الجمود الفكري', desc: 'رفض التحديث والتكنولوجيا الغربية' },
-  { key: 'weakness-harem', title: 'تدخل الحريم', desc: 'نفوذ نساء القصر في السياسة' },
-  { key: 'weakness-expansion', title: 'الاعتماد على التوسع', desc: 'اقتصاد يعتمد على الغنائم والفتوحات' },
 ];
 
 const Index = () => {
