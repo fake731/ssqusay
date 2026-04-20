@@ -7,7 +7,6 @@ import {
   Star, AlertTriangle, Calendar
 } from "lucide-react";
 import { empireOverview } from "@/data/overview";
-import { getMainImage } from "@/utils/mainPageImages";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionNavigation from "@/components/SectionNavigation";
@@ -21,22 +20,6 @@ const navItems = [
   { icon: Building2, label: "المعمار", href: "/المعمار", color: "from-purple-500 to-purple-700" },
   { icon: Coins, label: "التجارة", href: "/التجارة", color: "from-emerald-500 to-emerald-700" },
   { icon: Scale, label: "الدين والقضاء", href: "/الدين-والقضاء", color: "from-indigo-500 to-indigo-700" },
-];
-
-const strengthImages = [
-  { key: 'strength-military', title: 'الجيش الإنكشاري', desc: 'أول جيش نظامي محترف في التاريخ الإسلامي' },
-  { key: 'strength-tolerance', title: 'نظام الملل', desc: 'تسامح ديني منح الأقليات حكماً ذاتياً' },
-  { key: 'strength-technology', title: 'التكنولوجيا العسكرية', desc: 'ريادة في البارود والمدفعية' },
-  { key: 'strength-trade', title: 'الموقع التجاري', desc: 'سيطرة على مفترق طرق العالم' },
-  { key: 'strength-position', title: 'الموقع الاستراتيجي', desc: 'تحكم بالمضائق والممرات الحيوية' },
-];
-
-const weaknessImages = [
-  { key: 'weakness-succession', title: 'صراع الوراثة', desc: 'حروب أهلية بين الأمراء على العرش' },
-  { key: 'weakness-corruption', title: 'فساد الإنكشارية', desc: 'تحولهم من قوة عسكرية لطبقة متنفذة' },
-  { key: 'weakness-stagnation', title: 'الجمود الفكري', desc: 'رفض التحديث والتكنولوجيا الغربية' },
-  { key: 'weakness-harem', title: 'تدخل الحريم', desc: 'نفوذ نساء القصر في السياسة' },
-  { key: 'weakness-expansion', title: 'الاعتماد على التوسع', desc: 'اقتصاد يعتمد على الغنائم والفتوحات' },
 ];
 
 const Index = () => {
@@ -100,147 +83,10 @@ const Index = () => {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
       </section>
 
-      {/* Introduction Section */}
-      <section id="نبذة-عامة" className="py-24 bg-gradient-epic scroll-mt-20">
-        <div className="container mx-auto px-4">
-          <div id="content" />
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-5xl mx-auto"
-          >
-            <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold mb-8 text-center">
-              {empireOverview.title}
-            </h2>
-            <p className="text-xl text-muted-foreground text-center mb-8">
-              {empireOverview.subtitle}
-            </p>
-            <div className="ottoman-card p-8 md:p-12">
-              <p className="text-lg leading-relaxed text-foreground/90 whitespace-pre-line">
-                {empireOverview.introduction}
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Origin Section */}
-      <section className="py-24 bg-card">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-5xl mx-auto"
-          >
-            <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold mb-8 text-center">
-              {empireOverview.origin.title}
-            </h2>
-            <div className="ottoman-card p-8 md:p-12">
-              <p className="text-lg leading-relaxed text-foreground/90 whitespace-pre-line">
-                {empireOverview.origin.content}
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Strengths Section with Images */}
-      <section className="py-24 bg-gradient-epic">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <Star className="w-10 h-10 text-primary" />
-              <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold">
-                {empireOverview.strengths.title}
-              </h2>
-            </div>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {strengthImages.map((item, index) => (
-              <motion.div
-                key={item.key}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="ottoman-card overflow-hidden group"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={getMainImage(item.key)}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-amiri font-bold text-gradient-gold mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-muted-foreground">{item.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Weaknesses Section with Images */}
-      <section className="py-24 bg-card">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <AlertTriangle className="w-10 h-10 text-destructive" />
-              <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold">
-                {empireOverview.weaknesses.title}
-              </h2>
-            </div>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {weaknessImages.map((item, index) => (
-              <motion.div
-                key={item.key}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="ottoman-card overflow-hidden group"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={getMainImage(item.key)}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-amiri font-bold text-gradient-gold mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-muted-foreground">{item.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Timeline Section */}
       <section className="py-24 bg-gradient-epic">
         <div className="container mx-auto px-4">
+          <div id="content" />
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
