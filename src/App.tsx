@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CustomCursor from "./components/CustomCursor";
-import CinematicBackground from "./components/CinematicBackground";
+import CinematicVideoBackground from "./components/CinematicVideoBackground";
 import PrivacyConsent from "./components/PrivacyConsent";
 import NotificationBell from "./components/NotificationBell";
 import Index from "./pages/Index";
@@ -34,7 +34,7 @@ const PageTrackerWrapper = () => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <CinematicBackground />
+      <CinematicVideoBackground />
       <CustomCursor />
       <PrivacyConsent />
       <Toaster />
