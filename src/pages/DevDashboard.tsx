@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Shield, Users, Bell, Globe, LogOut, Send,
-  Eye, Trash2, BarChart3, Settings, Calendar, Clock, Mail, FileText, TrendingUp
+  Eye, Trash2, BarChart3, Settings, Calendar, Clock, Mail, FileText, TrendingUp,
+  Edit3, UserCog
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -13,8 +14,10 @@ import { useToast } from "@/hooks/use-toast";
 import AnalyticsCharts from "@/components/dashboard/AnalyticsCharts";
 import InquiriesTab from "@/components/dashboard/InquiriesTab";
 import TemplatesTab from "@/components/dashboard/TemplatesTab";
+import ContentEditorTab from "@/components/dashboard/ContentEditorTab";
+import UserManagementTab from "@/components/dashboard/UserManagementTab";
 
-type TabType = "overview" | "analytics" | "visitors" | "notifications" | "scheduled" | "templates" | "inquiries" | "settings";
+type TabType = "overview" | "analytics" | "visitors" | "notifications" | "scheduled" | "templates" | "inquiries" | "content" | "users" | "settings";
 
 const DevDashboard = () => {
   const [activeTab, setActiveTab] = useState<TabType>("overview");
