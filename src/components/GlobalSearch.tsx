@@ -38,7 +38,7 @@ const GlobalSearch = ({ open, onOpenChange }: GlobalSearchProps) => {
       ...battles.map((b) => ({
         id: `battle-${b.id}`,
         label: b.name,
-        sub: `${b.year} - ${b.location || ""}`,
+        sub: `${String(b.year)} - ${b.location || ""}`,
         icon: Sword,
         path: "/المعارك",
         img: getBattleImage(b.id),
@@ -46,14 +46,14 @@ const GlobalSearch = ({ open, onOpenChange }: GlobalSearchProps) => {
       ...weapons.map((w) => ({
         id: `weapon-${w.id}`,
         label: w.name,
-        sub: w.type || w.origin || "سلاح",
+        sub: w.type || "سلاح",
         icon: Shield,
         path: "/الأسلحة",
       })),
       ...warriors.map((w) => ({
         id: `warrior-${w.id}`,
         label: w.name,
-        sub: w.role || w.era || "محارب",
+        sub: w.role || "محارب",
         icon: Users,
         path: "/الجنود",
       })),
