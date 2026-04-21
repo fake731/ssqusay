@@ -41,8 +41,8 @@ const GlobalSearch = ({ open, onOpenChange }: GlobalSearchProps) => {
         sub: `${String(b.year)} - ${b.location || ""}`,
         icon: Sword,
         path: "/المعارك",
-        img: getBattleImage(b.id),
-      } as any)),
+        img: getBattleImage(String(b.id)),
+      })),
       ...weapons.map((w) => ({
         id: `weapon-${w.id}`,
         label: w.name,
