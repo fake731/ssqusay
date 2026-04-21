@@ -195,6 +195,8 @@ const DevDashboard = () => {
     { id: "scheduled" as TabType, label: "الجدولة", icon: Calendar },
     { id: "templates" as TabType, label: "القوالب", icon: FileText },
     { id: "inquiries" as TabType, label: "الاستفسارات", icon: Mail },
+    { id: "content" as TabType, label: "محرر المحتوى", icon: Edit3 },
+    { id: "users" as TabType, label: "المستخدمون", icon: UserCog },
     { id: "settings" as TabType, label: "الإعدادات", icon: Settings },
   ];
 
@@ -530,6 +532,20 @@ const DevDashboard = () => {
         {activeTab === "inquiries" && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
             <InquiriesTab />
+          </motion.div>
+        )}
+
+        {/* Content Editor Tab */}
+        {activeTab === "content" && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+            <ContentEditorTab />
+          </motion.div>
+        )}
+
+        {/* User Management Tab */}
+        {activeTab === "users" && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+            <UserManagementTab />
           </motion.div>
         )}
 
