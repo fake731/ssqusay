@@ -6,10 +6,11 @@ import {
   ChevronDown, Coins, Scale, BookOpen, ChevronLeft,
   Star, AlertTriangle, Calendar
 } from "lucide-react";
-import { empireOverview } from "@/data/overview";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionNavigation from "@/components/SectionNavigation";
+
+import { empireOverview } from "@/data/overview";
 
 const navItems = [
   { icon: Crown, label: "السلاطين", href: "/السلاطين", color: "from-yellow-500 to-yellow-700" },
@@ -136,49 +137,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      <section className="py-24 bg-card">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-5xl mx-auto"
-          >
-            <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold mb-8 text-center">
-              {empireOverview.mission.title}
-            </h2>
-            <div className="ottoman-card p-8 md:p-12">
-              <p className="text-lg leading-relaxed text-foreground/90 whitespace-pre-line">
-                {empireOverview.mission.content}
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Legacy Section */}
-      <section className="py-24 bg-gradient-epic">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-5xl mx-auto"
-          >
-            <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold mb-8 text-center">
-              {empireOverview.legacy.title}
-            </h2>
-            <div className="ottoman-card p-8 md:p-12">
-              <p className="text-lg leading-relaxed text-foreground/90 whitespace-pre-line">
-                {empireOverview.legacy.content}
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      
 
       <SectionNavigation currentPath="/" />
       <Footer />
