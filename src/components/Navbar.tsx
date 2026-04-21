@@ -9,7 +9,6 @@ import GlobalSearch from "./GlobalSearch";
 
 const navItems = [
   { icon: Home, label: "الرئيسية", href: "/" },
-  { icon: BookOpen, label: "نبذة عامة", href: "/#نبذة-عامة" },
   { icon: Crown, label: "السلاطين", href: "/السلاطين" },
   { icon: Sword, label: "المعارك", href: "/المعارك" },
   { icon: Shield, label: "الأسلحة", href: "/الأسلحة" },
@@ -38,9 +37,6 @@ const Navbar = ({ title }: NavbarProps) => {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2">
               <Crown className="w-8 h-8 text-primary" />
-              <span className="text-xl font-amiri font-bold text-gradient-gold hidden sm:block">
-                الدولة العثمانية
-              </span>
             </Link>
 
             {/* Desktop Menu */}

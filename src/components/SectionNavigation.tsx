@@ -53,7 +53,7 @@ const SectionNavigation = ({ currentPath }: SectionNavigationProps) => {
             >
               <Link
                 to={item.href}
-                className="flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-xl hover:bg-white/20 rounded-xl transition-all group border border-white/20 hover:border-primary/50"
+                className="flex items-center gap-2 px-6 py-3 bg-card hover:bg-muted rounded-xl transition-all group border border-border hover:border-primary/50"
               >
                 <item.icon className="w-5 h-5 text-primary" />
                 <span className="text-foreground">{item.label}</span>
