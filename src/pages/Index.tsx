@@ -50,19 +50,10 @@ const Index = () => {
             </span>
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="epic-title mb-6"
-          >
-            الدولة العثمانية
-          </motion.h1>
-
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
+            transition={{ duration: 1, delay: 0.4 }}
             className="epic-subtitle max-w-3xl mx-auto mb-12"
           >
             اكتشف ملحمة الفتوحات والمعارك والسلاطين العظماء في تجربة تفاعلية فريدة
@@ -73,7 +64,7 @@ const Index = () => {
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
+            transition={{ duration: 1, delay: 0.6 }}
             onClick={scrollToContent}
             className="animate-float"
           >
@@ -85,7 +76,7 @@ const Index = () => {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-24 bg-gradient-epic">
+      <section className="py-24">
         <div className="container mx-auto px-4">
           <div id="content" />
           <motion.div
