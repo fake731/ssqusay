@@ -119,7 +119,7 @@
   }
 
   .ottoman-card {
-    @apply relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg overflow-hidden;
+    @apply relative bg-card border border-border rounded-lg overflow-hidden;
     box-shadow: var(--shadow-epic);
   }
 
