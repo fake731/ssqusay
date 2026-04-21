@@ -2,9 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Play, Pause, Sword } from "lucide-react";
 import { Battle } from "@/data/ottomanData";
-import { getBattleImage } from "@/utils/battleImages";
-import { getSultanImage } from "@/utils/sultanImages";
-import { getWeaponImage } from "@/utils/weaponImages";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 interface CinematicBattleModeProps {
@@ -13,62 +10,72 @@ interface CinematicBattleModeProps {
   onClose: () => void;
 }
 
-// Build 5 narrative slides — each with a UNIQUE image (battle hero, sultan portrait,
-// weapon close-up, alternative battle frame, then result frame).
+// Cinematic slide images loaded via glob
+const cinematicImages = import.meta.glob('../assets/battles/battle-*-*.jpg', { eager: true, as: 'url' });
+
+const getCinematicImage = (battleKey: string, phase: string): string | null => {
+  const entry = Object.entries(cinematicImages).find(([path]) =>
+    path.includes(`battle-${battleKey}-${phase}`)
+  );
+  return entry ? entry[1] as string : null;
+};
+
+const getBattleKey = (name: string): string => {
+  const map: Record<string, string> = {
+    'constantinople': 'constantinople', 'istanbul': 'constantinople',
+    'kosovo': 'kosovo', 'mohacs': 'mohacs', 'varna': 'varna',
+    'nicopolis': 'nicopolis', 'preveza': 'preveza', 'gallipoli': 'gallipoli',
+    'çanakkale': 'gallipoli', 'chaldiran': 'chaldiran',
+    'marj-dabiq': 'marjdabiq', 'marjdabiq': 'marjdabiq',
+    'vienna': 'vienna',
+  };
+  const slug = name.toLowerCase().replace(/\s+/g, '-')
+    .replace('battle-of-', '').replace('fall-of-', '').replace('siege-of-', '');
+  return map[slug] || Object.keys(map).find(k => slug.includes(k)) || slug;
+};
+
 const buildSlides = (b: Battle) => {
   const narrative = b.fullNarrative || b.narrative || "";
   const parts = narrative.split(/\n\n|\. /).filter(s => s.trim().length > 20);
-  const slug = b.name.toLowerCase().replace(/\s+/g, '-')
-    .replace('battle-of-', '').replace('fall-of-', '').replace('siege-of-', '');
+  const key = getBattleKey(b.name);
 
-  const battleImg = getBattleImage(slug);
-  // Sultan portrait — fall back gracefully
-  let sultanImg = battleImg;
-  try { const s = getSultanImage(b.sultanId); if (s) sultanImg = s; } catch {}
-  // First weapon close-up
-  let weaponImg = battleImg;
-  try {
-    const w = b.weaponsUsed?.[0];
-    if (w) {
-      const slugW = w.toLowerCase().replace(/\s+/g, '-');
-      const wi = getWeaponImage(slugW);
-      if (wi) weaponImg = wi;
-    }
-  } catch {}
-  // Alternative battle frame (try a related key)
-  const altSlug = slug.includes("-") ? slug.split("-")[0] : slug;
-  const altImg = getBattleImage(altSlug) || battleImg;
+  // Try cinematic images first, fallback to a placeholder
+  const fallback = Object.values(cinematicImages)[0] as string || '';
+  const openingImg = getCinematicImage(key, 'opening') || fallback;
+  const prepImg = getCinematicImage(key, 'preparation') || fallback;
+  const climaxImg = getCinematicImage(key, 'climax') || fallback;
+  const resultImg = getCinematicImage(key, 'result') || fallback;
 
   return [
     {
       title: `${b.year} — ${b.location}`,
       subtitle: "البداية",
-      text: parts[0] || `في عام ${b.year}، في ${b.location}، بدأت واحدة من أعظم المعارك العثمانية. واجهت قوات السلطان ${b.sultanName} أعداءها بقوة قوامها ${b.ottomanForces}.`,
-      image: battleImg,
+      text: parts[0] || `في عام ${b.year}، في ${b.location}، بدأت واحدة من أعظم المعارك العثمانية.\n\nواجهت قوات السلطان ${b.sultanName} أعداءها بقوة قوامها ${b.ottomanForces}.\n\nكانت الأجواء مشحونة بالترقب والتوتر، والجنود يستعدون لما سيكون نقطة تحول في تاريخ المنطقة بأسرها.`,
+      image: openingImg,
     },
     {
       title: "الجيوش تتقابل",
       subtitle: "الاستعداد للمواجهة",
-      text: parts[1] || `قوات عثمانية: ${b.ottomanForces}\nقوات العدو: ${b.enemyForces}\n\n${b.opponents.join(' • ')}`,
-      image: sultanImg,
+      text: parts[1] || `قوات عثمانية: ${b.ottomanForces}\nقوات العدو: ${b.enemyForces}\n\nالخصوم: ${b.opponents.join(' • ')}\n\nبدأ القادة العثمانيون بتوزيع الجنود على المواقع الاستراتيجية، وتجهيز المدافع والأسلحة الثقيلة. كانت الروح المعنوية عالية بين الجند، وصوت الطبول يملأ أرجاء المعسكر.`,
+      image: prepImg,
     },
     {
       title: "الاستراتيجية",
       subtitle: "العقول قبل السيوف",
-      text: b.militaryStrategy || parts[2] || "خطط القادة للمعركة بعناية، موزعين قواتهم على التضاريس بأفضل شكل.",
-      image: weaponImg,
+      text: b.militaryStrategy || parts[2] || "خطط القادة للمعركة بعناية فائقة، موزعين قواتهم على التضاريس بأفضل شكل ممكن.\n\nاستخدموا تكتيكات الكمين والمناورة التي اشتهر بها الجيش العثماني عبر القرون.",
+      image: climaxImg,
     },
     {
       title: "ساعة الحسم",
       subtitle: "الذروة",
-      text: parts[3] || parts[2] || `اشتعلت المعركة، صليل السيوف يملأ الأفق، والأسلحة المستخدمة (${b.weaponsUsed.join('، ')}) تحصد أرواح الفرسان من الجانبين.`,
-      image: altImg,
+      text: parts[3] || parts[2] || `اشتعلت المعركة بكل ضراوة، صليل السيوف يملأ الأفق.\n\nالأسلحة المستخدمة: ${b.weaponsUsed.join('، ')}\n\nتحصد أرواح الفرسان من الجانبين في مشهد ملحمي لا يُنسى. الدخان يغطي ساحة المعركة والمدافع تهدر بلا توقف.`,
+      image: climaxImg,
     },
     {
       title: b.result === "victory" ? "النصر العثماني" : b.result === "defeat" ? "الهزيمة" : "الحسم",
       subtitle: b.significance,
-      text: `${b.casualties || ''}\n\n${b.significance}\n\nالقائد: ${b.commander || b.sultanName}`,
-      image: battleImg,
+      text: `الخسائر: ${b.casualties || 'غير محددة'}\n\n${b.significance}\n\nالقائد: ${b.commander || b.sultanName}\n\nهذه المعركة شكّلت نقطة تحول جوهرية في مسار الدولة العثمانية وتاريخ المنطقة بأكملها.`,
+      image: resultImg,
     },
   ];
 };
