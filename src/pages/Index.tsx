@@ -43,7 +43,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="mb-6"
+            className="mb-6 inline-block glass-section rounded-full px-1 py-1"
           >
             <span className="inline-block px-6 py-2 border border-primary/50 rounded-full text-primary text-sm tracking-wider">
               رحلة عبر 600 عام من المجد
@@ -54,7 +54,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="epic-subtitle max-w-3xl mx-auto mb-12"
+            className="epic-subtitle max-w-3xl mx-auto mb-12 glass-section rounded-3xl px-8 py-6"
           >
             اكتشف ملحمة الفتوحات والمعارك والسلاطين العظماء في تجربة تفاعلية فريدة
             <br />
