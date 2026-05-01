@@ -26,7 +26,7 @@ const SectionNavigation = ({ currentPath }: SectionNavigationProps) => {
   const filteredItems = navItems.filter(item => item.href !== currentPath);
 
   return (
-    <section className="py-16 border-t border-white/10">
+    <section className="py-16 border-t border-primary/10">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,7 +53,7 @@ const SectionNavigation = ({ currentPath }: SectionNavigationProps) => {
             >
               <Link
                 to={item.href}
-                className="flex items-center gap-2 px-6 py-3 bg-card hover:bg-muted rounded-xl transition-all group border border-border hover:border-primary/50"
+                className="flex items-center gap-2 px-6 py-3 glass-section rounded-2xl transition-all group hover:border-primary/40 hover:bg-white/[0.08]"
               >
                 <item.icon className="w-5 h-5 text-primary" />
                 <span className="text-foreground">{item.label}</span>

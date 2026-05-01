@@ -18,16 +18,31 @@ const NotificationBell = () => {
   const [unread, setUnread] = useState(0);
   const navigate = useNavigate();
 
+  const computeUnread = (list: Notif[]) => {
+    let seen: string[] = [];
+    try {
+      seen = JSON.parse(localStorage.getItem("seen_notifs") || "[]");
+      if (!Array.isArray(seen)) seen = [];
+    } catch {
+      seen = [];
+    }
+    return list.filter((d) => !seen.includes(d.id)).length;
+  };
+
   const load = async () => {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("notifications")
       .select("id,title,message,url,created_at")
       .order("created_at", { ascending: false })
       .limit(20);
+    if (error) {
+      console.error("[NotificationBell] load failed", error);
+      return;
+    }
     if (data) {
-      setItems(data as Notif[]);
-      const seen = JSON.parse(localStorage.getItem("seen_notifs") || "[]");
-      setUnread(data.filter((d) => !seen.includes(d.id)).length);
+      const list = data as Notif[];
+      setItems(list);
+      setUnread(computeUnread(list));
     }
   };
 
@@ -37,16 +52,19 @@ const NotificationBell = () => {
       .channel("notif-bell")
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "notifications" },
-        () => load()
+        { event: "*", schema: "public", table: "notifications" },
+        () => load(),
       )
       .subscribe();
-    return () => { supabase.removeChannel(channel); };
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const handleOpen = () => {
-    setOpen((v) => !v);
-    if (!open && items.length > 0) {
+    const willOpen = !open;
+    setOpen(willOpen);
+    if (willOpen && items.length > 0) {
       localStorage.setItem("seen_notifs", JSON.stringify(items.map((i) => i.id)));
       setUnread(0);
     }
@@ -65,7 +83,7 @@ const NotificationBell = () => {
       <motion.button
         whileTap={{ scale: 0.92 }}
         onClick={handleOpen}
-        className="relative w-11 h-11 rounded-2xl bg-card/40 backdrop-blur-2xl border border-primary/15 flex items-center justify-center text-foreground hover:bg-card/60 transition-all shadow-lg shadow-black/20"
+        className="relative w-11 h-11 rounded-2xl glass-section flex items-center justify-center text-foreground hover:border-primary/40 transition-all"
         aria-label="الإشعارات"
       >
         <Bell className="w-5 h-5" />
