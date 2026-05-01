@@ -2,7 +2,7 @@ import scene1 from "@/assets/siege-scene-1.mp4.asset.json";
 import scene2 from "@/assets/siege-scene-2.mp4.asset.json";
 import scene3 from "@/assets/siege-scene-3.mp4.asset.json";
 import { useEffect, useRef, useState, useCallback } from "react";
-import { Video, VideoOff } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 
 const scenes = [scene1.url, scene2.url, scene3.url];
 
@@ -44,34 +44,36 @@ const CinematicVideoBackground = () => {
 
   return (
     <>
-      {/* Toggle Button */}
+      {/* Stop / Play toggle — when stopped, the original site background shows through */}
       <button
         onClick={toggle}
         className="fixed top-20 left-4 z-50 w-10 h-10 rounded-full bg-card/80 backdrop-blur-sm border border-border flex items-center justify-center text-primary hover:bg-card transition-colors"
         aria-label={enabled ? "إيقاف الفيديو" : "تشغيل الفيديو"}
+        title={enabled ? "إيقاف الفيديو" : "تشغيل الفيديو"}
         style={{ cursor: "pointer" }}
       >
-        {enabled ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
+        {enabled ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
       </button>
 
-      <div
-        className="fixed inset-0 pointer-events-none overflow-hidden"
-        style={{ zIndex: -1 }}
-        aria-hidden="true"
-      >
+      {/* Only render the video layer when enabled — when disabled the page shows its native background */}
       {!reduced && enabled && (
-        <video
-          ref={videoRef}
-          src={scenes[0]}
-          autoPlay
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+        <div
+          className="fixed inset-0 pointer-events-none overflow-hidden"
+          style={{ zIndex: -1 }}
+          aria-hidden="true"
+        >
+          <video
+            ref={videoRef}
+            src={scenes[0]}
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/25" />
+        </div>
       )}
-      <div className="absolute inset-0 bg-black/25" />
-      </div>
     </>
   );
 };
