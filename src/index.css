@@ -119,8 +119,12 @@
   }
 
   .ottoman-card {
-    @apply relative bg-card border border-border rounded-lg overflow-hidden;
-    box-shadow: var(--shadow-epic);
+    @apply relative rounded-2xl overflow-hidden transition-all duration-300;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: 0 8px 32px -8px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
   }
 
   .ottoman-card::before {
@@ -197,10 +201,16 @@
   /* Glass — refined frosted look used by hero sections */
   .glass-section {
     background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(255,255,255,0.10);
     box-shadow: 0 10px 40px -12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  /* Wider container — removes large side gaps for premium full-width feel */
+  .container-wide {
+    @apply mx-auto w-full px-5 md:px-8 lg:px-12;
+    max-width: 1440px;
   }
 }
 
