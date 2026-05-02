@@ -39,6 +39,15 @@ const Index = () => {
         <div className="absolute inset-0 smoke-effect opacity-30" />
 
         <div className="relative z-10 container mx-auto px-4 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.1 }}
+            className="font-amiri font-bold text-gradient-gold text-5xl md:text-7xl lg:text-8xl mb-6 tracking-wide drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
+          >
+            الدولة العثمانية
+          </motion.h1>
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
