@@ -26,7 +26,7 @@ const SectionNavigation = ({ currentPath }: SectionNavigationProps) => {
   const filteredItems = navItems.filter(item => item.href !== currentPath);
 
   return (
-    <section className="py-16 border-t border-primary/10">
+    <section className="py-16 bg-transparent">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -107,7 +107,7 @@ const Navbar = ({ title }: NavbarProps) => {
       {/* Page Header with title */}
       {title && (
         <div className="pt-16">
-          <div className="bg-gradient-to-b from-card to-background py-12 border-b border-border">
+          <div className="glass-section py-12">
             <div className="container mx-auto px-4 text-center">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
