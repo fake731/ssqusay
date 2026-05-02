@@ -38,7 +38,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
         <div className="absolute inset-0 smoke-effect opacity-30" />
 
-        <div className="relative z-10 container mx-auto px-4 text-center">
+        <div className="relative z-10 container-wide text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -85,8 +85,8 @@ const Index = () => {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
+      <section className="py-20">
+        <div className="container-wide">
           <div id="content" />
           <motion.div
             initial={{ opacity: 0, y: 30 }}
