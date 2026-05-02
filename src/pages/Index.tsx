@@ -30,7 +30,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen overflow-x-hidden">
-      <Navbar title="الدولة العثمانية" />
+      <Navbar />
 
       {/* Hero Section — uses the site-wide cinematic video background */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
