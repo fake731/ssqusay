@@ -27,6 +27,9 @@ const Navbar = ({ title }: NavbarProps) => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const currentPath = (() => {
+    try { return decodeURIComponent(location.pathname); } catch { return location.pathname; }
+  })();
 
   return (
     <>
@@ -46,8 +49,8 @@ const Navbar = ({ title }: NavbarProps) => {
                   key={item.href}
                   to={item.href}
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm ${
-                    location.pathname === item.href
-                      ? "bg-primary/20 text-primary"
+                    currentPath === item.href
+                      ? "bg-primary/20 text-primary border border-primary/40 shadow-[0_0_20px_rgba(212,175,55,0.25)]"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                 >
@@ -90,8 +93,8 @@ const Navbar = ({ title }: NavbarProps) => {
                   to={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex flex-col items-center gap-1 p-3 rounded-lg transition-colors text-center ${
-                    location.pathname === item.href
-                      ? "bg-primary/20 text-primary"
+                    currentPath === item.href
+                      ? "bg-primary/20 text-primary border border-primary/40"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                 >

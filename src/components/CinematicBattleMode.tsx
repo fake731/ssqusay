@@ -111,7 +111,7 @@ const CinematicBattleMode = ({ battle, isOpen, onClose }: CinematicBattleModePro
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-7xl w-[95vw] h-[90vh] p-0 overflow-hidden bg-black border-primary/30">
+      <DialogContent className="max-w-7xl w-[95vw] h-[90vh] p-0 overflow-hidden bg-black/40 backdrop-blur-xl border border-primary/20 rounded-3xl">
         <DialogTitle className="sr-only">{battle.nameAr} - وضع السرد السينمائي</DialogTitle>
         <div className="relative w-full h-full">
           <AnimatePresence mode="wait">
@@ -124,7 +124,7 @@ const CinematicBattleMode = ({ battle, isOpen, onClose }: CinematicBattleModePro
               className="absolute inset-0"
             >
               <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
             </motion.div>
           </AnimatePresence>
 
@@ -169,17 +169,19 @@ const CinematicBattleMode = ({ battle, isOpen, onClose }: CinematicBattleModePro
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="absolute bottom-0 left-0 right-0 p-6 md:p-12 text-white max-w-4xl mx-auto text-center z-10"
+              className="absolute bottom-6 left-4 right-4 md:left-8 md:right-8 z-10"
             >
-              <p className="text-xs md:text-sm text-primary font-iphone tracking-widest uppercase mb-2">
-                {slide.subtitle}
-              </p>
-              <h2 className="text-3xl md:text-5xl font-amiri text-gradient-gold mb-6">
-                {slide.title}
-              </h2>
-              <p className="text-base md:text-lg leading-relaxed font-iphone whitespace-pre-line max-h-48 overflow-y-auto">
-                {slide.text}
-              </p>
+              <div className="max-w-4xl mx-auto text-center text-white glass-section rounded-3xl p-6 md:p-10">
+                <p className="text-xs md:text-sm text-primary font-iphone tracking-widest uppercase mb-2">
+                  {slide.subtitle}
+                </p>
+                <h2 className="text-3xl md:text-5xl font-amiri text-gradient-gold mb-6">
+                  {slide.title}
+                </h2>
+                <p className="text-base md:text-lg leading-relaxed font-iphone whitespace-pre-line max-h-48 overflow-y-auto">
+                  {slide.text}
+                </p>
+              </div>
             </motion.div>
           </AnimatePresence>
 

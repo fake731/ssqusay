@@ -65,8 +65,6 @@ const Index = () => {
             transition={{ duration: 1, delay: 0.4 }}
             className="epic-subtitle max-w-3xl mx-auto mb-12 glass-section rounded-3xl px-8 py-6"
           >
-            اكتشف ملحمة الفتوحات والمعارك والسلاطين العظماء في تجربة تفاعلية فريدة
-            <br />
             <span className="text-primary font-iphone">شاهد التاريخ... لا تقرأه</span>
           </motion.p>
 

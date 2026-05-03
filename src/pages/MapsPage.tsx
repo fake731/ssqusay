@@ -31,12 +31,6 @@ const MapsPage = () => {
             <p className="text-muted-foreground max-w-2xl mx-auto">
               تتبع تطور حدود الدولة العثمانية عبر 623 عاماً - من إمارة صغيرة إلى إمبراطورية عظيمة
             </p>
-            <button
-              onClick={() => setGalleryOpen(true)}
-              className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary text-primary-foreground font-iphone hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
-            >
-              <Compass className="w-5 h-5" /> افتح المعرض التفاعلي للخرائط
-            </button>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
