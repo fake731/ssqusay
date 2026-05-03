@@ -31,9 +31,9 @@ const Navbar = ({ title }: NavbarProps) => {
   return (
     <>
       {/* Desktop Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 glass-section !rounded-none border-x-0 border-t-0 border-b border-white/10">
-        <div className="container-wide">
-          <div className="flex items-center justify-between h-16">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+        <div className="container-wide pt-3">
+          <div className="glass-section rounded-2xl flex items-center justify-between h-16 px-4">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2">
               <Crown className="w-8 h-8 text-primary" />
