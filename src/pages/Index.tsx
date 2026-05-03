@@ -39,7 +39,6 @@ const Index = () => {
         <div className="absolute inset-0 smoke-effect opacity-30" />
 
         <div className="relative z-10 container-wide text-center">
-         <div className="glass-section rounded-3xl px-6 md:px-10 py-12 md:py-16">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -80,7 +79,6 @@ const Index = () => {
           >
             <ChevronDown className="w-10 h-10 text-primary mx-auto" />
           </motion.button>
-         </div>
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
@@ -90,7 +88,6 @@ const Index = () => {
       <section className="py-20">
         <div className="container-wide">
           <div id="content" />
-         <div className="glass-section rounded-3xl p-6 md:p-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -138,7 +135,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-         </div>
         </div>
       </section>
 
