@@ -27,8 +27,7 @@ const SectionNavigation = ({ currentPath }: SectionNavigationProps) => {
 
   return (
     <section className="py-20 bg-transparent">
-      <div className="container mx-auto px-4 max-w-5xl">
-       <div className="glass-section rounded-3xl p-6 md:p-10">
+      <div className="container-wide">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -63,7 +62,6 @@ const SectionNavigation = ({ currentPath }: SectionNavigationProps) => {
             </motion.div>
           ))}
         </div>
-       </div>
       </div>
     </section>
   );
