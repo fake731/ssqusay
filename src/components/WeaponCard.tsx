@@ -27,7 +27,7 @@ const WeaponCard = ({ weapon, index, onClick }: WeaponCardProps) => {
           alt={weapon.nameAr}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         
         {/* Type Badge */}
         <div className="absolute top-4 right-4 px-3 py-1 bg-primary/90 rounded-full">

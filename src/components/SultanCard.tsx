@@ -31,7 +31,7 @@ const SultanCard = ({ sultan, index, onClick }: SultanCardProps) => {
           alt={sultan.nameAr}
           className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         
         {/* Sultan Number Badge */}
         <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/90 flex items-center justify-center border-2 border-primary-foreground/20">
