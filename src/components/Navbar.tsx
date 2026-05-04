@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import GlobalSearch from "./GlobalSearch";
+import NotificationBell from "./NotificationBell";
 
 const navItems = [
   { icon: Home, label: "الرئيسية", href: "/" },
@@ -69,6 +70,7 @@ const Navbar = ({ title }: NavbarProps) => {
               >
                 <Search className="w-5 h-5" />
               </button>
+              <NotificationBell inline />
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="lg:hidden p-2 rounded-lg hover:bg-muted"
@@ -115,7 +117,7 @@ const Navbar = ({ title }: NavbarProps) => {
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold"
+                className="text-4xl md:text-5xl font-historical font-bold text-gradient-gold"
               >
                 {title}
               </motion.h1>

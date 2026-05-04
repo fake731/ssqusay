@@ -114,22 +114,23 @@ const CinematicBattleMode = ({ battle, isOpen, onClose }: CinematicBattleModePro
       <DialogContent className="max-w-7xl w-[95vw] h-[90vh] p-0 overflow-hidden bg-black/40 backdrop-blur-xl border border-primary/20 rounded-3xl">
         <DialogTitle className="sr-only">{battle.nameAr} - وضع السرد السينمائي</DialogTitle>
         <div className="relative w-full h-full">
+          {/* Soft cinematic backdrop (blurred slide image) */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
+              key={`bg-${index}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
               className="absolute inset-0"
             >
-              <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <img src={slide.image} alt="" className="w-full h-full object-cover scale-110 blur-2xl opacity-50" />
+              <div className="absolute inset-0 bg-black/60" />
             </motion.div>
           </AnimatePresence>
 
           {/* Top bar */}
-          <div className="absolute top-0 left-0 right-0 p-4 md:p-6 flex items-center justify-between z-10">
+          <div className="absolute top-0 left-0 right-0 p-4 md:p-6 flex items-center justify-between z-20">
             <button
               onClick={onClose}
               className="w-10 h-10 rounded-full bg-black/60 backdrop-blur flex items-center justify-center text-white hover:bg-black/80"
@@ -149,7 +150,7 @@ const CinematicBattleMode = ({ battle, isOpen, onClose }: CinematicBattleModePro
           </div>
 
           {/* Progress dots */}
-          <div className="absolute top-20 left-0 right-0 flex justify-center gap-2 z-10">
+          <div className="absolute top-20 left-0 right-0 flex justify-center gap-2 z-20">
             {slides.map((_, i) => (
               <div
                 key={i}
@@ -161,42 +162,53 @@ const CinematicBattleMode = ({ battle, isOpen, onClose }: CinematicBattleModePro
             ))}
           </div>
 
-          {/* Content */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`text-${index}`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="absolute bottom-6 left-4 right-4 md:left-8 md:right-8 z-10"
-            >
-              <div className="max-w-4xl mx-auto text-center text-white glass-section rounded-3xl p-6 md:p-10">
-                <p className="text-xs md:text-sm text-primary font-iphone tracking-widest uppercase mb-2">
-                  {slide.subtitle}
-                </p>
-                <h2 className="text-3xl md:text-5xl font-amiri text-gradient-gold mb-6">
-                  {slide.title}
-                </h2>
-                <p className="text-base md:text-lg leading-relaxed font-iphone whitespace-pre-line max-h-48 overflow-y-auto">
-                  {slide.text}
-                </p>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+          {/* Content — organized layout: image + story side by side */}
+          <div className="absolute inset-0 pt-28 pb-6 px-4 md:px-12 flex items-center justify-center z-10 overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`slide-${index}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.6 }}
+                className="w-full max-w-6xl grid md:grid-cols-2 gap-6 items-stretch h-full max-h-full"
+              >
+                {/* Image panel */}
+                <div className="relative rounded-3xl overflow-hidden glass-section min-h-[200px]">
+                  <img src={slide.image} alt={slide.title} className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 right-3 left-3 text-right">
+                    <p className="text-xs text-primary tracking-widest uppercase font-iphone">{slide.subtitle}</p>
+                  </div>
+                </div>
+
+                {/* Story panel */}
+                <div className="glass-section rounded-3xl p-5 md:p-7 text-white text-right flex flex-col overflow-hidden">
+                  <h2 className="text-2xl md:text-4xl font-amiri text-gradient-gold mb-4">
+                    {slide.title}
+                  </h2>
+                  <div className="overflow-y-auto pr-1 -mr-1">
+                    <p className="text-sm md:text-base leading-loose font-iphone whitespace-pre-line text-foreground/95">
+                      {slide.text}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
           {/* Nav arrows */}
           <button
             onClick={prev}
             disabled={index === 0}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 backdrop-blur flex items-center justify-center text-white hover:bg-black/80 disabled:opacity-20 z-10"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 backdrop-blur flex items-center justify-center text-white hover:bg-black/80 disabled:opacity-20 z-20"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
           <button
             onClick={next}
             disabled={index === 4}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 backdrop-blur flex items-center justify-center text-white hover:bg-black/80 disabled:opacity-20 z-10"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 backdrop-blur flex items-center justify-center text-white hover:bg-black/80 disabled:opacity-20 z-20"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>

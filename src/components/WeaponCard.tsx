@@ -30,8 +30,8 @@ const WeaponCard = ({ weapon, index, onClick }: WeaponCardProps) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         
         {/* Type Badge */}
-        <div className="absolute top-4 right-4 px-3 py-1 bg-primary/90 rounded-full">
-          <span className="text-primary-foreground text-xs font-semibold">{weapon.type}</span>
+        <div className="absolute top-4 right-4 px-3 py-1 rounded-full glass-section border border-primary/40">
+          <span className="text-foreground text-xs font-semibold">{weapon.type}</span>
         </div>
       </div>
 

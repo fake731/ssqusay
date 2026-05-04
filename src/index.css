@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi+Fun:wght@400;700&display=swap');
 
 @font-face {
   font-family: 'iphone';
@@ -212,6 +212,12 @@
     @apply mx-auto w-full px-5 md:px-8 lg:px-12;
     max-width: 1440px;
   }
+
+  /* Historical / calligraphic Arabic typography for hero & section titles */
+  .font-historical {
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
+    letter-spacing: 0.02em;
+  }
 }
 
 @layer utilities {
@@ -323,6 +329,12 @@
   50%, 100% {
     left: 100%;
   }
+}
+
+@keyframes droneKenBurns {
+  0%   { transform: scale(1.05) translate3d(0, 0, 0); }
+  50%  { transform: scale(1.12) translate3d(-1.5%, -1%, 0); }
+  100% { transform: scale(1.08) translate3d(1.5%, 1%, 0); }
 }
 
 /* Custom scrollbar */
