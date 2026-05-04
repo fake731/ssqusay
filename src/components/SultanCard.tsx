@@ -34,12 +34,12 @@ const SultanCard = ({ sultan, index, onClick }: SultanCardProps) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         
         {/* Sultan Number Badge */}
-        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/90 flex items-center justify-center border-2 border-primary-foreground/20">
+        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-section flex items-center justify-center border border-primary/40">
           <span className="text-primary-foreground font-bold text-lg sm:text-xl">{sultan.id}</span>
         </div>
 
         {/* Reign Period */}
-        <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 flex items-center gap-2 text-xs sm:text-sm text-foreground bg-card/80 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded-full">
+        <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 flex items-center gap-2 text-xs sm:text-sm text-foreground glass-section px-2 py-1 sm:px-3 sm:py-1.5 rounded-full">
           <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
           <span>{sultan.reign}</span>
         </div>

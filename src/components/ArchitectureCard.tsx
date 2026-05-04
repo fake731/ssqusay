@@ -48,15 +48,15 @@ const ArchitectureCard = ({ architecture, index, onClick }: ArchitectureCardProp
         <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
         
         {/* Type Badge */}
-        <div className="absolute top-3 right-3 px-3 py-1 bg-primary/90 rounded-full flex items-center gap-1">
-          <TypeIcon className="w-3 h-3 text-primary-foreground" />
-          <span className="text-xs font-semibold text-primary-foreground">
+        <div className="absolute top-3 right-3 px-3 py-1 rounded-full flex items-center gap-1 glass-section border border-primary/40">
+          <TypeIcon className="w-3 h-3 text-primary" />
+          <span className="text-xs font-semibold text-foreground">
             {typeLabels[architecture.type]}
           </span>
         </div>
         
         {/* Year Badge */}
-        <div className="absolute top-3 left-3 px-3 py-1 bg-background/80 backdrop-blur-sm rounded-full flex items-center gap-1">
+        <div className="absolute top-3 left-3 px-3 py-1 rounded-full flex items-center gap-1 glass-section">
           <Calendar className="w-3 h-3 text-primary" />
           <span className="text-xs font-bold text-foreground">{architecture.yearBuilt}</span>
         </div>

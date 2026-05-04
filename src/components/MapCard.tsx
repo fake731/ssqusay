@@ -20,7 +20,7 @@ const MapCard = ({ map, index, onClick }: MapCardProps) => {
       onClick={onClick}
       className="group cursor-pointer"
     >
-      <div className="relative overflow-hidden rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-2xl">
+      <div className="ottoman-card relative overflow-hidden rounded-2xl hover:border-primary/40 transition-all duration-300">
         {/* Map Image */}
         <div className="relative h-64 sm:h-72 overflow-hidden">
           <img
@@ -32,25 +32,23 @@ const MapCard = ({ map, index, onClick }: MapCardProps) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
           
           {/* Year Badge */}
-          <div className="absolute top-4 right-4 px-4 py-2 bg-primary/90 backdrop-blur-sm rounded-full">
-            <span className="text-primary-foreground font-bold text-lg">{map.year}</span>
+          <div className="absolute top-4 right-4 px-4 py-2 rounded-full glass-section border border-primary/40">
+            <span className="text-foreground font-bold text-lg">{map.year}</span>
           </div>
           
           {/* Expansion/Contraction Badge */}
-          <div className={`absolute top-4 left-4 px-3 py-1.5 rounded-full flex items-center gap-2 ${
-            map.expansion 
-              ? 'bg-green-500/90' 
-              : 'bg-red-500/90'
-          } backdrop-blur-sm`}>
+          <div className={`absolute top-4 left-4 px-3 py-1.5 rounded-full flex items-center gap-2 glass-section border ${
+            map.expansion ? 'border-green-400/40 text-green-300' : 'border-red-400/40 text-red-300'
+          }`}>
             {map.expansion ? (
               <>
-                <TrendingUp className="w-4 h-4 text-white" />
-                <span className="text-white text-sm font-medium">توسع</span>
+                <TrendingUp className="w-4 h-4" />
+                <span className="text-sm font-medium">توسع</span>
               </>
             ) : (
               <>
-                <TrendingDown className="w-4 h-4 text-white" />
-                <span className="text-white text-sm font-medium">تراجع</span>
+                <TrendingDown className="w-4 h-4" />
+                <span className="text-sm font-medium">تراجع</span>
               </>
             )}
           </div>
