@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bell, X, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 interface Notif {
   id: string;
@@ -12,11 +13,43 @@ interface Notif {
   created_at: string | null;
 }
 
-const NotificationBell = () => {
+/** Plays a short Ottoman-flavored chime using WebAudio (no asset file needed). */
+const playOttomanChime = () => {
+  try {
+    const Ctx = (window.AudioContext || (window as any).webkitAudioContext);
+    if (!Ctx) return;
+    const ctx = new Ctx();
+    const now = ctx.currentTime;
+    // Two-note hijaz-flavored ding (D5 → A5)
+    const notes = [
+      { f: 587.33, t: 0.0,  d: 0.55 },
+      { f: 880.0,  t: 0.12, d: 0.7  },
+    ];
+    notes.forEach(({ f, t, d }) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "triangle";
+      osc.frequency.value = f;
+      gain.gain.setValueAtTime(0.0001, now + t);
+      gain.gain.exponentialRampToValueAtTime(0.22, now + t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + t + d);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(now + t);
+      osc.stop(now + t + d + 0.05);
+    });
+    setTimeout(() => ctx.close(), 1200);
+  } catch {
+    /* ignore audio errors */
+  }
+};
+
+const NotificationBell = ({ inline = false }: { inline?: boolean }) => {
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<Notif[]>([]);
   const [unread, setUnread] = useState(0);
   const navigate = useNavigate();
+  const initialized = useRef(false);
+  const knownIds = useRef<Set<string>>(new Set());
 
   const computeUnread = (list: Notif[]) => {
     let seen: string[] = [];
@@ -29,7 +62,7 @@ const NotificationBell = () => {
     return list.filter((d) => !seen.includes(d.id)).length;
   };
 
-  const load = async () => {
+  const load = async (notifyNew = false) => {
     const { data, error } = await supabase
       .from("notifications")
       .select("id,title,message,url,created_at")
@@ -41,19 +74,41 @@ const NotificationBell = () => {
     }
     if (data) {
       const list = data as Notif[];
+      // Detect new notifications since last load
+      if (notifyNew && initialized.current) {
+        const fresh = list.filter((n) => !knownIds.current.has(n.id));
+        if (fresh.length > 0) {
+          playOttomanChime();
+          fresh.slice(0, 1).forEach((n) => {
+            toast({ title: n.title, description: n.message });
+            // Browser/system notification (works on supported devices)
+            if ("Notification" in window && Notification.permission === "granted") {
+              try {
+                new Notification(n.title, { body: n.message, icon: "/favicon.ico" });
+              } catch {}
+            }
+          });
+        }
+      }
+      list.forEach((n) => knownIds.current.add(n.id));
+      initialized.current = true;
       setItems(list);
       setUnread(computeUnread(list));
     }
   };
 
   useEffect(() => {
-    load();
+    load(false);
+    // Ask permission once for system notifications
+    if ("Notification" in window && Notification.permission === "default") {
+      try { Notification.requestPermission(); } catch {}
+    }
     const channel = supabase
       .channel("notif-bell")
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "notifications" },
-        () => load(),
+        () => load(true),
       )
       .subscribe();
     return () => {
@@ -78,12 +133,16 @@ const NotificationBell = () => {
     }
   };
 
+  const buttonClass = inline
+    ? "relative p-2 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+    : "relative w-11 h-11 rounded-2xl glass-section flex items-center justify-center text-foreground hover:border-primary/40 transition-all";
+
   return (
-    <div className="fixed top-4 left-4 z-[60]">
+    <div className={inline ? "relative" : "fixed top-4 left-4 z-[60]"}>
       <motion.button
         whileTap={{ scale: 0.92 }}
         onClick={handleOpen}
-        className="relative w-11 h-11 rounded-2xl glass-section flex items-center justify-center text-foreground hover:border-primary/40 transition-all"
+        className={buttonClass}
         aria-label="الإشعارات"
       >
         <Bell className="w-5 h-5" />
@@ -101,7 +160,7 @@ const NotificationBell = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="absolute top-14 left-0 w-[340px] max-w-[90vw] bg-card/60 backdrop-blur-2xl border border-primary/15 rounded-3xl shadow-2xl overflow-hidden"
+            className={`absolute ${inline ? "top-12 right-0" : "top-14 left-0"} w-[340px] max-w-[90vw] bg-card/60 backdrop-blur-2xl border border-primary/15 rounded-3xl shadow-2xl overflow-hidden z-[80]`}
             dir="rtl"
           >
             <div className="flex items-center justify-between p-4 border-b border-primary/10">

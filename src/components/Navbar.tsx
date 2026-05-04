@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import GlobalSearch from "./GlobalSearch";
+import NotificationBell from "./NotificationBell";
 
 const navItems = [
   { icon: Home, label: "الرئيسية", href: "/" },
@@ -69,6 +70,7 @@ const Navbar = ({ title }: NavbarProps) => {
               >
                 <Search className="w-5 h-5" />
               </button>
+              <NotificationBell inline />
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="lg:hidden p-2 rounded-lg hover:bg-muted"
