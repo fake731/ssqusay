@@ -43,7 +43,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.1 }}
-            className="font-amiri font-bold text-gradient-gold text-5xl md:text-7xl lg:text-8xl mb-6 tracking-wide drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
+            className="font-historical font-bold text-gradient-gold text-5xl md:text-7xl lg:text-8xl mb-6 tracking-wide drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
           >
             الدولة العثمانية
           </motion.h1>
@@ -85,7 +85,7 @@ const Index = () => {
           >
             <div className="flex items-center justify-center gap-4 mb-4">
               <Calendar className="w-10 h-10 text-primary" />
-              <h2 className="text-4xl md:text-5xl font-amiri font-bold text-gradient-gold">
+              <h2 className="text-4xl md:text-5xl font-historical font-bold text-gradient-gold">
                 المحطات التاريخية
               </h2>
             </div>
