@@ -30,14 +30,14 @@ const WarriorCard = ({ warrior, index, onClick }: WarriorCardProps) => {
         <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
         
         {/* Type Badge */}
-        <div className="absolute top-4 right-4 px-3 py-1 bg-primary/90 rounded-full">
-          <span className="text-primary-foreground text-sm font-bold">{warrior.typeAr}</span>
+        <div className="absolute top-4 right-4 px-3 py-1 rounded-full glass-section border border-primary/40">
+          <span className="text-foreground text-sm font-bold">{warrior.typeAr}</span>
         </div>
 
         {/* Period Badge */}
-        <div className="absolute top-4 left-4 flex items-center gap-1 px-3 py-1 bg-card/90 rounded-full">
-          <Calendar className="w-3 h-3 text-secondary" />
-          <span className="text-secondary text-xs">{warrior.period}</span>
+        <div className="absolute top-4 left-4 flex items-center gap-1 px-3 py-1 rounded-full glass-section">
+          <Calendar className="w-3 h-3 text-primary" />
+          <span className="text-foreground text-xs">{warrior.period}</span>
         </div>
       </div>
 
@@ -61,13 +61,13 @@ const WarriorCard = ({ warrior, index, onClick }: WarriorCardProps) => {
           {warrior.equipment.slice(0, 3).map((item) => (
             <span
               key={item}
-              className="px-2 py-1 bg-secondary/20 text-secondary-foreground text-xs rounded-full"
+              className="px-2 py-1 glass-section text-foreground text-xs rounded-full"
             >
               {item}
             </span>
           ))}
           {warrior.equipment.length > 3 && (
-            <span className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-full">
+            <span className="px-2 py-1 glass-section text-muted-foreground text-xs rounded-full">
               +{warrior.equipment.length - 3}
             </span>
           )}

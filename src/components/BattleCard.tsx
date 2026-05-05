@@ -78,15 +78,15 @@ const BattleCard = ({ battle, index, onClick }: BattleCardProps) => {
 
           {/* Forces */}
           <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="bg-muted/50 p-3 rounded-lg">
+            <div className="glass-section p-3 rounded-lg">
               <div className="flex items-center gap-2 text-primary mb-1">
                 <Users className="w-4 h-4" />
                 <span className="text-xs">القوات العثمانية</span>
               </div>
               <span className="text-foreground font-semibold text-sm">{battle.ottomanForces}</span>
             </div>
-            <div className="bg-muted/50 p-3 rounded-lg">
-              <div className="flex items-center gap-2 text-secondary mb-1">
+            <div className="glass-section p-3 rounded-lg">
+              <div className="flex items-center gap-2 text-primary/80 mb-1">
                 <Users className="w-4 h-4" />
                 <span className="text-xs">قوات العدو</span>
               </div>
@@ -103,7 +103,7 @@ const BattleCard = ({ battle, index, onClick }: BattleCardProps) => {
             {battle.opponents.map((opponent) => (
               <span
                 key={opponent}
-                className="px-3 py-1 bg-secondary/20 text-secondary-foreground text-xs rounded-full"
+                className="px-3 py-1 glass-section text-foreground text-xs rounded-full"
               >
                 {opponent}
               </span>

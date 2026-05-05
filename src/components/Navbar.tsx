@@ -63,6 +63,7 @@ const Navbar = ({ title }: NavbarProps) => {
 
             {/* Search + Mobile Menu Button */}
             <div className="flex items-center gap-1">
+              <NotificationBell inline />
               <button
                 onClick={() => setSearchOpen(true)}
                 className="p-2 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground"
@@ -70,7 +71,6 @@ const Navbar = ({ title }: NavbarProps) => {
               >
                 <Search className="w-5 h-5" />
               </button>
-              <NotificationBell inline />
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="lg:hidden p-2 rounded-lg hover:bg-muted"

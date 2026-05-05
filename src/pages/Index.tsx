@@ -59,6 +59,17 @@ const Index = () => {
             </span>
           </motion.div>
 
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.35 }}
+            className="max-w-3xl mx-auto -mt-6 mb-12 text-base md:text-xl text-foreground/85 font-iphone leading-relaxed"
+          >
+            اكتشف ملحمة الفتوحات والمعارك والسلاطين العظماء في تجربة تفاعلية فريدة
+            <br />
+            <span className="text-primary">شاهد التاريخ... لا تقرأه</span>
+          </motion.p>
+
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

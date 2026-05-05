@@ -215,8 +215,9 @@
 
   /* Historical / calligraphic Arabic typography for hero & section titles */
   .font-historical {
-    font-family: 'Aref Ruqaa', 'Amiri', serif;
-    letter-spacing: 0.02em;
+    font-family: 'Amiri', 'Aref Ruqaa', serif;
+    font-weight: 700;
+    letter-spacing: 0.005em;
   }
 }
 
