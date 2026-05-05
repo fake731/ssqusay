@@ -5,6 +5,7 @@ import { OttomanMap } from "@/data/maps";
 import { getMapImage } from "@/utils/mapImages";
 import { sultans } from "@/data/sultans";
 import { motion } from "framer-motion";
+import HistoricalProse from "./HistoricalProse";
 
 interface MapModalProps {
   map: OttomanMap | null;
@@ -20,7 +21,7 @@ const MapModal = ({ map, isOpen, onClose, onSultanClick }: MapModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden bg-card border-primary/20">
+      <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden glass-section border-primary/20">
         <DialogTitle className="sr-only">{map.title}</DialogTitle>
         <ScrollArea className="max-h-[90vh]">
           {/* Hero Image */}
@@ -46,20 +47,18 @@ const MapModal = ({ map, isOpen, onClose, onSultanClick }: MapModalProps) => {
             </div>
             
             {/* Expansion Badge */}
-            <div className={`absolute top-20 right-4 px-4 py-2 rounded-full flex items-center gap-2 ${
-              map.expansion 
-                ? 'bg-green-500/90' 
-                : 'bg-red-500/90'
-            } backdrop-blur-sm`}>
+            <div className={`absolute top-20 right-4 px-4 py-2 rounded-full flex items-center gap-2 glass-section ${
+              map.expansion ? 'text-green-300' : 'text-red-300'
+            }`}>
               {map.expansion ? (
                 <>
-                  <TrendingUp className="w-5 h-5 text-white" />
-                  <span className="text-white font-medium">فترة توسع</span>
+                  <TrendingUp className="w-5 h-5" />
+                  <span className="font-medium">فترة توسع</span>
                 </>
               ) : (
                 <>
-                  <TrendingDown className="w-5 h-5 text-white" />
-                  <span className="text-white font-medium">فترة تراجع</span>
+                  <TrendingDown className="w-5 h-5" />
+                  <span className="font-medium">فترة تراجع</span>
                 </>
               )}
             </div>
@@ -92,9 +91,7 @@ const MapModal = ({ map, isOpen, onClose, onSultanClick }: MapModalProps) => {
                 <MapPin className="w-5 h-5" />
                 نظرة عامة
               </h3>
-              <p className="text-foreground leading-relaxed text-lg">
-                {map.description}
-              </p>
+              <HistoricalProse text={map.description} className="text-foreground leading-relaxed text-lg" />
             </motion.div>
             
             {/* Sultan Link */}
@@ -107,7 +104,7 @@ const MapModal = ({ map, isOpen, onClose, onSultanClick }: MapModalProps) => {
                   onClose();
                   setTimeout(() => onSultanClick(sultan.id), 100);
                 }}
-                className="p-4 bg-primary/10 rounded-xl border border-primary/20 cursor-pointer hover:bg-primary/20 transition-colors"
+                className="p-4 glass-section rounded-xl cursor-pointer hover:border-primary/40 transition-colors"
               >
                 <h3 className="text-lg font-amiri font-bold text-primary mb-2 flex items-center gap-2">
                   <Crown className="w-5 h-5" />
@@ -134,7 +131,7 @@ const MapModal = ({ map, isOpen, onClose, onSultanClick }: MapModalProps) => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 + idx * 0.05 }}
-                    className="px-4 py-2 bg-primary/15 text-primary rounded-full text-sm font-medium border border-primary/20"
+                    className="px-4 py-2 glass-section text-foreground rounded-full text-sm font-medium"
                   >
                     {territory}
                   </motion.span>
@@ -159,7 +156,7 @@ const MapModal = ({ map, isOpen, onClose, onSultanClick }: MapModalProps) => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 + idx * 0.1 }}
-                    className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg"
+                    className="flex items-center gap-3 p-3 glass-section rounded-lg"
                   >
                     <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
                     <span className="text-foreground">{event}</span>

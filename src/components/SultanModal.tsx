@@ -3,6 +3,7 @@ import { X, Crown, Calendar, Sword, MapPin, Shield, BookOpen, ExternalLink } fro
 import { useNavigate } from "react-router-dom";
 import { Sultan } from "@/data/ottomanData";
 import { getSultanImage } from "@/utils/sultanImages";
+import HistoricalProse from "./HistoricalProse";
 
 interface SultanModalProps {
   sultan: Sultan | null;
@@ -35,11 +36,11 @@ const SultanModal = ({ sultan, isOpen, onClose }: SultanModalProps) => {
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className="fixed inset-4 md:inset-10 lg:inset-16 z-50 overflow-auto"
           >
-            <div className="min-h-full bg-card border border-primary/20 rounded-2xl overflow-hidden sultan-glow">
+            <div className="min-h-full glass-section border border-primary/20 rounded-2xl overflow-hidden sultan-glow">
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 left-4 z-10 p-2 bg-card/80 backdrop-blur rounded-full hover:bg-primary/20 transition-colors"
+                className="absolute top-4 left-4 z-10 p-2 glass-section rounded-full hover:bg-primary/20 transition-colors"
               >
                 <X className="w-6 h-6 text-foreground" />
               </button>
@@ -72,7 +73,7 @@ const SultanModal = ({ sultan, isOpen, onClose }: SultanModalProps) => {
                   </h2>
 
                   <div className="flex items-center gap-4 text-muted-foreground mb-6">
-                    <div className="flex items-center gap-2 bg-muted/50 px-4 py-2 rounded-full">
+                  <div className="flex items-center gap-2 glass-section px-4 py-2 rounded-full">
                       <Calendar className="w-5 h-5 text-primary" />
                       <span className="text-lg">{sultan.reign}</span>
                     </div>
@@ -81,20 +82,16 @@ const SultanModal = ({ sultan, isOpen, onClose }: SultanModalProps) => {
 
                   {/* Full Story Section */}
                   {sultan.fullStory && (
-                    <div className="mb-8 p-6 bg-muted/30 rounded-xl border border-primary/10">
+                    <div className="mb-8 p-6 glass-section rounded-xl">
                       <h3 className="text-2xl font-amiri text-primary mb-4 flex items-center gap-2">
                         <BookOpen className="w-6 h-6" />
                         قصة السلطان
                       </h3>
-                      <p className="text-lg text-foreground leading-relaxed whitespace-pre-line">
-                        {sultan.fullStory}
-                      </p>
+                      <HistoricalProse text={sultan.fullStory} className="text-lg text-foreground leading-relaxed" />
                     </div>
                   )}
 
-                  <p className="text-lg text-foreground leading-relaxed mb-8">
-                    {sultan.description}
-                  </p>
+                  <HistoricalProse text={sultan.description} className="text-lg text-foreground leading-relaxed mb-8" />
 
                   {/* Conquests */}
                   <div className="mb-6">
@@ -106,7 +103,7 @@ const SultanModal = ({ sultan, isOpen, onClose }: SultanModalProps) => {
                       {sultan.majorConquests.map((conquest) => (
                         <span
                           key={conquest}
-                          className="px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-foreground text-sm"
+                          className="px-4 py-2 glass-section rounded-full text-foreground text-sm"
                         >
                           {conquest}
                         </span>
@@ -128,7 +125,7 @@ const SultanModal = ({ sultan, isOpen, onClose }: SultanModalProps) => {
                             onClose();
                             navigate("/المعارك");
                           }}
-                          className="px-4 py-2 bg-secondary/10 border border-secondary/30 rounded-full text-foreground text-sm hover:bg-secondary/30 hover:border-secondary/50 transition-colors group flex items-center gap-1"
+                          className="px-4 py-2 glass-section rounded-full text-foreground text-sm hover:border-primary/40 transition-colors group flex items-center gap-1"
                         >
                           <span>{battle}</span>
                           <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />

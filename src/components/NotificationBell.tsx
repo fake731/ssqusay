@@ -81,12 +81,6 @@ const NotificationBell = ({ inline = false }: { inline?: boolean }) => {
           playOttomanChime();
           fresh.slice(0, 1).forEach((n) => {
             toast({ title: n.title, description: n.message });
-            // Browser/system notification (works on supported devices)
-            if ("Notification" in window && Notification.permission === "granted") {
-              try {
-                new Notification(n.title, { body: n.message, icon: "/favicon.ico" });
-              } catch {}
-            }
           });
         }
       }
@@ -99,10 +93,6 @@ const NotificationBell = ({ inline = false }: { inline?: boolean }) => {
 
   useEffect(() => {
     load(false);
-    // Ask permission once for system notifications
-    if ("Notification" in window && Notification.permission === "default") {
-      try { Notification.requestPermission(); } catch {}
-    }
     const channel = supabase
       .channel("notif-bell")
       .on(

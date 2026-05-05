@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CustomCursor from "./components/CustomCursor";
 import CinematicVideoBackground from "./components/CinematicVideoBackground";
 import PrivacyConsent from "./components/PrivacyConsent";
+import VisualEditor from "./components/VisualEditor";
 import Index from "./pages/Index";
 import SultansPage from "./pages/SultansPage";
 import BattlesPage from "./pages/BattlesPage";
@@ -36,6 +37,7 @@ const App = () => (
       <CinematicVideoBackground />
       <CustomCursor />
       <PrivacyConsent />
+      <VisualEditor />
       <Toaster />
       <Sonner />
       <BrowserRouter>

@@ -39,14 +39,14 @@ const CinematicVideoBackground = () => {
         aria-hidden="true"
       />
 
-      {/* Play/Pause toggle */}
+      {/* Play/Pause toggle — classic video-style button, top-left */}
       <button
         onClick={() => setPlaying((p) => !p)}
-        className="fixed bottom-5 left-5 z-40 w-11 h-11 rounded-full glass-section flex items-center justify-center text-foreground hover:border-primary/40 transition-all"
+        className="fixed top-20 left-5 z-40 w-12 h-12 rounded-full bg-primary/90 hover:bg-primary text-primary-foreground shadow-[0_8px_24px_-4px_rgba(0,0,0,0.6)] backdrop-blur flex items-center justify-center transition-all hover:scale-105"
         aria-label={playing ? "إيقاف الفيديو" : "تشغيل الفيديو"}
         title={playing ? "إيقاف الحركة" : "تشغيل الحركة السينمائية"}
       >
-        {playing ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 mr-[-2px]" />}
+        {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
       </button>
     </>
   );
