@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Shield, Calendar, Swords, Users, Crown, MapPin } from "lucide-react";
 import { Warrior } from "@/data/ottomanData";
 import { getWarriorImage } from "@/utils/warriorImages";
+import HistoricalProse from "./HistoricalProse";
 
 interface WarriorModalProps {
   warrior: Warrior | null;
@@ -27,7 +28,7 @@ const WarriorModal = ({ warrior, isOpen, onClose }: WarriorModalProps) => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 50 }}
             transition={{ type: "spring", damping: 25 }}
-            className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-card rounded-2xl border border-border shadow-2xl"
+            className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto glass-section rounded-2xl shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -74,7 +75,7 @@ const WarriorModal = ({ warrior, isOpen, onClose }: WarriorModalProps) => {
                 </div>
 
                 {/* Role */}
-                <div className="mb-6 p-4 bg-muted/30 rounded-lg">
+                <div className="mb-6 p-4 glass-section rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <Swords className="w-5 h-5 text-primary" />
                     <span className="text-primary font-semibold">الدور القتالي</span>
@@ -92,7 +93,7 @@ const WarriorModal = ({ warrior, isOpen, onClose }: WarriorModalProps) => {
                     {warrior.equipment.map((item) => (
                       <span
                         key={item}
-                        className="px-3 py-1 bg-secondary/20 text-secondary-foreground rounded-full"
+                        className="px-3 py-1 glass-section text-foreground rounded-full"
                       >
                         {item}
                       </span>
@@ -110,7 +111,7 @@ const WarriorModal = ({ warrior, isOpen, onClose }: WarriorModalProps) => {
                     {warrior.battles.map((battle) => (
                       <span
                         key={battle}
-                        className="px-3 py-1 bg-primary/20 text-primary rounded-full"
+                        className="px-3 py-1 glass-section text-foreground rounded-full"
                       >
                         {battle}
                       </span>
@@ -128,7 +129,7 @@ const WarriorModal = ({ warrior, isOpen, onClose }: WarriorModalProps) => {
                     {warrior.sultansServed.map((sultan) => (
                       <span
                         key={sultan}
-                        className="px-3 py-1 bg-muted text-muted-foreground rounded-full"
+                        className="px-3 py-1 glass-section text-foreground rounded-full"
                       >
                         {sultan}
                       </span>
@@ -139,13 +140,7 @@ const WarriorModal = ({ warrior, isOpen, onClose }: WarriorModalProps) => {
                 {/* Full Description */}
                 <div className="border-t border-border pt-6">
                   <h4 className="text-xl font-bold text-foreground mb-4">القصة الكاملة</h4>
-                  <div className="prose prose-invert max-w-none">
-                    {warrior.fullDescription.split('\n\n').map((paragraph, idx) => (
-                      <p key={idx} className="text-muted-foreground mb-4 leading-relaxed text-lg">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
+                  <HistoricalProse text={warrior.fullDescription} className="text-muted-foreground leading-relaxed text-lg" />
                 </div>
               </div>
             </div>

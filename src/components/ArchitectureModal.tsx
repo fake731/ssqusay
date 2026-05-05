@@ -4,6 +4,7 @@ import { X, Building2, Castle, MapPin, Calendar, User, Ruler, Star, Crown } from
 import { Architecture, getArchitectById } from "@/data/architecture";
 import { getArchitectureImage, getArchitectImage } from "@/utils/architectureImages";
 import { motion } from "framer-motion";
+import HistoricalProse from "./HistoricalProse";
 
 interface ArchitectureModalProps {
   architecture: Architecture | null;
@@ -27,7 +28,7 @@ const ArchitectureModal = ({ architecture, isOpen, onClose, onSultanClick }: Arc
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden bg-card border-primary/20">
+      <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden glass-section border-primary/20">
         <ScrollArea className="max-h-[90vh]">
           {/* Hero Image */}
           <div className="relative h-64 md:h-80">
@@ -71,9 +72,7 @@ const ArchitectureModal = ({ architecture, isOpen, onClose, onSultanClick }: Arc
           <div className="p-6 space-y-6">
             {/* Description */}
             <div>
-              <p className="text-foreground leading-relaxed text-lg">
-                {architecture.description}
-              </p>
+              <HistoricalProse text={architecture.description} className="text-foreground leading-relaxed text-lg" />
             </div>
             
             {/* Architect Info */}
@@ -157,13 +156,11 @@ const ArchitectureModal = ({ architecture, isOpen, onClose, onSultanClick }: Arc
             )}
             
             {/* Historical Significance */}
-            <div className="bg-gradient-to-br from-card to-muted/30 rounded-xl p-5 border border-border">
+            <div className="glass-section rounded-xl p-5">
               <h3 className="text-lg font-amiri font-bold text-primary mb-3">
                 الأهمية التاريخية
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {architecture.historicalSignificance}
-              </p>
+              <HistoricalProse text={architecture.historicalSignificance} className="text-muted-foreground leading-relaxed" />
             </div>
           </div>
         </ScrollArea>

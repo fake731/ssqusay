@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Play, Pause, Sword } from "lucide-react";
 import { Battle } from "@/data/ottomanData";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import HistoricalProse from "./HistoricalProse";
 
 interface CinematicBattleModeProps {
   battle: Battle | null;
@@ -188,9 +189,10 @@ const CinematicBattleMode = ({ battle, isOpen, onClose }: CinematicBattleModePro
                     {slide.title}
                   </h2>
                   <div className="overflow-y-auto pr-1 -mr-1">
-                    <p className="text-sm md:text-base leading-loose font-iphone whitespace-pre-line text-foreground/95">
-                      {slide.text}
-                    </p>
+                    <HistoricalProse
+                      text={slide.text}
+                      className="text-sm md:text-base leading-loose font-iphone text-foreground/95"
+                    />
                   </div>
                 </div>
               </motion.div>

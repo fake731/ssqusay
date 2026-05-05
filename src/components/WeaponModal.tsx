@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Shield, Calendar, Zap, Sword, Link } from "lucide-react";
 import { Weapon, battles } from "@/data/ottomanData";
 import { getWeaponImage } from "@/utils/weaponImages";
+import HistoricalProse from "./HistoricalProse";
 
 interface WeaponModalProps {
   weapon: Weapon | null;
@@ -36,7 +37,7 @@ const WeaponModal = ({ weapon, isOpen, onClose, onBattleClick }: WeaponModalProp
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
             transition={{ type: "spring", damping: 25 }}
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-card rounded-2xl border border-border shadow-2xl"
+            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto glass-section rounded-2xl shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -72,14 +73,14 @@ const WeaponModal = ({ weapon, isOpen, onClose, onBattleClick }: WeaponModalProp
 
               {/* Info Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                <div className="bg-muted/30 p-4 rounded-xl">
+                <div className="glass-section p-4 rounded-xl">
                   <div className="flex items-center gap-2 text-primary mb-2">
                     <Calendar className="w-5 h-5" />
                     <span className="font-semibold">فترة الاستخدام</span>
                   </div>
                   <p className="text-foreground">{weapon.era}</p>
                 </div>
-                <div className="bg-muted/30 p-4 rounded-xl">
+                <div className="glass-section p-4 rounded-xl">
                   <div className="flex items-center gap-2 text-primary mb-2">
                     <Zap className="w-5 h-5" />
                     <span className="font-semibold">التأثير</span>
@@ -94,10 +95,8 @@ const WeaponModal = ({ weapon, isOpen, onClose, onBattleClick }: WeaponModalProp
                   <Shield className="w-6 h-6 text-primary" />
                   القصة الكاملة
                 </h3>
-                <div className="bg-muted/20 p-6 rounded-xl border border-border">
-                  <p className="text-muted-foreground leading-relaxed text-lg whitespace-pre-line">
-                    {weapon.fullDescription}
-                  </p>
+                <div className="glass-section p-6 rounded-xl">
+                  <HistoricalProse text={weapon.fullDescription} className="text-muted-foreground leading-relaxed text-lg" />
                 </div>
               </div>
 
@@ -116,7 +115,7 @@ const WeaponModal = ({ weapon, isOpen, onClose, onBattleClick }: WeaponModalProp
                           onClose();
                           onBattleClick?.(battle.id);
                         }}
-                        className="flex items-center gap-3 p-4 bg-muted/30 rounded-xl hover:bg-muted/50 transition-colors text-right group"
+                        className="flex items-center gap-3 p-4 glass-section rounded-xl hover:border-primary/40 transition-colors text-right group"
                       >
                         <Link className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                         <div>
