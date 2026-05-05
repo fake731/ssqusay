@@ -1,10 +1,14 @@
+import { useState } from "react";
+import { Play, Pause } from "lucide-react";
 import heroBg from "@/assets/ottoman-hero-bg.jpg";
 
 /**
- * Cinematic still background with a slow drone-like Ken Burns motion.
- * No video, no toggle — just the hero image gently panning/zooming.
+ * Cinematic still background. Defaults to a still image; the user can press
+ * the play button to enable a slow drone-like Ken Burns motion over the image.
  */
 const CinematicVideoBackground = () => {
+  const [playing, setPlaying] = useState(false);
+
   return (
     <>
       <div
@@ -18,7 +22,10 @@ const CinematicVideoBackground = () => {
             backgroundImage: `url(${heroBg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            animation: "droneKenBurns 40s ease-in-out infinite alternate",
+            animation: playing
+              ? "droneKenBurns 40s ease-in-out infinite alternate"
+              : "none",
+            transform: playing ? undefined : "scale(1.05)",
           }}
         />
       </div>
@@ -31,6 +38,16 @@ const CinematicVideoBackground = () => {
         }}
         aria-hidden="true"
       />
+
+      {/* Play/Pause toggle */}
+      <button
+        onClick={() => setPlaying((p) => !p)}
+        className="fixed bottom-5 left-5 z-40 w-11 h-11 rounded-full glass-section flex items-center justify-center text-foreground hover:border-primary/40 transition-all"
+        aria-label={playing ? "إيقاف الفيديو" : "تشغيل الفيديو"}
+        title={playing ? "إيقاف الحركة" : "تشغيل الحركة السينمائية"}
+      >
+        {playing ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 mr-[-2px]" />}
+      </button>
     </>
   );
 };
