@@ -160,7 +160,7 @@ const NotificationBell = ({ inline = false }: { inline?: boolean }) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className={`absolute ${inline ? "top-12 right-0" : "top-14 left-0"} w-[340px] max-w-[90vw] bg-card/60 backdrop-blur-2xl border border-primary/15 rounded-3xl shadow-2xl overflow-hidden z-[80]`}
+            className={`absolute ${inline ? "top-12 left-0" : "top-14 left-0"} w-[340px] max-w-[90vw] bg-card/60 backdrop-blur-2xl border border-primary/15 rounded-3xl shadow-2xl overflow-hidden z-[80]`}
             dir="rtl"
           >
             <div className="flex items-center justify-between p-4 border-b border-primary/10">
