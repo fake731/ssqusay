@@ -207,6 +207,12 @@
     box-shadow: 0 10px 40px -12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
   }
 
+  /* Byzantine adversary highlight — historic deep red */
+  .text-byzantine {
+    color: hsl(0, 78%, 62%);
+    text-shadow: 0 0 14px hsl(0, 80%, 45%, 0.35);
+  }
+
   /* Wider container — removes large side gaps for premium full-width feel */
   .container-wide {
     @apply mx-auto w-full px-5 md:px-8 lg:px-12;

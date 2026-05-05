@@ -51,7 +51,7 @@ const BattlesPage = () => {
                 />
                 <button
                   onClick={(e) => { e.stopPropagation(); setCinematicBattle(battle); }}
-                  className="absolute top-4 left-4 z-10 flex items-center gap-2 px-4 py-2 rounded-full bg-primary/90 backdrop-blur text-primary-foreground text-xs font-iphone hover:bg-primary shadow-lg"
+                  className="absolute top-4 left-4 z-10 flex items-center gap-2 px-4 py-2 rounded-full glass-section text-foreground/90 text-xs font-iphone hover:border-primary/40 transition-all"
                 >
                   <Film className="w-3.5 h-3.5" /> سرد سينمائي
                 </button>
